@@ -41,6 +41,11 @@ public class AI_Enemy1 : MonoBehaviour
 
         _nextAttackTime = Time.time;
         ChangeState(EnemyState.Idle);
+
+        //Util.WaitForSeconds(this, () =>
+        //{
+        //    StartChasingPlayer();
+        //}, 2);
     }
 
     private void Update()
@@ -157,7 +162,10 @@ public class AI_Enemy1 : MonoBehaviour
     {
         SanityManager.Instance.DecreaseSanity(_enemy.AttackDamage);
     }
-
+    public void StartChasingPlayer()
+    {
+        ChangeState(EnemyState.Chase);
+    }
     public void SetAttackFinished()
     {
         _isAttacking = false;

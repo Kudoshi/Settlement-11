@@ -43,10 +43,10 @@ public class AI_Enemy2 : MonoBehaviour
         _nextAttackTime = Time.time;
         ChangeState(EnemyState.Idle);
 
-        Util.WaitForSeconds(this, () =>
-        {
-            StartChasingPlayer();
-        }, 2);
+        //Util.WaitForSeconds(this, () =>
+        //{
+        //    StartChasingPlayer();
+        //}, 2);
     }
 
     private void Update()
