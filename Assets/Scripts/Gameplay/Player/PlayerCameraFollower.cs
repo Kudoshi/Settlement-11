@@ -1,0 +1,9 @@
+
+using Kudoshi.Utilities;
+using UnityEngine;
+
+public class PlayerCameraFollower : Singleton<PlayerCameraFollower>
+{
+    public Transform HeadOrientation;
+    public Transform Head;
+}
