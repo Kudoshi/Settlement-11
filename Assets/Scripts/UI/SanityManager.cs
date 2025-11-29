@@ -8,11 +8,10 @@ public class SanityManager : Singleton<SanityManager>
     [Header("Settings")]
     public Image sanityImg; 
     public float currentSanity;
-    public float maxSanity;
+    public float maxSanity = 100f;
 
     private void Start()
     {
-        maxSanity = 100f;
         currentSanity = maxSanity;
     }
 
@@ -24,7 +23,7 @@ public class SanityManager : Singleton<SanityManager>
 
     private void InternalSanityUpdate()
     {
-        currentSanity -= 5f * Time.deltaTime;
+        currentSanity -= 3f * Time.deltaTime;
         sanityImg.fillAmount = Mathf.Lerp(sanityImg.fillAmount, currentSanity / maxSanity, Time.deltaTime * 10f);
     }
 
