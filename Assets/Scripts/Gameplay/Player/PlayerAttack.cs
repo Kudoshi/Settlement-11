@@ -13,7 +13,15 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Player Normal Attack Combo
+        PlayerNormalAttack();
 
+        // Player Skill Attacks
+        PlayerSkillAttack();
+    }
+
+    void PlayerNormalAttack()
+    {
         if (Input.GetButtonDown("Fire1") && comboCount < 2)
         {
             Debug.Log("update");
@@ -38,6 +46,14 @@ public class PlayerAttack : MonoBehaviour
         else
         {
             resetTime = 1f;
+        }
+    }
+
+    void PlayerSkillAttack()
+    {
+        if (Input.GetKeyDown("f"))
+        {
+            animator.SetTrigger("skill_attack");
         }
     }
 }
