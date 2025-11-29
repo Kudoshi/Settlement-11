@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.XR;
 
-public class AI_Enemy2 : MonoBehaviour
+public class AI_Enemy2 : MonoBehaviour 
 {
     public enum EnemyState { Idle, Chase, Attack, Dead }
 
