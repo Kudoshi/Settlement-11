@@ -6,6 +6,7 @@ public class PlayerVfxManager : MonoBehaviour
     public ParticleSystem landDustParticle;
     public ParticleSystem slideParticle;
     public ParticleSystem sprintParticle;
+    public ParticleSystem windParticle;
 
     [Header("Settings")]
     public float minLandSpeedForDust = 5f;
@@ -36,6 +37,7 @@ public class PlayerVfxManager : MonoBehaviour
 
     private void Update()
     {
+        HandleWindVFXRotation();
         HandleLandDust();
         HandleSlideParticle();
         HandleSprintParticle();
@@ -105,10 +107,12 @@ public class PlayerVfxManager : MonoBehaviour
         if (!wasSliding && playerMovement.isSliding)
         {
             slideParticle.Play();
+            windParticle.Play();
         }
         else if (wasSliding && !playerMovement.isSliding)
         {
             slideParticle.Stop();
+            windParticle.Stop();
         }
 
         wasSliding = playerMovement.isSliding;
@@ -129,5 +133,10 @@ public class PlayerVfxManager : MonoBehaviour
         {
             sprintParticle.Stop();
         }
+    }
+
+    private void HandleWindVFXRotation()
+    {
+        //windParticle.transform.rotation = transform.rotation;
     }
 }
