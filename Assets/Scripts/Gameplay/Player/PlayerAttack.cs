@@ -24,7 +24,6 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1") && comboCount < 2)
         {
-            Debug.Log("update");
             animator.SetTrigger(attack_anim[comboCount]);
             comboCount++;
             reset = 0f;
