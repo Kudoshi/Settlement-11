@@ -1,0 +1,11 @@
+Model Information:
+* title:	New York Buildings
+* source:	https://sketchfab.com/3d-models/new-york-buildings-e7922fe0f7b14ed786f84529f9217dac
+* author:	sumitmangela (https://sketchfab.com/sumitmangela)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "New York Buildings" (https://sketchfab.com/3d-models/new-york-buildings-e7922fe0f7b14ed786f84529f9217dac) by sumitmangela (https://sketchfab.com/sumitmangela) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
