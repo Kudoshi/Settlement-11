@@ -1,69 +1,140 @@
-using Kudoshi.Utilities;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class PlayerCamera : Singleton<PlayerCamera>
+public class PlayerCamera : MonoBehaviour
 {
-    // Handles only the camera movement. It also turns the player's rotation
+    [Header("References")]
+    public Transform playerHead;
+    public Transform orientation;
 
-    [SerializeField] private Transform m_PlayerTrans;
-    [SerializeField] private Transform m_CameraTrans;
-    [SerializeField] private float m_Sensitivity;
+    [Header("Mouse Look")]
+    public float sensitivity = 2f;
+    public float maxLookAngle = 90f;
+    public float smoothing = 0f;
 
-    private bool m_AllowCamControl;
-    
-    private PlayerController m_Player;
-    private Vector3 m_CamRegularRotation;
+    [Header("FOV")]
+    public bool dynamicFOV = true;
+    public float normalFOV = 80f;
+    public float crouchFOV = 75f;
+    public float sprintFOV = 90f;
+    public float slideFOV = 100f;
+    public float fovSpeed = 8f;
 
+    [Header("Camera Shake")]
+    public float shakeIntensity = 0.3f;
+    public float shakeDuration = 0.2f;
 
-    public bool AllowCamControl { get => m_AllowCamControl; }
-    public Transform CameraTrans { get => m_CameraTrans; }
-
-    private void Awake()
-    {
-        m_Player = GetComponent<PlayerController>();
-        m_AllowCamControl = true;
-    }
+    private Camera cam;
+    private float xRotation;
+    private float yRotation;
+    private float currentXRotation;
+    private float currentYRotation;
+    private float targetFOV;
+    private float currentFOV;
+    private Vector3 shakeOffset;
+    private float shakeTimer;
+    private PlayerMovement playerMovement;
 
     private void Start()
     {
-        SetCursorLock();
+        cam = GetComponent<Camera>();
+        currentFOV = normalFOV;
+        targetFOV = normalFOV;
+
+        if (cam != null)
+            cam.fieldOfView = currentFOV;
+
+        if (playerHead != null)
+        {
+            Transform playerRoot = playerHead.root;
+            if (playerRoot != null)
+                playerMovement = playerRoot.GetComponent<PlayerMovement>();
+        }
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void Update()
     {
-        float mouseX = Input.GetAxis("Mouse X");
-        float mouseY = Input.GetAxis("Mouse Y");
+        HandleMouseLook();
+        HandleFOV();
+        HandleShake();
+    }
 
-        if (m_AllowCamControl)
+    private void LateUpdate()
+    {
+        if (playerHead != null)
+            transform.position = playerHead.position + shakeOffset;
+    }
+
+    private void HandleMouseLook()
+    {
+        float mouseX = Input.GetAxis("Mouse X") * sensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
+
+        yRotation += mouseX;
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -maxLookAngle, maxLookAngle);
+
+        if (smoothing > 0)
         {
-            mouseX *= m_Sensitivity;
-            mouseY *= m_Sensitivity;
+            currentXRotation = Mathf.Lerp(currentXRotation, xRotation, 1f - smoothing);
+            currentYRotation = Mathf.Lerp(currentYRotation, yRotation, 1f - smoothing);
+        }
+        else
+        {
+            currentXRotation = xRotation;
+            currentYRotation = yRotation;
         }
 
-        // Horizontal movement
-        this.m_PlayerTrans.Rotate(Vector3.up * mouseX);
+        transform.rotation = Quaternion.Euler(currentXRotation, currentYRotation, 0f);
 
-        // Vertical movement
-
-        this.m_CamRegularRotation.x -= mouseY;
-        this.m_CamRegularRotation.x = Mathf.Clamp(this.m_CamRegularRotation.x, -90f, 90f);
-        m_CameraTrans.localRotation = Quaternion.Euler(m_CamRegularRotation);
-    }
-    
-    /// <summary>
-    /// Used by PlayerMovement to turn off camera control during dash control
-    /// </summary>
-    /// <param name="turnOnOff"></param>
-    public void SetCameraControl(bool turnOnOff)
-    {
-        m_AllowCamControl = turnOnOff;
+        if (orientation != null)
+            orientation.rotation = Quaternion.Euler(0f, currentYRotation, 0f);
     }
 
-    public void SetCursorLock()
+    private void HandleFOV()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        if (!dynamicFOV || cam == null) return;
+
+        targetFOV = normalFOV;
+
+        if (playerMovement != null)
+        {
+            if (playerMovement.isSliding)
+                targetFOV = slideFOV;
+            else if (playerMovement.isSprinting)
+                targetFOV = sprintFOV;
+            else if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.C))
+                targetFOV = crouchFOV;
+        }
+
+        currentFOV = Mathf.SmoothStep(currentFOV, targetFOV, Time.deltaTime * fovSpeed);
+        cam.fieldOfView = currentFOV;
+    }
+
+    private void HandleShake()
+    {
+        if (shakeTimer > 0)
+        {
+            shakeTimer -= Time.deltaTime;
+            shakeOffset = Random.insideUnitSphere * shakeIntensity * (shakeTimer / shakeDuration);
+        }
+        else
+        {
+            shakeOffset = Vector3.zero;
+        }
+    }
+
+    public void Shake(float intensity, float duration)
+    {
+        shakeIntensity = intensity;
+        shakeDuration = duration;
+        shakeTimer = duration;
+    }
+
+    public void Shake()
+    {
+        shakeTimer = shakeDuration;
     }
 }

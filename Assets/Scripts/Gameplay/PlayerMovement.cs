@@ -1,302 +1,257 @@
-// Some stupid rigidbody based movement by Dani
-
-using System;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerMovement : MonoBehaviour
 {
-
-    //Assingables
-    public Transform playerCam;
+    [Header("References")]
     public Transform orientation;
 
-    //Other
-    private Rigidbody rb;
+    [Header("Movement")]
+    public float walkSpeed = 7f;
+    public float sprintSpeed = 12f;
+    public float crouchSpeed = 4f;
+    public float slideSpeed = 15f;
+    public float groundDrag = 6f;
+    public float airDrag = 2f;
+    public float acceleration = 10f;
+    public float airAcceleration = 6f;
 
-    //Rotation and look
-    private float xRotation;
-    private float sensitivity = 50f;
-    private float sensMultiplier = 1f;
+    [Header("Jump")]
+    public float jumpForce = 20f;
+    public float jumpCooldown = 0.25f;
+    public float gravity = 25f;
+    public float fallGravityMultiplier = 3f;
+    public float maxFallSpeed = 50f;
 
-    //Movement
-    public float moveSpeed = 4500;
-    public float maxSpeed = 20;
-    public bool grounded;
+    [Header("Crouch & Slide")]
+    public float crouchHeight = 0.5f;
+    public float crouchTransitionSpeed = 0.2f;
+    public float slideMinSpeed = 8f;
+    public float slideDuration = 1f;
+    public float slideBoost = 15f;
+    public float slideForce = 50f;
+
+    [Header("Ground Check")]
+    public float playerHeight = 2f;
     public LayerMask whatIsGround;
+    public bool grounded;
 
-    public float counterMovement = 0.175f;
-    private float threshold = 0.01f;
-    public float maxSlopeAngle = 35f;
+    [HideInInspector] public bool isSliding;
+    [HideInInspector] public bool isSprinting;
 
-    //Crouch & Slide
-    private Vector3 crouchScale = new Vector3(1, 0.5f, 1);
-    private Vector3 playerScale;
-    public float slideForce = 400;
-    public float slideCounterMovement = 0.2f;
+    private Rigidbody rb;
+    private CapsuleCollider col;
+    private Vector2 input;
+    private bool jumpPressed;
+    private bool sprintPressed;
+    private bool crouchPressed;
+    private bool canJump = true;
+    private float slideTimer;
+    private Vector3 slideDirection;
+    private float currentSpeed;
+    private MovementState state;
 
-    //Jumping
-    private bool readyToJump = true;
-    private float jumpCooldown = 0.25f;
-    public float jumpForce = 550f;
+    private enum MovementState
+    {
+        Walking,
+        Sprinting,
+        Crouching,
+        Sliding,
+        Air
+    }
 
-    //Input
-    float x, y;
-    bool jumping, sprinting, crouching;
-
-    //Sliding
-    private Vector3 normalVector = Vector3.up;
-    private Vector3 wallNormalVector;
-
-    void Awake()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-    }
-
-    void Start()
-    {
-        playerScale = transform.localScale;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
-
-
-    private void FixedUpdate()
-    {
-        Movement();
+        col = GetComponent<CapsuleCollider>();
+        rb.freezeRotation = true;
     }
 
     private void Update()
     {
-        MyInput();
-        Look();
+        HandleInput();
+        HandleGroundCheck();
+        HandleStateChange();
+        SpeedControl();
     }
 
-    /// <summary>
-    /// Find user input. Should put this in its own class but im lazy
-    /// </summary>
-    private void MyInput()
-    {
-        x = Input.GetAxisRaw("Horizontal");
-        y = Input.GetAxisRaw("Vertical");
-        jumping = Input.GetButton("Jump");
-        crouching = Input.GetKey(KeyCode.LeftControl);
-
-        //Crouching
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-            StartCrouch();
-        if (Input.GetKeyUp(KeyCode.LeftControl))
-            StopCrouch();
-    }
-
-    private void StartCrouch()
-    {
-        transform.localScale = crouchScale;
-        transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
-        if (rb.linearVelocity.magnitude > 0.5f)
+    private void FixedUpdate()
         {
-            if (grounded)
+        HandleMovement();
+        HandleDrag();
+        HandleGravity();
+    }
+
+    private void HandleInput()
+    {
+        input.x = Input.GetAxisRaw("Horizontal");
+        input.y = Input.GetAxisRaw("Vertical");
+        jumpPressed = Input.GetButton("Jump");
+        sprintPressed = Input.GetKey(KeyCode.LeftShift);
+        crouchPressed = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.C);
+
+        if (Input.GetButtonDown("Jump") && grounded && canJump)
+        {
+            canJump = false;
+            Jump();
+            Invoke(nameof(ResetJump), jumpCooldown);
+        }
+
+        if ((Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.C)) && grounded)
+        {
+            if (sprintPressed)
             {
-                rb.AddForce(orientation.transform.forward * slideForce);
+                StartSlide();
+            }
+            else
+            {
+                float speed = new Vector2(rb.linearVelocity.x, rb.linearVelocity.z).magnitude;
+                if (speed > slideMinSpeed && input.magnitude > 0.1f)
+                    StartSlide();
+                else
+                    StartCrouch();
             }
         }
-    }
 
-    private void StopCrouch()
-    {
-        transform.localScale = playerScale;
-        transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
-    }
-
-    private void Movement()
-    {
-        //Extra gravity
-        rb.AddForce(Vector3.down * Time.deltaTime * 10);
-
-        //Find actual velocity relative to where player is looking
-        Vector2 mag = FindVelRelativeToLook();
-        float xMag = mag.x, yMag = mag.y;
-
-        //Counteract sliding and sloppy movement
-        CounterMovement(x, y, mag);
-
-        //If holding jump && ready to jump, then jump
-        if (readyToJump && jumping) Jump();
-
-        //Set max speed
-        float maxSpeed = this.maxSpeed;
-
-        //If sliding down a ramp, add force down so player stays grounded and also builds speed
-        if (crouching && grounded && readyToJump)
+        if ((Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.C)))
         {
-            rb.AddForce(Vector3.down * Time.deltaTime * 3000);
-            //return;
+            StopCrouch();
+            isSliding = false;
+        }
+    }
+
+    private void HandleGroundCheck()
+    {
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+    }
+
+    private void HandleStateChange()
+    {
+        isSprinting = false;
+
+        if (isSliding)
+        {
+            state = MovementState.Sliding;
+            currentSpeed = slideSpeed;
+
+            slideTimer -= Time.deltaTime;
+            if (slideTimer <= 0f)
+            {
+                isSliding = false;
+                StopCrouch();
+            }
+        }
+        else if (crouchPressed && grounded)
+        {
+            state = MovementState.Crouching;
+            currentSpeed = crouchSpeed;
+        }
+        else if (grounded && sprintPressed)
+        {
+            state = MovementState.Sprinting;
+            currentSpeed = sprintSpeed;
+            isSprinting = true;
+        }
+        else if (grounded)
+        {
+            state = MovementState.Walking;
+            currentSpeed = walkSpeed;
+        }
+        else
+        {
+            state = MovementState.Air;
+        }
+    }
+
+    private void HandleMovement()
+    {
+        if (isSliding)
+        {
+            rb.AddForce(slideDirection * slideForce, ForceMode.Force);
+            return;
         }
 
-        //If speed is larger than maxspeed, cancel out the input so you don't go over max speed
-        if (x > 0 && xMag > maxSpeed) x = 0;
-        if (x < 0 && xMag < -maxSpeed) x = 0;
-        if (y > 0 && yMag > maxSpeed) y = 0;
-        if (y < 0 && yMag < -maxSpeed) y = 0;
+        Vector3 moveDir = orientation.forward * input.y + orientation.right * input.x;
+        moveDir.Normalize();
 
-        //Some multipliers
-        float multiplier = 1f, multiplierV = 1f;
+        float accel = grounded ? acceleration : airAcceleration;
+        rb.AddForce(moveDir * currentSpeed * accel, ForceMode.Force);
+    }
 
-        // Movement in air
+    private void HandleDrag()
+    {
+        if (isSliding)
+            rb.linearDamping = 0.5f;
+        else
+            rb.linearDamping = grounded ? groundDrag : airDrag;
+    }
+
+    private void HandleGravity()
+    {
         if (!grounded)
         {
-            multiplier = 0.5f;
-            multiplierV = 0.5f;
-        }
+            float gravityForce = gravity;
 
-        // Movement while sliding
-        if (grounded && crouching)
+            if (rb.linearVelocity.y < 0)
+                gravityForce *= fallGravityMultiplier;
+
+            rb.AddForce(Vector3.down * gravityForce, ForceMode.Acceleration);
+
+            if (rb.linearVelocity.y < -maxFallSpeed)
+                rb.linearVelocity = new Vector3(rb.linearVelocity.x, -maxFallSpeed, rb.linearVelocity.z);
+        }
+    }
+
+    private void SpeedControl()
+    {
+        if (isSliding) return;
+
+        Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+
+        if (flatVel.magnitude > currentSpeed)
         {
-            multiplierV = 0.5f; 
+            Vector3 limitedVel = flatVel.normalized * currentSpeed;
+            rb.linearVelocity = new Vector3(limitedVel.x, rb.linearVelocity.y, limitedVel.z);
         }
-
-        //Apply forces to move player
-        rb.AddForce(orientation.transform.forward * y * moveSpeed * Time.deltaTime * multiplier * multiplierV);
-        rb.AddForce(orientation.transform.right * x * moveSpeed * Time.deltaTime * multiplier);
     }
 
     private void Jump()
     {
-        if (grounded && readyToJump)
-        {
-            readyToJump = false;
-
-            //Add jump forces
-            rb.AddForce(Vector2.up * jumpForce * 1.5f);
-            rb.AddForce(normalVector * jumpForce * 0.5f);
-
-            //If jumping while falling, reset y velocity.
-            Vector3 vel = rb.linearVelocity;
-            if (rb.linearVelocity.y < 0.5f)
-                rb.linearVelocity = new Vector3(vel.x, 0, vel.z);
-            else if (rb.linearVelocity.y > 0)
-                rb.linearVelocity = new Vector3(vel.x, vel.y / 2, vel.z);
-
-            Invoke(nameof(ResetJump), jumpCooldown);
-        }
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
     private void ResetJump()
     {
-        readyToJump = true;
+        canJump = true;
     }
 
-    private float desiredX;
-    private void Look()
+    private void StartSlide()
     {
-        float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.fixedDeltaTime * sensMultiplier;
-        float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.fixedDeltaTime * sensMultiplier;
+        isSliding = true;
+        slideTimer = slideDuration;
 
-        //Find current look rotation
-        Vector3 rot = playerCam.transform.localRotation.eulerAngles;
-        desiredX = rot.y + mouseX;
+        Vector3 currentVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+        if (currentVelocity.magnitude < 0.5f)
+            slideDirection = orientation.forward;
+        else
+            slideDirection = currentVelocity.normalized;
 
-        //Rotate, and also make sure we dont over- or under-rotate.
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        transform.DOKill();
+        transform.DOScaleY(crouchHeight, crouchTransitionSpeed).SetEase(Ease.OutQuad);
 
-        //Perform the rotations
-        playerCam.transform.localRotation = Quaternion.Euler(xRotation, desiredX, 0);
-        orientation.transform.localRotation = Quaternion.Euler(0, desiredX, 0);
+        rb.AddForce(slideDirection * slideBoost, ForceMode.Impulse);
     }
 
-    private void CounterMovement(float x, float y, Vector2 mag)
+    private void StartCrouch()
     {
-        if (!grounded || jumping) return;
-
-        //Slow down sliding
-        if (crouching)
-        {
-            rb.AddForce(moveSpeed * Time.deltaTime * -rb.linearVelocity.normalized * slideCounterMovement);
-            return;
-        }
-
-        //Counter movement
-        if (Math.Abs(mag.x) > threshold && Math.Abs(x) < 0.05f || (mag.x < -threshold && x > 0) || (mag.x > threshold && x < 0))
-        {
-            rb.AddForce(moveSpeed * orientation.transform.right * Time.deltaTime * -mag.x * counterMovement);
-        }
-        if (Math.Abs(mag.y) > threshold && Math.Abs(y) < 0.05f || (mag.y < -threshold && y > 0) || (mag.y > threshold && y < 0))
-        {
-            rb.AddForce(moveSpeed * orientation.transform.forward * Time.deltaTime * -mag.y * counterMovement);
-        }
-
-        //Limit diagonal running. This will also cause a full stop if sliding fast and un-crouching, so not optimal.
-        if (Mathf.Sqrt((Mathf.Pow(rb.linearVelocity.x, 2) + Mathf.Pow(rb.linearVelocity.z, 2))) > maxSpeed)
-        {
-            float fallspeed = rb.linearVelocity.y;
-            Vector3 n = rb.linearVelocity.normalized * maxSpeed;
-            rb.linearVelocity = new Vector3(n.x, fallspeed, n.z);
-        }
+        transform.DOKill();
+        transform.DOScaleY(crouchHeight, crouchTransitionSpeed).SetEase(Ease.OutQuad);
     }
 
-    /// <summary>
-    /// Find the velocity relative to where the player is looking
-    /// Useful for vectors calculations regarding movement and limiting movement
-    /// </summary>
-    /// <returns></returns>
-    public Vector2 FindVelRelativeToLook()
+    private void StopCrouch()
     {
-        float lookAngle = orientation.transform.eulerAngles.y;
-        float moveAngle = Mathf.Atan2(rb.linearVelocity.x, rb.linearVelocity.z) * Mathf.Rad2Deg;
-
-        float u = Mathf.DeltaAngle(lookAngle, moveAngle);
-        float v = 90 - u;
-
-        float magnitue = rb.linearVelocity.magnitude;
-        float yMag = magnitue * Mathf.Cos(u * Mathf.Deg2Rad);
-        float xMag = magnitue * Mathf.Cos(v * Mathf.Deg2Rad);
-
-        return new Vector2(xMag, yMag);
+        transform.DOKill();
+        transform.DOScaleY(1f, crouchTransitionSpeed).SetEase(Ease.OutBack);
     }
-
-    private bool IsFloor(Vector3 v)
-    {
-        float angle = Vector3.Angle(Vector3.up, v);
-        return angle < maxSlopeAngle;
-    }
-
-    private bool cancellingGrounded;
-
-    /// <summary>
-    /// Handle ground detection
-    /// </summary>
-    private void OnCollisionStay(Collision other)
-    {
-        //Make sure we are only checking for walkable layers
-        int layer = other.gameObject.layer;
-        if (whatIsGround != (whatIsGround | (1 << layer))) return;
-
-        //Iterate through every collision in a physics update
-        for (int i = 0; i < other.contactCount; i++)
-        {
-            Vector3 normal = other.contacts[i].normal;
-            //FLOOR
-            if (IsFloor(normal))
-            {
-                grounded = true;
-                cancellingGrounded = false;
-                normalVector = normal;
-                CancelInvoke(nameof(StopGrounded));
-            }
-        }
-
-        //Invoke ground/wall cancel, since we can't check normals with CollisionExit
-        float delay = 3f;
-        if (!cancellingGrounded)
-        {
-            cancellingGrounded = true;
-            Invoke(nameof(StopGrounded), Time.deltaTime * delay);
-        }
-    }
-
-    private void StopGrounded()
-    {
-        grounded = false;
-    }
-
 }
