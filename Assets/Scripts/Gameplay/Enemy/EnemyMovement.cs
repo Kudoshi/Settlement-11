@@ -35,13 +35,15 @@ public class EnemyMovement : MonoBehaviour
 
     public void DisableMovement(bool movementDisabled)
     {
-        if (m_Agent.isOnNavMesh)
+        if (m_Agent.isOnNavMesh && m_Agent.enabled)
         {
             m_Agent.isStopped = movementDisabled;
             if (movementDisabled)
             {
                 m_Agent.velocity = Vector3.zero;
+                m_Agent.ResetPath();
             }
+            //Debug.Log($"Movement disabled: {movementDisabled}, isStopped: {m_Agent.isStopped}");
         }
     }
 
@@ -49,6 +51,10 @@ public class EnemyMovement : MonoBehaviour
     {
         if (m_Agent.isOnNavMesh && m_Agent.enabled)
         {
+            if (m_Agent.isStopped)
+            {
+                m_Agent.isStopped = false;
+            }
             m_Agent.SetDestination(position);
         }
     }
@@ -66,6 +72,14 @@ public class EnemyMovement : MonoBehaviour
         if (angleDifference > _rotateLookThreshold)
         {
             transform.rotation = newRotation;
+        }
+    }
+
+    public void SetRotationControl(bool updateRotation)
+    {
+        if (m_Agent.isOnNavMesh)
+        {
+            m_Agent.updateRotation = updateRotation;
         }
     }
 
