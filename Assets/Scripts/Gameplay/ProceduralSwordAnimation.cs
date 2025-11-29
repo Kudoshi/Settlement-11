@@ -4,7 +4,6 @@ public class SwordVFXTest : MonoBehaviour
 {
     [SerializeField] private GameObject swordObject;
     [SerializeField] private Transform playerCamera;
-    [SerializeField] private GameObject playerObject;
     [SerializeField] private PlayerCameraAnimator cameraAnimator;
     [SerializeField] private AnimationClip swingClip1;
     [SerializeField] private AnimationClip swingClip2;
@@ -63,6 +62,7 @@ public class SwordVFXTest : MonoBehaviour
     private bool canCombo = false;
     private float comboTimer = 0f;
     private bool lastWasFirstSwing = true;
+    private GameObject playerObject;
 
     private void Start()
     {
@@ -73,11 +73,9 @@ public class SwordVFXTest : MonoBehaviour
             originalScale = swordTransform.localScale;
         }
 
-        if (playerObject != null)
-        {
-            playerMovement = playerObject.GetComponent<PlayerMovement>();
-            playerRb = playerObject.GetComponent<Rigidbody>();
-        }
+        playerObject = PlayerController.Instance.gameObject;
+        playerMovement = playerObject.GetComponent<PlayerMovement>();
+        playerRb = playerObject.GetComponent<Rigidbody>();
 
         if (swordObject != null)
         {
