@@ -14,7 +14,7 @@ public class PlayerCamera : Singleton<PlayerCamera>
 
     private bool m_AllowCamControl;
     
-    private Player m_Player;
+    private PlayerController m_Player;
     private Vector3 m_CamRegularRotation;
 
 
@@ -23,7 +23,7 @@ public class PlayerCamera : Singleton<PlayerCamera>
 
     private void Awake()
     {
-        m_Player = GetComponent<Player>();
+        m_Player = GetComponent<PlayerController>();
         m_AllowCamControl = true;
     }
 
