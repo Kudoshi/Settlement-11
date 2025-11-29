@@ -36,6 +36,8 @@ public class PlayerCamera : MonoBehaviour
 
     private void Start()
     {
+        transform.parent = null;
+
         cam = GetComponent<Camera>();
         currentFOV = normalFOV;
         targetFOV = normalFOV;
