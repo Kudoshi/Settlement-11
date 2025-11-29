@@ -1,0 +1,72 @@
+using UnityEngine;
+using UnityEngine.AI;
+
+[RequireComponent(typeof(NavMeshAgent))]
+public class EnemyMovement : MonoBehaviour
+{
+    [SerializeField] private float _rotateLookThreshold;
+
+    [Header("Nav Agent Info")]
+    [SerializeField] private float _movementSpeed;
+    [SerializeField] private float _navAgentAccelerationSpeed;
+    [SerializeField] private float _navAngularSpeed;
+
+    private NavMeshAgent m_Agent;
+
+    public float MovementSpeed { get => _movementSpeed; }
+
+    private void Awake()
+    {
+        m_Agent = GetComponent<NavMeshAgent>();
+    }
+
+    private void Start()
+    {
+        m_Agent.speed = _movementSpeed;
+        m_Agent.acceleration = _navAgentAccelerationSpeed;
+        m_Agent.angularSpeed = _navAngularSpeed;
+        m_Agent.isStopped = true;
+    }
+
+    private void Update()
+    {
+        
+    }
+
+    public void DisableMovement(bool movementDisabled)
+    {
+        if (m_Agent.isOnNavMesh)
+        {
+            m_Agent.isStopped = movementDisabled;
+            if (movementDisabled)
+            {
+                m_Agent.velocity = Vector3.zero;
+            }
+        }
+    }
+
+    public void MoveTo(Vector3 position)
+    {
+        if (m_Agent.isOnNavMesh && m_Agent.enabled)
+        {
+            m_Agent.SetDestination(position);
+        }
+    }
+
+    public void LookAt(Transform target)
+    {
+        Vector3 targetDirection = target.position - transform.position;
+        // Only look at the horizontal direction (ignore Y-axis difference)
+        Quaternion targetRotation = Quaternion.LookRotation(new Vector3(targetDirection.x, 0, targetDirection.z), Vector3.up);
+
+        Quaternion newRotation = Quaternion.RotateTowards(transform.rotation, targetRotation, _navAngularSpeed * Time.deltaTime);
+
+        float angleDifference = Quaternion.Angle(transform.rotation, targetRotation);
+
+        if (angleDifference > _rotateLookThreshold)
+        {
+            transform.rotation = newRotation;
+        }
+    }
+
+}
