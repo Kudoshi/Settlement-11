@@ -1,0 +1,11 @@
+Model Information:
+* title:	Dead Plant!
+* source:	https://sketchfab.com/3d-models/dead-plant-a86d8e4bfcd446248ffdaf896a8016d3
+* author:	gryd (https://sketchfab.com/gryd)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Dead Plant!" (https://sketchfab.com/3d-models/dead-plant-a86d8e4bfcd446248ffdaf896a8016d3) by gryd (https://sketchfab.com/gryd) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
