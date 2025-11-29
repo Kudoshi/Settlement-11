@@ -13,6 +13,7 @@ public class PlayerAttack : MonoBehaviour
     public float attackDelay = 0.4f;
     public float attackSpeed = 1f;
     public int attackDamage = 1;
+    public BoxCollider attackCollider;
     //public LayerMask attackLayer;
 
     public GameObject hitEffect;
@@ -38,6 +39,8 @@ public class PlayerAttack : MonoBehaviour
         readyToAttack = false;
         isAttacking = true;
 
+        attackCollider.enabled = true;
+
         Invoke(nameof(ResetAttack), attackSpeed);
 
         SetAnimations();
@@ -58,6 +61,7 @@ public class PlayerAttack : MonoBehaviour
     {
         if (!isAttacking)
         {
+            attackCollider.enabled = false;
             ChangeAnimationState(IDLE);
         }
     }
@@ -94,6 +98,8 @@ public class PlayerAttack : MonoBehaviour
         readyToAttack = false;
         isAttacking = true;
 
+        attackCollider.enabled = true;
+
         // Fire fly should be add as condition here later
         // skill will be fix when fire fly meter is done
         Invoke(nameof(ResetAttack), attackSpeed);
@@ -107,6 +113,7 @@ public class PlayerAttack : MonoBehaviour
         Debug.Log("Attack Reset");
         isAttacking = false;
         readyToAttack = true;
+        attackCollider.enabled = false;
     }
 
     void AttackRaycast()
@@ -128,15 +135,5 @@ public class PlayerAttack : MonoBehaviour
         // Audio here...
 
         // VFX...
-    }
-
-
-
-    void PlayerSkillAttack()
-    {
-        if (Input.GetKeyDown("f"))
-        {
-            animator.SetTrigger("skill_attack");
-        }
     }
 }
