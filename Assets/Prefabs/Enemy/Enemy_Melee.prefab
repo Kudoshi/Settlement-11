@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e679c391d79a9064a9d2578a4bf93d29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AI_Enemy1
-  _isSittingEnemy: 1
+  _isSittingEnemy: 0
   _attackRange: 3
   _attackCooldown: 5
   _atklookRotationSpeed: 10

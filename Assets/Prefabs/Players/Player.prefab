@@ -50569,7 +50569,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SanityManager
   sanityImg: {fileID: 1126962305157289150}
   currentSanity: 0
-  maxSanity: 100
+  maxSanity: 300
   slowDuration: 5
   _hitKnockbackForce: 35
   canvasGroup: {fileID: 6297530523465870185}
