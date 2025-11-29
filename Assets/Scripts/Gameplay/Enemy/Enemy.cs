@@ -23,3 +23,8 @@ public class Enemy : MonoBehaviour
         
     }
 }
+
+public enum EnemyType
+{
+    SALARY_MAN, RANGE
+}
