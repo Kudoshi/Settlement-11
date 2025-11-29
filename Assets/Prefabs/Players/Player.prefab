@@ -49980,6 +49980,7 @@ GameObject:
   - component: {fileID: 3264794129942952131}
   - component: {fileID: 2437652358023936992}
   - component: {fileID: 2096448511889892494}
+  - component: {fileID: 124556281676033730}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -50138,6 +50139,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCameraFollower
   HeadOrientation: {fileID: 858384243182749189}
+  Head: {fileID: 0}
+--- !u!114 &124556281676033730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4713597934696621824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 336e60be74ac9594e8af7b4952a29763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerFirefly
+  _fireflyMax: 50
 --- !u!1 &5057529456621773193
 GameObject:
   m_ObjectHideFlags: 0
