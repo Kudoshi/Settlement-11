@@ -1,4 +1,5 @@
 using Kudoshi.Utilities;
+using System;
 using UnityEngine;
 
 public class PlayerFirefly : Singleton<PlayerFirefly>
@@ -7,7 +8,8 @@ public class PlayerFirefly : Singleton<PlayerFirefly>
 
     private int _fireflyCounter;
 
-    public int FireflyCounter { get => _fireflyCounter; }
+    public int FireflyCounter => _fireflyCounter;
+    public event Action OnFireflyChanged;
 
     private void Awake()
     {
@@ -19,5 +21,7 @@ public class PlayerFirefly : Singleton<PlayerFirefly>
         _fireflyCounter += firefly;
 
         Debug.Log("Firefly Counter: " + _fireflyCounter);
+
+        OnFireflyChanged?.Invoke();   
     }
 }
