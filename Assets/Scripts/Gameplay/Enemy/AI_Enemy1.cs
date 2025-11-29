@@ -168,7 +168,13 @@ public class AI_Enemy1 : MonoBehaviour
 
     public void DealDamage()
     {
-        SanityManager.Instance.DecreaseSanity(_enemy.AttackDamage);
+        float distanceToPlayer = Vector3.Distance(PlayerController.Instance.transform.position, transform.position);
+
+        if (distanceToPlayer <= _attackRange)
+        {
+            SanityManager.Instance.DecreaseSanity(_enemy.AttackDamage);
+
+        }
     }
     public void StartChasingPlayer()
     {
@@ -181,15 +187,8 @@ public class AI_Enemy1 : MonoBehaviour
             _isAttacking = false;
             _nextAttackTime = Time.time + _attackCooldown;
             _enemy.EnemyMovement.DisableMovement(false);
-            if (PlayerController.Instance != null)
-            {
-                float distanceToPlayer = Vector3.Distance(PlayerController.Instance.transform.position, transform.position);
+            ChangeState(EnemyState.Chase);
 
-                if (distanceToPlayer > _attackRange)
-                {
-                    ChangeState(EnemyState.Chase);
-                }
-            }
             Debug.Log("Attack sequence finished, check for next state.");
         }, 0.5f);
 
