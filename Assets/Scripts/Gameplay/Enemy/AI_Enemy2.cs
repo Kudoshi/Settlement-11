@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.XR;
 
-public class AI_Enemy1 : MonoBehaviour
+public class AI_Enemy2 : MonoBehaviour
 {
     public enum EnemyState { Idle, Chase, Attack, Dead }
 
@@ -11,7 +11,7 @@ public class AI_Enemy1 : MonoBehaviour
     [SerializeField] private float _attackRange;
     [SerializeField] private float _attackCooldown;
     [SerializeField] private float _atklookRotationSpeed;
-    [SerializeField] private string _attackAnimTrigger;
+    //[SerializeField] private string _attackAnimTrigger;
 
     [Header("Component References")]
     [SerializeField] private Animator _animator;
@@ -27,7 +27,7 @@ public class AI_Enemy1 : MonoBehaviour
     private void Start()
     {
         _enemy = GetComponent<Enemy>();
-        if (_enemy.Enemy1 == null) _enemy.Enemy1 = this;
+        if (_enemy.Enemy2 == null) _enemy.Enemy2 = this;
 
         _detectionCollider = GetComponent<SphereCollider>();
         if (_detectionCollider != null && _detectionCollider.isTrigger)
@@ -115,8 +115,8 @@ public class AI_Enemy1 : MonoBehaviour
         {
             _isAttacking = true;
             _enemy.EnemyMovement.DisableMovement(true);
-            _animator.SetTrigger(_attackAnimTrigger);
-            Debug.Log("Starting attack sequence");
+            //_animator.SetTrigger(_attackAnimTrigger);
+            Debug.Log("Starting bullet attack");
         }
     }
 
@@ -155,7 +155,7 @@ public class AI_Enemy1 : MonoBehaviour
 
     public void DealDamage()
     {
-        SanityManager.Instance.DecreaseSanity(_enemy.AttackDamage);
+        Debug.Log($"Swing hit check. Damage: {_enemy.AttackDamage}");
     }
 
     public void SetAttackFinished()
