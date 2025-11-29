@@ -8,6 +8,7 @@ public class AI_Enemy1 : MonoBehaviour
     public enum EnemyState { Idle, Chase, Attack, Dead }
 
     [Header("AI Attack")]
+    [SerializeField] private bool _isSittingEnemy;
     [SerializeField] private float _attackRange;
     [SerializeField] private float _attackCooldown;
     [SerializeField] private float _atklookRotationSpeed;
@@ -63,7 +64,7 @@ public class AI_Enemy1 : MonoBehaviour
         switch (_currentState)
         {
             case EnemyState.Chase:
-                if (distanceToPlayer <= _attackRange)
+                if (distanceToPlayer <= _attackRange && !_isAttacking)
                 {
                     ChangeState(EnemyState.Attack);
                 }
@@ -72,6 +73,7 @@ public class AI_Enemy1 : MonoBehaviour
             case EnemyState.Attack:
                 if (distanceToPlayer > _attackRange && !_isAttacking)
                 {
+                    Debug.Log("Attack but change yo: " + _isAttacking);
                     ChangeState(EnemyState.Chase);
                 }
                 break;
@@ -135,19 +137,25 @@ public class AI_Enemy1 : MonoBehaviour
         {
             case EnemyState.Idle:
                 _enemy.EnemyMovement.DisableMovement(true);
-                // _animator.SetBool("Move", false);
-                break;
+
+                if (_isSittingEnemy)
+                    _animator.SetTrigger("IdleSitting");
+                else _animator.SetTrigger("Idle");
+                    break;
 
             case EnemyState.Chase:
                 _enemy.EnemyMovement.DisableMovement(false);
                 _enemy.EnemyMovement.SetRotationControl(true);
                 _enemy.EnemyMovement.MoveTo(PlayerController.Instance.transform.position);
                 _isAttacking = false;
-                // _animator.SetBool("Move", true);
+                _animator.SetTrigger("Chasing");
                 break;
 
             case EnemyState.Attack:
+                _enemy.EnemyMovement.DisableMovement(true);
                 _enemy.EnemyMovement.SetRotationControl(false);
+                _isAttacking = true;
+                _animator.SetTrigger("Attack");
                 break;
 
             case EnemyState.Dead:
@@ -168,19 +176,27 @@ public class AI_Enemy1 : MonoBehaviour
     }
     public void SetAttackFinished()
     {
-        _isAttacking = false;
-        _nextAttackTime = Time.time + _attackCooldown;
-        _enemy.EnemyMovement.DisableMovement(false);
-        if (PlayerController.Instance != null)
+        Util.WaitForSeconds(this, () =>
         {
-            float distanceToPlayer = Vector3.Distance(PlayerController.Instance.transform.position, transform.position);
-
-            if (distanceToPlayer > _attackRange)
+            _isAttacking = false;
+            _nextAttackTime = Time.time + _attackCooldown;
+            _enemy.EnemyMovement.DisableMovement(false);
+            if (PlayerController.Instance != null)
             {
-                ChangeState(EnemyState.Chase);
+                float distanceToPlayer = Vector3.Distance(PlayerController.Instance.transform.position, transform.position);
+
+                if (distanceToPlayer > _attackRange)
+                {
+                    ChangeState(EnemyState.Chase);
+                }
             }
-        }
-        Debug.Log("Attack sequence finished, check for next state.");
+            Debug.Log("Attack sequence finished, check for next state.");
+        }, 0.5f);
+
     }
 
+    public void DisableMovement()
+    {
+        _enemy.EnemyMovement.DisableMovement(true);
+    }
 }
