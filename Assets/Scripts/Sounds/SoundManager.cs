@@ -92,10 +92,10 @@ public class SoundManager : MonoBehaviour
         return m_SoundEmitterList.Count - 1;
     }
 
-    public void LoadDialogueVoicelines(int levelID)
+    public void LoadDialogueVoicelines()
     {
         this.m_DialogueAudioDict = new Dictionary<string, Sound>();
-        AudioClip[] dialogues = Resources.LoadAll<AudioClip>(this.SoundRepoSO.DialoguePath + "/Lv"+levelID);
+        AudioClip[] dialogues = Resources.LoadAll<AudioClip>(this.SoundRepoSO.DialoguePath);
 
         foreach(AudioClip dialogue in dialogues) 
         {
