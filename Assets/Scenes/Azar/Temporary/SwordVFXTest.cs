@@ -2,113 +2,96 @@ using UnityEngine;
 
 public class SwordVFXTest : MonoBehaviour
 {
-    [SerializeField] private Transform swordPrefab;
-    [SerializeField] private Vector3 swordOffset = new Vector3(0.5f, -0.3f, 0.5f);
-    [SerializeField] private Vector3 swordRotation = new Vector3(0f, 0f, 0f);
+    [SerializeField] private GameObject swordObject;
+    [SerializeField] private Transform playerCamera;
+    [SerializeField] private GameObject playerObject;
+
+    [Header("Position Offset")]
+    public float offsetX = 0f;
+    public float offsetY = 0f;
+    public float offsetZ = 0f;
 
     [Header("Idle Sway")]
     [SerializeField] private float idleSwaySpeed = 1.5f;
-    [SerializeField] private float idleSwayAmount = 0.02f;
     [SerializeField] private float idleRotationAmount = 2f;
 
-    [Header("Camera Dynamic Sway")]
-    [SerializeField] private float cameraSensitivity = 2f;
-    [SerializeField] private float cameraSwaySmooth = 5f;
-    [SerializeField] private float maxCameraSway = 0.15f;
+    [Header("Camera Sway")]
+    [SerializeField] private float cameraSwayAmount = 50f;
+    [SerializeField] private float cameraSwaySmooth = 10f;
 
-    [Header("Movement Sway")]
-    [SerializeField] private float movementBobSpeed = 10f;
-    [SerializeField] private float movementBobAmount = 0.05f;
+    [Header("Movement")]
+    [SerializeField] private float walkBobSpeed = 10f;
+    [SerializeField] private float sprintBobSpeed = 14f;
     [SerializeField] private float movementTiltAmount = 3f;
+    [SerializeField] private float minSpeedForSway = 0.5f;
 
     private Transform swordTransform;
-    private Vector3 targetPosition;
-    private Quaternion targetRotation;
-    private Vector3 cameraSwayVelocity;
-    private Vector2 lastMousePosition;
+    private Quaternion originalRotation;
+    private PlayerMovement playerMovement;
+    private Rigidbody playerRb;
     private float movementTimer;
-    private bool isMoving;
+    private Vector2 currentSway;
+    private Vector2 targetSway;
 
     private void Start()
     {
-        if (swordPrefab != null)
+        if (swordObject != null)
         {
-            swordTransform = Instantiate(swordPrefab, transform);
-            swordTransform.localPosition = swordOffset;
-            swordTransform.localRotation = Quaternion.Euler(swordRotation);
+            swordTransform = swordObject.transform;
+            originalRotation = swordTransform.localRotation;
         }
 
-        lastMousePosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        if (playerObject != null)
+        {
+            playerMovement = playerObject.GetComponent<PlayerMovement>();
+            playerRb = playerObject.GetComponent<Rigidbody>();
+        }
     }
 
     private void Update()
     {
-        if (swordTransform == null) return;
+        if (swordTransform == null || playerCamera == null) return;
 
-        isMoving = Input.GetKey(KeyCode.W);
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
+        targetSway = new Vector2(-mouseX, -mouseY);
+        currentSway = Vector2.Lerp(currentSway, targetSway, Time.deltaTime * cameraSwaySmooth);
 
-        Vector3 idleSway = CalculateIdleSway();
-        Vector3 cameraSway = CalculateCameraSway();
-        Vector3 movementSway = isMoving ? CalculateMovementSway() : Vector3.zero;
+        bool isMoving = false;
+        bool isSprinting = false;
 
-        targetPosition = swordOffset + idleSway + cameraSway + movementSway;
+        if (playerRb != null && playerMovement != null)
+        {
+            float speed = new Vector2(playerRb.linearVelocity.x, playerRb.linearVelocity.z).magnitude;
+            isMoving = speed > minSpeedForSway && playerMovement.grounded;
+            isSprinting = playerMovement.isSprinting && isMoving;
+        }
 
-        Quaternion idleRotation = CalculateIdleRotation();
-        Quaternion cameraRotation = CalculateCameraRotation();
-        Quaternion movementRotation = isMoving ? CalculateMovementRotation() : Quaternion.identity;
+        if (isMoving)
+        {
+            float bobSpeed = isSprinting ? sprintBobSpeed : walkBobSpeed;
+            movementTimer += Time.deltaTime * bobSpeed;
+        }
 
-        targetRotation = Quaternion.Euler(swordRotation) * idleRotation * cameraRotation * movementRotation;
+        float idleTilt = Mathf.Sin(Time.time * idleSwaySpeed) * idleRotationAmount;
+        float cameraTiltX = currentSway.y * cameraSwayAmount;
+        float cameraTiltZ = currentSway.x * cameraSwayAmount;
+        float movementTiltZ = isMoving ? Mathf.Sin(movementTimer) * movementTiltAmount : 0f;
+        float movementTiltX = isMoving ? Mathf.Cos(movementTimer * 0.5f) * movementTiltAmount * 0.5f : 0f;
 
-        swordTransform.localPosition = Vector3.Lerp(swordTransform.localPosition, targetPosition, Time.deltaTime * 10f);
-        swordTransform.localRotation = Quaternion.Slerp(swordTransform.localRotation, targetRotation, Time.deltaTime * 8f);
+        Quaternion finalRotation = originalRotation
+            * Quaternion.Euler(0f, 0f, idleTilt)
+            * Quaternion.Euler(cameraTiltX, 0f, cameraTiltZ)
+            * Quaternion.Euler(movementTiltX, 0f, movementTiltZ);
+
+        swordTransform.rotation = playerCamera.rotation * finalRotation;
     }
 
-    private Vector3 CalculateIdleSway()
+    private void LateUpdate()
     {
-        float x = Mathf.Sin(Time.time * idleSwaySpeed) * idleSwayAmount;
-        float y = Mathf.Sin(Time.time * idleSwaySpeed * 0.5f) * idleSwayAmount * 0.5f;
-        return new Vector3(x, y, 0f);
-    }
+        if (swordTransform == null || playerCamera == null) return;
 
-    private Quaternion CalculateIdleRotation()
-    {
-        float z = Mathf.Sin(Time.time * idleSwaySpeed) * idleRotationAmount;
-        return Quaternion.Euler(0f, 0f, z);
-    }
-
-    private Vector3 CalculateCameraSway()
-    {
-        Vector2 currentMousePosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-        Vector2 mouseDelta = (currentMousePosition - lastMousePosition) * cameraSensitivity * Time.deltaTime;
-        lastMousePosition = currentMousePosition;
-
-        Vector3 targetSway = new Vector3(-mouseDelta.x, -mouseDelta.y, 0f);
-        targetSway = Vector3.ClampMagnitude(targetSway, maxCameraSway);
-
-        cameraSwayVelocity = Vector3.Lerp(cameraSwayVelocity, targetSway, Time.deltaTime * cameraSwaySmooth);
-
-        return cameraSwayVelocity;
-    }
-
-    private Quaternion CalculateCameraRotation()
-    {
-        float tiltX = -cameraSwayVelocity.y * 50f;
-        float tiltZ = -cameraSwayVelocity.x * 30f;
-        return Quaternion.Euler(tiltX, 0f, tiltZ);
-    }
-
-    private Vector3 CalculateMovementSway()
-    {
-        movementTimer += Time.deltaTime * movementBobSpeed;
-        float bobX = Mathf.Sin(movementTimer) * movementBobAmount;
-        float bobY = Mathf.Abs(Mathf.Sin(movementTimer * 2f)) * movementBobAmount;
-        return new Vector3(bobX, bobY, 0f);
-    }
-
-    private Quaternion CalculateMovementRotation()
-    {
-        float tiltZ = Mathf.Sin(movementTimer) * movementTiltAmount;
-        float tiltX = Mathf.Cos(movementTimer * 0.5f) * movementTiltAmount * 0.5f;
-        return Quaternion.Euler(tiltX, 0f, tiltZ);
+        Vector3 offset = new Vector3(offsetX, offsetY, offsetZ);
+        swordTransform.position = playerCamera.position + playerCamera.TransformDirection(offset);
     }
 }
