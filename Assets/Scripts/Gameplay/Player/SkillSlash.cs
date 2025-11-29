@@ -9,6 +9,7 @@ public class SkillSlash : MonoBehaviour
     private void Start()
     {
         camTrans = Camera.main.transform;
+        //transform.Rotate(new Vector3(-20, 0, 0), Space.Self);
     }
 
     void Update()
