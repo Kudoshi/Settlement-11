@@ -530,6 +530,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1613668386
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 727302976690141396, guid: c65c31a9390931a449068f4d756174b6, type: 3}
+      propertyPath: m_Name
+      value: vfx_player_wind_trail
+      objectReference: {fileID: 0}
+    - target: {fileID: 1860383764084625650, guid: c65c31a9390931a449068f4d756174b6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 1860383764084625650, guid: c65c31a9390931a449068f4d756174b6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1860383764084625650, guid: c65c31a9390931a449068f4d756174b6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 1860383764084625650, guid: c65c31a9390931a449068f4d756174b6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1860383764084625650, guid: c65c31a9390931a449068f4d756174b6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1860383764084625650, guid: c65c31a9390931a449068f4d756174b6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1860383764084625650, guid: c65c31a9390931a449068f4d756174b6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1860383764084625650, guid: c65c31a9390931a449068f4d756174b6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1860383764084625650, guid: c65c31a9390931a449068f4d756174b6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1860383764084625650, guid: c65c31a9390931a449068f4d756174b6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c65c31a9390931a449068f4d756174b6, type: 3}
 --- !u!1 &1768610388
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,7 +707,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1872726864}
-  - component: {fileID: 1872726863}
+  - component: {fileID: 1872726865}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -658,19 +715,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1872726863
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1872726862}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90d986ddcdab22942b9eb92a7505b167, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MoveCamera
-  player: {fileID: 686845117}
 --- !u!4 &1872726864
 Transform:
   m_ObjectHideFlags: 0
@@ -687,6 +731,30 @@ Transform:
   - {fileID: 8432180334062266183}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1872726865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872726862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abe8dae5c3f05e449b8832c651f3f669, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCamera
+  playerHead: {fileID: 686845117}
+  orientation: {fileID: 679904166}
+  sensitivity: 2
+  maxLookAngle: 90
+  smoothing: 0
+  dynamicFOV: 1
+  normalFOV: 80
+  sprintFOV: 90
+  slideFOV: 95
+  fovSpeed: 10
+  shakeIntensity: 0.3
+  shakeDuration: 0.2
 --- !u!4 &1323576031801467281
 Transform:
   m_ObjectHideFlags: 0
@@ -791,6 +859,7 @@ GameObject:
   - component: {fileID: 1809370356819821380}
   - component: {fileID: 2346827798698673067}
   - component: {fileID: 2782619757922960138}
+  - component: {fileID: 8432180334062266184}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -974,6 +1043,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1872726864}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &8432180334062266184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2743766707799757920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 359f17f712c919840ae5808d780bca8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCameraAnimator
+  playerHead: {fileID: 686845117}
+  enableHeadBob: 1
+  idleBobSpeed: 1.5
+  idleBobAmount: 0.02
+  walkBobSpeed: 10
+  walkBobAmount: 0.05
+  sprintBobSpeed: 14
+  sprintBobAmount: 0.08
+  enableTilt: 1
+  movementTiltAmount: 2
+  slideTiltAmount: 15
+  tiltSpeed: 5
+  landShakeIntensity: 0.5
+  landShakeDuration: 0.2
 --- !u!33 &8909403739028744217
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -995,7 +1090,7 @@ GameObject:
   - component: {fileID: 4660608413772712485}
   - component: {fileID: 8995299926977573459}
   m_Layer: 0
-  m_Name: Player (1)
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1013,19 +1108,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89e91c5098a6c4543bf6c59b816c72fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  playerCam: {fileID: 1872726864}
   orientation: {fileID: 679904166}
-  moveSpeed: 1000
-  maxSpeed: 20
-  grounded: 0
+  walkSpeed: 7
+  sprintSpeed: 12
+  crouchSpeed: 4
+  slideSpeed: 15
+  groundDrag: 6
+  airDrag: 2
+  acceleration: 10
+  airAcceleration: 6
+  jumpForce: 20
+  jumpCooldown: 0.25
+  gravity: 20
+  fallGravityMultiplier: 2.5
+  maxFallSpeed: 40
+  crouchHeight: 0.5
+  crouchTransitionSpeed: 0.2
+  slideMinSpeed: 8
+  slideDuration: 1
+  slideBoost: 2
+  playerHeight: 2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
-  counterMovement: 1
-  maxSlopeAngle: 35
-  slideForce: 400
-  slideCounterMovement: 0.2
-  jumpForce: 200
+  grounded: 0
+  isSliding: 0
+  isSprinting: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1036,3 +1144,4 @@ SceneRoots:
   - {fileID: 477815964}
   - {fileID: 1323576031801467281}
   - {fileID: 1872726864}
+  - {fileID: 1613668386}
