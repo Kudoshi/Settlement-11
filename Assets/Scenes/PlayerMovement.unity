@@ -353,7 +353,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.6051, y: 2.6051, z: 2.6051}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -370,7 +370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de6a30fd9728a5c4b8ba3cd09ec6f918, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BasicPlayerMovement
-  Speed: 5
+  Speed: 3
   Rotate: 150
   JumpForce: 400
   groundCheckDistance: 0.2
@@ -699,6 +699,7 @@ GameObject:
   - component: {fileID: 1840680909082249618}
   - component: {fileID: 4337160613253216053}
   - component: {fileID: 4660608413772712485}
+  - component: {fileID: 8995299926977573459}
   m_Layer: 0
   m_Name: Player (1)
   m_TagString: Untagged
@@ -706,6 +707,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8995299926977573459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8995299926977573458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa7db4c5bed9354d8a985e57202164d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sliding
+  orientation: {fileID: 1323576031801467281}
+  playerObj: {fileID: 1323576031801467281}
+  maxSlideTime: 0.75
+  slideForce: 200
+  slideYScale: 0.5
+  slideKey: 306
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

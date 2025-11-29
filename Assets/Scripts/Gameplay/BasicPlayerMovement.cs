@@ -1,4 +1,3 @@
-using System.Globalization;
 using UnityEngine;
 #if NEW_INPUT_SYSTEM_INSTALLED
 using UnityEngine.InputSystem;
@@ -7,6 +6,7 @@ using UnityEngine.InputSystem;
 public class BasicPlayerMovement : MonoBehaviour
 {
     public float Speed = 5f;
+    public float SprintSpeed = 10f; 
     public float Rotate = 150f;
     public float JumpForce = 6f;
 
@@ -34,10 +34,16 @@ public class BasicPlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        float multiplier = Speed * Time.fixedDeltaTime;
+        float currentSpeed = Speed;
+
+        if (Input.GetKey(KeyCode.LeftShift)) 
+        {
+            currentSpeed = SprintSpeed;
+        }
+
+        float multiplier = currentSpeed * Time.fixedDeltaTime; 
         Vector3 move = Vector3.zero;
 
-        // Movement based on player direction
         if (Input.GetKey(KeyCode.W))
             move += transform.forward;
 
@@ -50,7 +56,7 @@ public class BasicPlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
             move -= transform.right;
 
-        rb.MovePosition(rb.position + move.normalized * Speed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + move.normalized * currentSpeed * Time.fixedDeltaTime);
     }
 
     bool IsGrounded()
