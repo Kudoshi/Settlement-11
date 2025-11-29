@@ -36,12 +36,30 @@ public class SanityManager : Singleton<SanityManager>
     public void IncreaseSanity(float sanity)
     {
         currentSanity += sanity;
+
+        if (currentSanity > maxSanity)
+        {
+            currentSanity = maxSanity;
+        }
         UpdateSanity(currentSanity, maxSanity);
     }
 
     public void DecreaseSanity(float sanity)
     {
         currentSanity -= sanity;
+
+        if (currentSanity < 0)
+        {
+            currentSanity = 0;
+            GameOver();
+
+        }
+
         UpdateSanity(currentSanity, maxSanity);
+    }
+
+    private void GameOver()
+    {
+        Debug.Log("Game Over!");
     }
 }
