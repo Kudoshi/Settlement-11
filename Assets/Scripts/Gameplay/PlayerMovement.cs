@@ -51,7 +51,9 @@ public class PlayerMovement : MonoBehaviour
     private float currentSpeed;
     private MovementState state;
 
-    private enum MovementState
+    public MovementState State { get => state; }
+
+    public enum MovementState
     {
         Walking,
         Sprinting,
