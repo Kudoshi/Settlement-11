@@ -28,7 +28,8 @@ public class PlayerMovement : MonoBehaviour
     public float crouchTransitionSpeed = 0.2f;
     public float slideMinSpeed = 8f;
     public float slideDuration = 1f;
-    public float slideBoost = 2f;
+    public float slideBoost = 15f;
+    public float slideForce = 50f;
 
     [Header("Ground Check")]
     public float playerHeight = 2f;
@@ -87,25 +88,32 @@ public class PlayerMovement : MonoBehaviour
         input.y = Input.GetAxisRaw("Vertical");
         jumpPressed = Input.GetButton("Jump");
         sprintPressed = Input.GetKey(KeyCode.LeftShift);
-        crouchPressed = Input.GetKey(KeyCode.LeftControl);
+        crouchPressed = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.C);
 
-        if (jumpPressed && canJump && grounded)
+        if (Input.GetButtonDown("Jump") && grounded && canJump)
         {
             canJump = false;
             Jump();
             Invoke(nameof(ResetJump), jumpCooldown);
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftControl) && grounded)
+        if ((Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.C)) && grounded)
         {
-            float speed = new Vector2(rb.linearVelocity.x, rb.linearVelocity.z).magnitude;
-            if ((speed > slideMinSpeed && input.magnitude > 0.1f) || sprintPressed)
+            if (sprintPressed)
+            {
                 StartSlide();
+            }
             else
-                StartCrouch();
+            {
+                float speed = new Vector2(rb.linearVelocity.x, rb.linearVelocity.z).magnitude;
+                if (speed > slideMinSpeed && input.magnitude > 0.1f)
+                    StartSlide();
+                else
+                    StartCrouch();
+            }
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftControl))
+        if ((Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.C)))
         {
             StopCrouch();
             isSliding = false;
@@ -159,7 +167,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isSliding)
         {
-            rb.AddForce(slideDirection * slideSpeed, ForceMode.Force);
+            rb.AddForce(slideDirection * slideForce, ForceMode.Force);
             return;
         }
 
@@ -172,7 +180,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleDrag()
     {
-        rb.linearDamping = grounded ? groundDrag : airDrag;
+        if (isSliding)
+            rb.linearDamping = 0.5f;
+        else
+            rb.linearDamping = grounded ? groundDrag : airDrag;
     }
 
     private void HandleGravity()
@@ -219,7 +230,12 @@ public class PlayerMovement : MonoBehaviour
     {
         isSliding = true;
         slideTimer = slideDuration;
-        slideDirection = orientation.forward;
+
+        Vector3 currentVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+        if (currentVelocity.magnitude < 0.5f)
+            slideDirection = orientation.forward;
+        else
+            slideDirection = currentVelocity.normalized;
 
         transform.DOKill();
         transform.DOScaleY(crouchHeight, crouchTransitionSpeed).SetEase(Ease.OutQuad);

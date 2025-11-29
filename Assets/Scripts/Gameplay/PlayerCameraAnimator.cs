@@ -17,19 +17,25 @@ public class PlayerCameraAnimator : MonoBehaviour
     [Header("Camera Tilt")]
     public bool enableTilt = true;
     public float movementTiltAmount = 2f;
-    public float slideTiltAmount = 15f;
+    public float slideTiltUpAmount = 8f;
     public float tiltSpeed = 5f;
 
     [Header("Shake")]
-    public float landShakeIntensity = 0.5f;
-    public float landShakeDuration = 0.2f;
+    public float landShakeIntensity = 0.1f;
+    public float landShakeDuration = 0.1f;
+    public float minFallSpeedForShake = 5f;
 
     private Vector3 originalLocalPosition;
+    private Quaternion originalLocalRotation;
     private float bobTimer;
     private float currentTilt;
     private float targetTilt;
+    private float currentPitchTilt;
+    private float targetPitchTilt;
     private PlayerMovement playerMovement;
+    private Rigidbody playerRb;
     private bool wasGrounded;
+    private float lastFallSpeed;
     private Vector3 shakeOffset;
     private float shakeTimer;
     private float shakeDuration;
@@ -38,12 +44,16 @@ public class PlayerCameraAnimator : MonoBehaviour
     private void Start()
     {
         originalLocalPosition = transform.localPosition;
+        originalLocalRotation = transform.localRotation;
 
         if (playerHead != null)
         {
             Transform playerRoot = playerHead.root;
             if (playerRoot != null)
+            {
                 playerMovement = playerRoot.GetComponent<PlayerMovement>();
+                playerRb = playerRoot.GetComponent<Rigidbody>();
+            }
         }
 
         wasGrounded = true;
@@ -101,16 +111,18 @@ public class PlayerCameraAnimator : MonoBehaviour
         if (!enableTilt)
         {
             targetTilt = 0f;
+            targetPitchTilt = 0f;
             return;
         }
 
         targetTilt = 0f;
+        targetPitchTilt = 0f;
 
         if (playerMovement != null)
         {
             if (playerMovement.isSliding)
             {
-                targetTilt = slideTiltAmount;
+                targetPitchTilt = slideTiltUpAmount;
             }
             else if (playerMovement.grounded)
             {
@@ -120,6 +132,7 @@ public class PlayerCameraAnimator : MonoBehaviour
         }
 
         currentTilt = Mathf.Lerp(currentTilt, targetTilt, Time.deltaTime * tiltSpeed);
+        currentPitchTilt = Mathf.Lerp(currentPitchTilt, targetPitchTilt, Time.deltaTime * tiltSpeed);
     }
 
     private void HandleShake()
@@ -142,11 +155,20 @@ public class PlayerCameraAnimator : MonoBehaviour
 
     private void HandleLanding()
     {
-        if (playerMovement == null) return;
+        if (playerMovement == null || playerRb == null) return;
+
+        if (!playerMovement.grounded)
+        {
+            lastFallSpeed = Mathf.Abs(playerRb.linearVelocity.y);
+        }
 
         if (!wasGrounded && playerMovement.grounded)
         {
-            Shake(landShakeIntensity, landShakeDuration);
+            if (lastFallSpeed > minFallSpeedForShake)
+            {
+                float intensity = Mathf.Lerp(0f, landShakeIntensity, (lastFallSpeed - minFallSpeedForShake) / 10f);
+                Shake(intensity, landShakeDuration);
+            }
         }
 
         wasGrounded = playerMovement.grounded;
@@ -183,8 +205,8 @@ public class PlayerCameraAnimator : MonoBehaviour
 
         if (enableTilt)
         {
-            Vector3 currentRotation = transform.localEulerAngles;
-            transform.localEulerAngles = new Vector3(currentRotation.x, currentRotation.y, currentTilt);
+            Quaternion tiltRotation = Quaternion.Euler(currentPitchTilt, 0f, currentTilt);
+            transform.localRotation = originalLocalRotation * tiltRotation;
         }
     }
 

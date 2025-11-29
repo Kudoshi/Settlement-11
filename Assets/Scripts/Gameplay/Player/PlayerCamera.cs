@@ -14,9 +14,10 @@ public class PlayerCamera : MonoBehaviour
     [Header("FOV")]
     public bool dynamicFOV = true;
     public float normalFOV = 80f;
+    public float crouchFOV = 75f;
     public float sprintFOV = 90f;
-    public float slideFOV = 95f;
-    public float fovSpeed = 10f;
+    public float slideFOV = 100f;
+    public float fovSpeed = 8f;
 
     [Header("Camera Shake")]
     public float shakeIntensity = 0.3f;
@@ -104,9 +105,11 @@ public class PlayerCamera : MonoBehaviour
                 targetFOV = slideFOV;
             else if (playerMovement.isSprinting)
                 targetFOV = sprintFOV;
+            else if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.C))
+                targetFOV = crouchFOV;
         }
 
-        currentFOV = Mathf.Lerp(currentFOV, targetFOV, Time.deltaTime * fovSpeed);
+        currentFOV = Mathf.SmoothStep(currentFOV, targetFOV, Time.deltaTime * fovSpeed);
         cam.fieldOfView = currentFOV;
     }
 
