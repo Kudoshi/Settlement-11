@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private float _attackDamage = 10f;
 
-    public float Attackdamage { get => _attackDamage; }
+    public float AttackDamage { get => _attackDamage; }
 
     void Start()
     {
