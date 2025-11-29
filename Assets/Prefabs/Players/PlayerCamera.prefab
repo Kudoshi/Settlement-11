@@ -330,8 +330,8 @@ MonoBehaviour:
   swordObject: {fileID: 6625657535449821866}
   playerCamera: {fileID: 191691080886951338}
   cameraAnimator: {fileID: 2343208024002566078}
-  swingClip1: {fileID: 7400000, guid: 07edbf736246e55279729ca856d16fa4, type: 2}
-  swingClip2: {fileID: 7400000, guid: d9a19114f03b22541b1e8f9257662126, type: 2}
+  swingClip1: {fileID: 7400000, guid: 2847936b680b6234fa862841e3d11246, type: 2}
+  swingClip2: {fileID: 7400000, guid: cb3a0e68b3be05a46b6b2955fae318f3, type: 2}
   slashParticle1: {fileID: 0}
   slashParticle2: {fileID: 0}
   comboWindowTime: 1
