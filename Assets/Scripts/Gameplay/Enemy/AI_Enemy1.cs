@@ -155,7 +155,8 @@ public class AI_Enemy1 : MonoBehaviour
 
     public void DealDamage()
     {
-        Debug.Log($"Swing hit check. Damage: {_enemy.AttackDamage}");
+        // Decrease Player Sanity
+        SanityManager.Instance.DecreaseSanity(_enemy.AttackDamage);
     }
 
     public void SetAttackFinished()
