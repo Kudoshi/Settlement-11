@@ -56,7 +56,7 @@ namespace Kudoshi.Utilities
                 }
             }
         }
-        public static void SetSingletonDontDestroyOnLoad<T>(T singleton) where T : Singleton<T>
+        public static void SetSingletonDontDestroyOnLoad(T singleton)
         {
             if (singleton == null) return;
 

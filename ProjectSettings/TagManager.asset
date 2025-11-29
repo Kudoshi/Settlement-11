@@ -9,6 +9,7 @@ TagManager:
   - r1
   - r2
   - r3
+  - r4
   layers:
   - Default
   - TransparentFX

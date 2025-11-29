@@ -24,6 +24,8 @@ public class RoomObjective : MonoBehaviour
     [SerializeField] private float fogTransitionSpeed = 1f;
     [SerializeField] private GameObject playerObject;
     [SerializeField] private CanvasGroup transitionCanvas;
+    [SerializeField] private CanvasGroup r4FadeCanvas;
+    [SerializeField] private Animator cutsceneAnimator;
     [SerializeField] private float r4FadeDuration = 1f;
     [SerializeField] private float r4FadeWaitTime = 3f;
     [SerializeField] private AudioSource collectAudioSource;
@@ -140,9 +142,13 @@ public class RoomObjective : MonoBehaviour
         }
         else if (objectiveType == ObjectiveType.R4)
         {
-            if (cutsceneObject != null)
+            Debug.Log("R4 Interacted!");
+
+            // Enable cutscene animator immediately on interact
+            if (cutsceneAnimator != null)
             {
-                cutsceneObject.SetActive(true);
+                Debug.Log("Enabling cutscene animator");
+                cutsceneAnimator.enabled = true;
             }
 
             StartCoroutine(HandleR4Transition());
@@ -151,19 +157,50 @@ public class RoomObjective : MonoBehaviour
 
     private IEnumerator HandleR4Transition()
     {
-        if (transitionCanvas != null)
+        if (r4FadeCanvas != null)
         {
-            transitionCanvas.alpha = 0f;
-            transitionCanvas.DOFade(1f, r4FadeDuration).OnComplete(() =>
-            {
-                if (playerObject != null)
-                {
-                    playerObject.SetActive(false);
-                }
-            });
-        }
+            Debug.Log("Starting R4 Fade Transition");
 
-        yield return null;
+            // Fade in
+            r4FadeCanvas.alpha = 0f;
+            r4FadeCanvas.DOFade(1f, r4FadeDuration);
+
+            yield return new WaitForSeconds(r4FadeDuration);
+
+            // Deactivate player
+            if (playerObject != null)
+            {
+                Debug.Log("Deactivating player");
+                playerObject.SetActive(false);
+            }
+
+            // Activate cutscene
+            if (cutsceneObject != null)
+            {
+                Debug.Log("Activating final cutscene");
+                cutsceneObject.SetActive(true);
+            }
+
+            // Fade out
+            r4FadeCanvas.DOFade(0f, r4FadeDuration);
+
+            yield return new WaitForSeconds(r4FadeDuration);
+
+            // Play cutscene animation
+            if (cutsceneObject != null)
+            {
+                Final_CutsceneManager cutsceneManager = cutsceneObject.GetComponent<Final_CutsceneManager>();
+                if (cutsceneManager != null)
+                {
+                    Debug.Log("Playing cutscene animation");
+                    cutsceneManager.PlayCutsceneAnimation();
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("R4 Fade Canvas is not assigned! Please assign it in the Inspector.");
+        }
     }
 
     private IEnumerator TransitionFog()
