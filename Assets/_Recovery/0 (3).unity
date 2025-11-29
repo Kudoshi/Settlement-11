@@ -451,7 +451,7 @@ Transform:
   m_GameObject: {fileID: 487019551}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -111.86395, y: 0.99999905, z: 4.1640267}
+  m_LocalPosition: {x: -16.43, y: 5.21, z: -5.72879}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1092,7 +1092,7 @@ Transform:
   m_GameObject: {fileID: 633656343}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -106.1, y: 0.963, z: 16.6}
+  m_LocalPosition: {x: -106.1, y: 0.963, z: 1.7513556}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1844,37 +1844,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1176110175}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1426102182
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1426102183}
-  m_Layer: 0
-  m_Name: '[Pt] Shootpoint'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1426102183
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1426102182}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.63, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2105177627}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1574294877
 GameObject:
   m_ObjectHideFlags: 0
@@ -2011,7 +1980,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1723005474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2047,7 +2016,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 5
+  m_Radius: 8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &1723005476
 NavMeshAgent:
@@ -2159,12 +2128,12 @@ Transform:
   m_GameObject: {fileID: 1723005473}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -106.5, y: 2.63, z: -5.72879}
+  m_LocalPosition: {x: -106.5, y: 3.01, z: -5.72879}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2105177627}
   - {fileID: 596880400}
+  - {fileID: 2105177627}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1723005481
@@ -2179,16 +2148,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd2868595f49f9b44ab22fa7464f420a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AI_Enemy2
-  _detectRange: 15
-  _attackDamage: 10
-  _attackRange: 10
+  _attackDamage: 0
+  _attackRange: 60
   _attackCooldown: 0.5
   _atklookRotationSpeed: 10
   _attackAnimTrigger: attack
-  _pfBullet: {fileID: 2546765807416485515, guid: a8d65a5ff3e3bcf47ac34f338bcc91e2, type: 3}
-  _shootPoint: {fileID: 1426102183}
-  _bulletSpeed: 5
-  _idleAfterAttackTime: 2
+  _pfBullet: {fileID: 0}
+  _shootPoint: {fileID: 2105177627}
+  _bulletSpeed: 1
+  _idleAfterAttackTime: 0.5
   _animator: {fileID: 1723005483}
 --- !u!114 &1723005482
 MonoBehaviour:
@@ -2607,8 +2575,7 @@ Transform:
   m_LocalPosition: {x: 0.664, y: 0, z: 0.264}
   m_LocalScale: {x: 0.27707407, y: 0.46374604, z: 0.4131}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1426102183}
+  m_Children: []
   m_Father: {fileID: 1723005480}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &2105177628

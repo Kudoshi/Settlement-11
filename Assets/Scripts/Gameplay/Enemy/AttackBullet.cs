@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] private SphereCollider _collider;
     [SerializeField] private MeshRenderer _meshRenderer;
     [SerializeField] private Rigidbody _rb;
-    [SerializeField] private VisualEffect _trailFx;
+    //[SerializeField] private VisualEffect _trailFx;
 
     private float _bulletDamage;
     private float _bulletSpeed;
@@ -41,8 +41,8 @@ public class Bullet : MonoBehaviour
         _meshRenderer.enabled = true;
         _rb.linearVelocity = Vector3.zero;
 
-        _trailFx.transform.position = transform.position;
-        _trailFx.Play();
+        //_trailFx.transform.position = transform.position;
+        //_trailFx.Play();
 
         Invoke("ResetBullet", lifetime);
 
@@ -52,31 +52,25 @@ public class Bullet : MonoBehaviour
     {
         if (other.transform.CompareTag("Player"))
         {
-            //SanityManager.Instance.DecreaseSanity();
+            SanityManager.Instance.DecreaseSanity(_bulletDamage);
+        
+            ResetBullet();
+
         }
 
-        ResetBullet();
     }
 
 
     private void ResetBullet()
     {
-        if (_activated)
-        {
-            _activated = false;
-            _bulletSpeed = 0f;
-            _collider.enabled = false;
-            _meshRenderer.enabled = false;
-            _trailFx.Stop();
-            gameObject.SetActive(false);
-        }
+        Destroy(gameObject);
 
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        //StartBullet(_bulletSpeed, _bulletDamage, _currentReflectCount);
     }
 
     // Update is called once per frame

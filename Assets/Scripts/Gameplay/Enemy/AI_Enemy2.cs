@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -8,39 +9,44 @@ public class AI_Enemy2 : MonoBehaviour
     public enum EnemyState { Idle, Chase, Attack, Dead }
 
     [Header("AI Attack")]
+    [SerializeField] private float _detectRange;
+    [SerializeField] private float _attackDamage;
     [SerializeField] private float _attackRange;
     [SerializeField] private float _attackCooldown;
     [SerializeField] private float _atklookRotationSpeed;
-    //[SerializeField] private string _attackAnimTrigger;
+    [SerializeField] private string _attackAnimTrigger;
+
+    [Header("Bullet")]
+    [SerializeField] private Bullet _pfBullet;
+    [SerializeField] private Transform _shootPoint;
+    [SerializeField] private float _bulletSpeed;
+    [SerializeField] private float _idleAfterAttackTime;
+    private bool _bulletIdle;
+    private bool _canAttack;
 
     [Header("Component References")]
     [SerializeField] private Animator _animator;
     private Enemy _enemy;
     private EnemyState _currentState = EnemyState.Idle;
 
-    private SphereCollider _detectionCollider;
-    private float _detectionRange;
-
     private float _nextAttackTime;
     private bool _isAttacking = false;
+
 
     private void Start()
     {
         _enemy = GetComponent<Enemy>();
-        if (_enemy.Enemy2 == null) _enemy.Enemy2 = this;
 
-        _detectionCollider = GetComponent<SphereCollider>();
-        if (_detectionCollider != null && _detectionCollider.isTrigger)
-        {
-            _detectionRange = _detectionCollider.radius;
-        }
-        else
-        {
-            Debug.LogError("Missing sphere collider");
-        }
+
+        if (_enemy.Enemy2 == null) _enemy.Enemy2 = this;
 
         _nextAttackTime = Time.time;
         ChangeState(EnemyState.Idle);
+
+        Util.WaitForSeconds(this, () =>
+        {
+            StartChasingPlayer();
+        }, 2);
     }
 
     private void Update()
@@ -51,12 +57,38 @@ public class AI_Enemy2 : MonoBehaviour
         ExecuteCurrentState();
     }
 
+    public void ATrigger_CastAttack()
+    {
+        Bullet bullet = Instantiate(_pfBullet, _shootPoint.transform.position, Quaternion.identity);
+        bullet.StartBullet(_bulletSpeed, _attackDamage, 0); bullet.transform.position = _shootPoint.position;
+        bullet.transform.LookAt(PlayerController.Instance.transform);
+        bullet.StartBullet(_bulletSpeed, _enemy.AttackDamage, 0, 3f);
+    }
+
+    public void ATrigger_EndAttack()
+    {
+        Invoke(nameof(BulletStopIdle), _idleAfterAttackTime);
+    }
+
+    private void BulletStopIdle()
+    {
+        _bulletIdle = false;
+        _enemy.EnemyMovement.DisableMovement(false);
+        _nextAttackTime = Time.time + _nextAttackTime;
+    }
+
     private void CheckStateTransitions()
     {
         float distanceToPlayer = Vector3.Distance(PlayerController.Instance.transform.position, transform.position);
 
         switch (_currentState)
         {
+            case EnemyState.Idle:
+                if (distanceToPlayer <= _detectRange)
+                {
+                    ChangeState(EnemyState.Chase);
+                }
+                break;
             case EnemyState.Chase:
                 if (distanceToPlayer <= _attackRange)
                 {
@@ -109,15 +141,27 @@ public class AI_Enemy2 : MonoBehaviour
 
     private void AttackBehaviour()
     {
-        _enemy.EnemyMovement.LookAt(PlayerController.Instance.transform);
-
-        if (Time.time >= _nextAttackTime && !_isAttacking)
+        if (Time.time >= _nextAttackTime)
         {
-            _isAttacking = true;
-            _enemy.EnemyMovement.DisableMovement(true);
-            //_animator.SetTrigger(_attackAnimTrigger);
-            Debug.Log("Starting bullet attack");
+            _canAttack = true;
         }
+
+        if (_canAttack && !_bulletIdle)
+        {
+            _canAttack = false;
+
+            _enemy.EnemyMovement.DisableMovement(true);
+            _animator.SetTrigger(_attackAnimTrigger);
+            _bulletIdle = true;
+        }
+
+        // Get direction to target
+        Vector3 directionToTarget = PlayerController.Instance.transform.position - transform.position;
+        // Create rotation that looks at target (only Y axis)
+        Quaternion targetRotation = Quaternion.LookRotation(new Vector3(directionToTarget.x, 0, directionToTarget.z));
+
+        // Lerp between current and target rotation
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * _atklookRotationSpeed);
     }
 
 
@@ -153,11 +197,6 @@ public class AI_Enemy2 : MonoBehaviour
         }
     }
 
-    public void DealDamage()
-    {
-        Debug.Log($"Swing hit check. Damage: {_enemy.AttackDamage}");
-    }
-
     public void SetAttackFinished()
     {
         _isAttacking = false;
@@ -173,6 +212,22 @@ public class AI_Enemy2 : MonoBehaviour
             }
         }
         Debug.Log("Attack sequence finished, check for next state.");
+    }
+
+    public void StartChasingPlayer()
+    {
+        ChangeState(EnemyState.Chase);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        // Detect Range – Yellow
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, _detectRange);
+
+        // Attack Range – Red
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _attackRange);
     }
 
 }
