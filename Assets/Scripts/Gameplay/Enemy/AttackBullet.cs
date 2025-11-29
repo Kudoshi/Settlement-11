@@ -52,7 +52,8 @@ public class Bullet : MonoBehaviour
     {
         if (other.transform.CompareTag("Player"))
         {
-            SanityManager.Instance.DecreaseSanity(_bulletDamage);
+            Vector3 direction = PlayerController.Instance.transform.position - transform.position;
+            SanityManager.Instance.DecreaseSanity(_bulletDamage, direction);
         
             ResetBullet();
 

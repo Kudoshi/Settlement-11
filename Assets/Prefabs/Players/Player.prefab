@@ -50571,6 +50571,7 @@ MonoBehaviour:
   currentSanity: 0
   maxSanity: 100
   slowDuration: 5
+  _hitKnockbackForce: 35
   canvasGroup: {fileID: 6297530523465870185}
 --- !u!114 &1325653026027707429
 MonoBehaviour:

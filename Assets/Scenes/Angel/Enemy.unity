@@ -2927,16 +2927,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd2868595f49f9b44ab22fa7464f420a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AI_Enemy2
-  _detectRange: 15
-  _attackDamage: 10
+  _detectRange: 0
+  _attackDamage: 0
   _attackRange: 10
   _attackCooldown: 0.5
   _atklookRotationSpeed: 10
-  _attackAnimTrigger: attack
-  _pfBullet: {fileID: 2546765807416485515, guid: a8d65a5ff3e3bcf47ac34f338bcc91e2, type: 3}
-  _shootPoint: {fileID: 1426102183}
-  _bulletSpeed: 5
-  _idleAfterAttackTime: 2
+  _attackAnimTrigger: 
+  _pfBullet: {fileID: 0}
+  _shootPoint: {fileID: 0}
+  _bulletSpeed: 0
+  _idleAfterAttackTime: 0
   _animator: {fileID: 1723005483}
 --- !u!114 &1723005482
 MonoBehaviour:

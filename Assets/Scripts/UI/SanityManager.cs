@@ -12,7 +12,15 @@ public class SanityManager : Singleton<SanityManager>
     public float currentSanity;
     public float maxSanity = 100f;
     public float slowDuration;
+    public float _hitKnockbackForce;
     public CanvasGroup canvasGroup;
+
+    private Rigidbody _rb;
+
+    private void Awake()
+    {
+        _rb = GetComponent<Rigidbody>();
+    }
 
     private void Start()
     {
@@ -24,7 +32,7 @@ public class SanityManager : Singleton<SanityManager>
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            DecreaseSanity(10f);
+            DecreaseSanity(10f, Vector3.zero);
         }
 
         InternalSanityUpdate();
@@ -57,16 +65,18 @@ public class SanityManager : Singleton<SanityManager>
         UpdateSanity(currentSanity, maxSanity);
     }
 
-    public void DecreaseSanity(float sanity)
+    public void DecreaseSanity(float sanity, Vector3 knockbackDirection)
     {
         currentSanity -= sanity;
-
+        
         if (currentSanity <= 0)
         {
             currentSanity = 0;
             GameOver();
 
         }
+
+        _rb.AddForce(knockbackDirection * _hitKnockbackForce, ForceMode.Impulse);
 
         UpdateSanity(currentSanity, maxSanity);
     }
