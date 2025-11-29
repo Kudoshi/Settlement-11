@@ -12,6 +12,7 @@ public class SanityManager : Singleton<SanityManager>
     public float currentSanity;
     public float maxSanity = 100f;
     public float slowDuration;
+    public float overtimeDecreaseRate = 3f;
     public CanvasGroup canvasGroup;
 
     private void Start()
@@ -32,7 +33,7 @@ public class SanityManager : Singleton<SanityManager>
 
     private void InternalSanityUpdate()
     {
-        currentSanity -= 3f * Time.deltaTime;
+        currentSanity -= overtimeDecreaseRate * Time.deltaTime;
         sanityImg.fillAmount = Mathf.Lerp(sanityImg.fillAmount, currentSanity / maxSanity, Time.deltaTime * 10f);
 
         if (currentSanity <= 0) GameOver();
