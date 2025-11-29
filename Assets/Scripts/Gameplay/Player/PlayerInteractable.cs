@@ -1,7 +1,8 @@
+using Kudoshi.Utilities;
 using System;
 using UnityEngine;
 
-public class PlayerInteractable : MonoBehaviour
+public class PlayerInteractable : Singleton<PlayerInteractable>
 {
     [SerializeField] private float _interactDistance;
     [SerializeField] private LayerMask _interactLayers;

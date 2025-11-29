@@ -4,8 +4,12 @@ public class SwordVFXTest : MonoBehaviour
 {
     [SerializeField] private GameObject swordObject;
     [SerializeField] private Transform playerCamera;
-    [SerializeField] private GameObject playerObject;
     [SerializeField] private PlayerCameraAnimator cameraAnimator;
+    [SerializeField] private AnimationClip swingClip1;
+    [SerializeField] private AnimationClip swingClip2;
+    [SerializeField] private ParticleSystem slashParticle1;
+    [SerializeField] private ParticleSystem slashParticle2;
+    [SerializeField] private float comboWindowTime = 1f;
 
     [Header("Position Offset")]
     public float offsetX = 0f;
@@ -52,6 +56,13 @@ public class SwordVFXTest : MonoBehaviour
     private Quaternion currentCrouchRotation;
     private Vector3 currentBob;
     private Vector3 targetBob;
+    private Animation animComponent;
+    private bool isSwinging = false;
+    private float swingTimer = 0f;
+    private bool canCombo = false;
+    private float comboTimer = 0f;
+    private bool lastWasFirstSwing = true;
+    private GameObject playerObject;
 
     private void Start()
     {
@@ -62,10 +73,28 @@ public class SwordVFXTest : MonoBehaviour
             originalScale = swordTransform.localScale;
         }
 
-        if (playerObject != null)
+        playerObject = PlayerController.Instance.gameObject;
+        playerMovement = playerObject.GetComponent<PlayerMovement>();
+        playerRb = playerObject.GetComponent<Rigidbody>();
+
+        if (swordObject != null)
         {
-            playerMovement = playerObject.GetComponent<PlayerMovement>();
-            playerRb = playerObject.GetComponent<Rigidbody>();
+            animComponent = swordObject.GetComponent<Animation>();
+            if (animComponent == null)
+            {
+                animComponent = swordObject.AddComponent<Animation>();
+            }
+            animComponent.playAutomatically = false;
+            if (swingClip1 != null)
+            {
+                swingClip1.legacy = true;
+                animComponent.AddClip(swingClip1, "swing1");
+            }
+            if (swingClip2 != null)
+            {
+                swingClip2.legacy = true;
+                animComponent.AddClip(swingClip2, "swing2");
+            }
         }
 
         currentCrouchRotation = Quaternion.identity;
@@ -74,6 +103,10 @@ public class SwordVFXTest : MonoBehaviour
     private void LateUpdate()
     {
         if (swordTransform == null || playerCamera == null) return;
+
+        HandleAttackInput();
+
+        if (isSwinging) return;
 
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
@@ -145,5 +178,60 @@ public class SwordVFXTest : MonoBehaviour
             originalScale.y / parentScale.y,
             originalScale.z / parentScale.z
         );
+    }
+
+    private void HandleAttackInput()
+    {
+        if (animComponent == null) return;
+
+        if (isSwinging)
+        {
+            swingTimer -= Time.deltaTime;
+            if (swingTimer <= 0f)
+            {
+                isSwinging = false;
+                canCombo = true;
+                comboTimer = comboWindowTime;
+            }
+        }
+
+        if (canCombo)
+        {
+            comboTimer -= Time.deltaTime;
+            if (comboTimer <= 0f)
+            {
+                canCombo = false;
+            }
+        }
+
+        if (Input.GetMouseButtonDown(0) && !isSwinging)
+        {
+            animComponent.Stop();
+
+            if (canCombo && lastWasFirstSwing && swingClip2 != null)
+            {
+                animComponent.Play("swing2");
+                swingTimer = swingClip2.length;
+                isSwinging = true;
+                canCombo = false;
+                lastWasFirstSwing = false;
+                if (slashParticle2 != null)
+                {
+                    slashParticle2.Play();
+                }
+            }
+            else if (swingClip1 != null)
+            {
+                animComponent.Play("swing1");
+                swingTimer = swingClip1.length;
+                isSwinging = true;
+                canCombo = false;
+                lastWasFirstSwing = true;
+                if (slashParticle1 != null)
+                {
+                    slashParticle1.Play();
+                }
+            }
+        }
     }
 }
