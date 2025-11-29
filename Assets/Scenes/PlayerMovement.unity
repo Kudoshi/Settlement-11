@@ -358,6 +358,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1503244430
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1503244431}
+  m_Layer: 0
+  m_Name: Orientation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1503244431
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503244430}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.05, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1323576031801467281}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1554618575
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,7 +401,7 @@ GameObject:
   - component: {fileID: 1554618578}
   - component: {fileID: 1554618577}
   - component: {fileID: 1554618576}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -481,7 +512,7 @@ GameObject:
   - component: {fileID: 1768610391}
   - component: {fileID: 1768610390}
   - component: {fileID: 1768610389}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -580,32 +611,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &980348465824658924
+--- !u!1 &1872726862
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1872726864}
+  - component: {fileID: 1872726863}
+  m_Layer: 0
+  m_Name: Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1872726863
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8995299926977573458}
+  m_GameObject: {fileID: 1872726862}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de6a30fd9728a5c4b8ba3cd09ec6f918, type: 3}
+  m_Script: {fileID: 11500000, guid: 90d986ddcdab22942b9eb92a7505b167, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BasicPlayerMovement
-  Speed: 5
-  SprintSpeed: 10
-  Rotate: 150
-  JumpForce: 400
-  groundCheckDistance: 0.2
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  SlideForce: 15
-  SlideDeceleration: 0.3
-  SlideDuration: 1
-  originalColliderHeight: 1
-  slideColliderHeight: 0.2
-  ColliderTransitionDuration: 0.3
+  m_EditorClassIdentifier: Assembly-CSharp::MoveCamera
+  player: {fileID: 1323576031801467281}
+--- !u!4 &1872726864
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1872726862}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.40044, y: 1.68525, z: 2.55622}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8432180334062266183}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1323576031801467281
 Transform:
   m_ObjectHideFlags: 0
@@ -615,12 +666,12 @@ Transform:
   m_GameObject: {fileID: 8995299926977573458}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.2764764, y: -0.00000023841858, z: 2.7960835}
+  m_LocalPosition: {x: 3.2764764, y: 1.42, z: 2.7960835}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1917367372586929392}
-  - {fileID: 8432180334062266183}
+  - {fileID: 1503244431}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &1809370356819821380
@@ -783,7 +834,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8995299926977573458}
   serializedVersion: 5
-  m_Mass: 85
+  m_Mass: 1.5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -799,8 +850,8 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
+  m_Interpolate: 1
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &4660608413772712485
 CapsuleCollider:
@@ -901,11 +952,11 @@ Transform:
   m_GameObject: {fileID: 2743766707799757920}
   serializedVersion: 2
   m_LocalRotation: {x: -0.00008571147, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5580001, z: 0}
+  m_LocalPosition: {x: -0.123963594, y: 1.2927501, z: 0.2398634}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1323576031801467281}
+  m_Father: {fileID: 1872726864}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &8909403739028744217
 MeshFilter:
@@ -924,10 +975,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1323576031801467281}
-  - component: {fileID: 980348465824658924}
   - component: {fileID: 1840680909082249618}
   - component: {fileID: 4337160613253216053}
   - component: {fileID: 4660608413772712485}
+  - component: {fileID: 8995299926977573459}
   m_Layer: 0
   m_Name: Player (1)
   m_TagString: Player
@@ -935,12 +986,38 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8995299926977573459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8995299926977573458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89e91c5098a6c4543bf6c59b816c72fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  playerCam: {fileID: 1872726864}
+  orientation: {fileID: 1503244431}
+  moveSpeed: 4500
+  maxSpeed: 20
+  grounded: 0
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 64
+  counterMovement: 0.175
+  maxSlopeAngle: 35
+  slideForce: 400
+  slideCounterMovement: 0.2
+  jumpForce: 550
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 121918996}
-  - {fileID: 300930084}
   - {fileID: 1323576031801467281}
+  - {fileID: 300930084}
   - {fileID: 1554618579}
   - {fileID: 1768610392}
+  - {fileID: 1872726864}
