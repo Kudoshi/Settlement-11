@@ -3,8 +3,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public EnemyMovement EnemyMovement;
-    public AI_Enemy1 Enemy1;
-    public AI_Enemy2 Enemy2;
+    public AI_Enemy1 Enemy1; // 
+    public AI_Enemy2 Enemy2; //
 
     [SerializeField] private float _attackDamage = 10f;
 
