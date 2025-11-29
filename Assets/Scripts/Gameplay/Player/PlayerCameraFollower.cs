@@ -1,10 +1,9 @@
 
+using Kudoshi.Utilities;
 using UnityEngine;
 
-public class PlayerCameraFollower : MonoBehaviour
+public class PlayerCameraFollower : Singleton<PlayerCameraFollower>
 {
-    private void Update()
-    {
-        transform.rotation = Camera.main.transform.rotation;
-    }
+    public Transform HeadOrientation;
+    public Transform Head;
 }

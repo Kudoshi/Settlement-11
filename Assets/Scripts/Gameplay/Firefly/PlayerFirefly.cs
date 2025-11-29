@@ -11,7 +11,7 @@ public class PlayerFirefly : Singleton<PlayerFirefly>
 
     private void Awake()
     {
-        _fireflyCounter = _fireflyMax;
+        _fireflyCounter = 0;
     }
 
     public void AdjustFireflies(int firefly)

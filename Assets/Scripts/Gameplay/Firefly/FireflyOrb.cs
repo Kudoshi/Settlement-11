@@ -5,6 +5,7 @@ using UnityEngine;
 public class FireflyOrb : MonoBehaviour
 {
     [SerializeField] private float _chaseForce;
+    [SerializeField] private int _fireFlyDropAmount;
 
     private Rigidbody _rb;
     
@@ -16,6 +17,15 @@ public class FireflyOrb : MonoBehaviour
     private void Update()
     {
         ChasePlayer();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            other.GetComponent<PlayerFirefly>().AdjustFireflies(1);
+            Destroy(gameObject);
+        }
     }
 
     private void ChasePlayer()
