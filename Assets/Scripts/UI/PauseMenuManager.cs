@@ -36,12 +36,12 @@ public class PauseMenuManager : MonoBehaviour
     {
         isPaused = true;
         pausePanel.gameObject.SetActive(true);
-        //Time.timeScale = 0f;
+        Time.timeScale = 0f; // to pause game
 
         pausePanel.anchoredPosition = new Vector2(-800f, pausePanel.anchoredPosition.y);
         pausePanel.DOAnchorPosX(0f, slideInSpeed)
             .SetEase(slideInEase)
-            .SetUpdate(true) // <- Important
+            .SetUpdate(true) 
             .OnComplete(() => pausePanel.DOPunchScale(Vector3.one * punchScale, 0.3f, 5, 0.5f).SetUpdate(true));
     }
 
@@ -52,7 +52,7 @@ public class PauseMenuManager : MonoBehaviour
             .SetEase(slideOutEase)
             .SetUpdate(true)
             .OnComplete(() => pausePanel.gameObject.SetActive(false));
-        //Time.timeScale = 1f;
+        Time.timeScale = 1f;
     }
 
     public void OpenOptions()
