@@ -39,7 +39,7 @@ public class AI_Enemy1 : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Player>() != null)
+        if (other.GetComponent<PlayerController>() != null)
         {
             if (_currentState == EnemyState.Idle)
             {
@@ -51,9 +51,9 @@ public class AI_Enemy1 : MonoBehaviour
 
     private void ChaseBehaviour()
     {
-        if (Time.frameCount % 5 == 0 && Player.Instance != null)
+        if (Time.frameCount % 5 == 0 && PlayerController.Instance != null)
         {
-            _enemy.EnemyMovement.MoveTo(Player.Instance.transform.position);
+            _enemy.EnemyMovement.MoveTo(PlayerController.Instance.transform.position);
         }
     }
 
