@@ -190,8 +190,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1d896a87867a40429d5757ee37d83cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  ragdollPrefab: {fileID: 5776611285556351004, guid: 7e6164f9e284e9b438959e8e1adadf8f, type: 3}
-  strength: 100000
+  ragdollPrefab: {fileID: 1549024452213142961, guid: 902f9224abda8b749b27a43d17ad1144, type: 3}
+  strength: 10000
 --- !u!1001 &486287195515048925
 PrefabInstance:
   m_ObjectHideFlags: 0
