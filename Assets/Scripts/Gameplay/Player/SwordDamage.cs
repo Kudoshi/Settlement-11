@@ -3,17 +3,7 @@ using UnityEngine;
 
 public class SwordDamage : MonoBehaviour
 {
-    public BoxCollider sword_collider;
-
-    private void Start()
-    {
-        sword_collider = GetComponent<BoxCollider>();
-    }
-
-    private void Update()
-    {
-       
-    }
+    public ParticleSystem swordVFX;
 
     private void OnTriggerEnter(Collider collide)
     {
@@ -24,5 +14,10 @@ public class SwordDamage : MonoBehaviour
                 collide.gameObject.GetComponent<Testing_EnemyHealth>().TakeDamage();
             }
         }
+    }
+
+    public void SpawnSwordVFX()
+    {
+        swordVFX.Play();
     }
 }
