@@ -24,6 +24,8 @@ public class AI_Enemy1 : MonoBehaviour
 
     private float _nextAttackTime;
     private bool _isAttacking = false;
+    private bool _isBlockingState = false;
+    private bool _alreadyTriggeredFromIdle = false;
 
     private void Start()
     {
@@ -59,12 +61,16 @@ public class AI_Enemy1 : MonoBehaviour
 
     private void CheckStateTransitions()
     {
+        if (_isBlockingState) return;
+
+
         float distanceToPlayer = Vector3.Distance(PlayerController.Instance.transform.position, transform.position);
+
 
         switch (_currentState)
         {
             case EnemyState.Chase:
-                if (distanceToPlayer <= _attackRange && !_isAttacking)
+                if (distanceToPlayer <= _attackRange && !_isAttacking && !_isBlockingState)
                 {
                     ChangeState(EnemyState.Attack);
                 }
@@ -96,11 +102,22 @@ public class AI_Enemy1 : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (_alreadyTriggeredFromIdle) return;
+
         if (other.GetComponent<PlayerController>() != null)
         {
-            if (_currentState == EnemyState.Idle)
+            if (_currentState == EnemyState.Idle && !_isBlockingState)
             {
                 ChangeState(EnemyState.Chase);
+                DisableMovement();
+                _alreadyTriggeredFromIdle = true;
+                Debug.Log("Player detected. Entering chase state.");
+            }
+            else if (_currentState == EnemyState.Idle && _isBlockingState)
+            {
+                ChangeState(EnemyState.Chase);
+                DisableMovement();
+                _alreadyTriggeredFromIdle = true;
                 Debug.Log("Player detected. Entering chase state.");
             }
         }
@@ -131,7 +148,7 @@ public class AI_Enemy1 : MonoBehaviour
     public void ChangeState(EnemyState newState)
     {
         _currentState = newState;
-        Debug.Log($"Enemy state changed to: {newState}");
+        Debug.Log($"Enemy state changed to: {newState} + {_isBlockingState}");
 
         switch (newState)
         {
@@ -139,12 +156,34 @@ public class AI_Enemy1 : MonoBehaviour
                 _enemy.EnemyMovement.DisableMovement(true);
 
                 if (_isSittingEnemy)
+                {
                     _animator.SetTrigger("IdleSitting");
-                else _animator.SetTrigger("Idle");
-                    break;
+                    _isBlockingState = true;
+                    _enemy.EnemyMovement.DisableMovement(true);
+                    GetComponent<NavMeshAgent>().enabled = false;
+
+                }
+                else
+                {
+                    _animator.SetTrigger("Idle");
+                }
+                break;
 
             case EnemyState.Chase:
-                _enemy.EnemyMovement.DisableMovement(false);
+                if (!_isBlockingState)
+                    _enemy.EnemyMovement.DisableMovement(false);
+
+                if (!_alreadyTriggeredFromIdle && _isSittingEnemy)
+                {
+                    Debug.Log("First time");
+                    _enemy.EnemyMovement.DisableMovement(true);
+                    Util.WaitForSeconds(this,() =>
+                    {
+                        GetComponent<NavMeshAgent>().enabled = true;
+
+                    }, 1f);
+                }
+
                 _enemy.EnemyMovement.SetRotationControl(true);
                 _enemy.EnemyMovement.MoveTo(PlayerController.Instance.transform.position);
                 _isAttacking = false;
@@ -192,6 +231,12 @@ public class AI_Enemy1 : MonoBehaviour
             Debug.Log("Attack sequence finished, check for next state.");
         }, 0.5f);
 
+    }
+
+    public void SetNotBlockingState()
+    {
+        Debug.Log("Se tnot blocking state");
+        _isBlockingState = false;
     }
 
     public void DisableMovement()
