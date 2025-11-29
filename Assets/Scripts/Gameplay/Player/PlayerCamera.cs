@@ -1,9 +1,10 @@
+using Kudoshi.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerCamera : MonoBehaviour
+public class PlayerCamera : Singleton<PlayerCamera>
 {
     // Handles only the camera movement. It also turns the player's rotation
 
@@ -18,6 +19,7 @@ public class PlayerCamera : MonoBehaviour
 
 
     public bool AllowCamControl { get => m_AllowCamControl; }
+    public Transform CameraTrans { get => m_CameraTrans; }
 
     private void Awake()
     {
