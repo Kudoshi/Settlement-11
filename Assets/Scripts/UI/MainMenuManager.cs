@@ -16,8 +16,8 @@ public class MainMenuManager : MonoBehaviour
     private void Start()
     {
         mainPanel.anchoredPosition = new Vector2(0f, mainPanel.anchoredPosition.y);
-        creditsPanel.anchoredPosition = new Vector2(640f, creditsPanel.anchoredPosition.y);
-        optionsPanel.anchoredPosition = new Vector2(640f, optionsPanel.anchoredPosition.y);
+        creditsPanel.anchoredPosition = new Vector2(2000f, creditsPanel.anchoredPosition.y);
+        optionsPanel.anchoredPosition = new Vector2(2000f, optionsPanel.anchoredPosition.y);
         TransitionManager.Instance.FadeOut();
     }
 
@@ -31,7 +31,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void OpenOptions()
     {
-        mainPanel.DOAnchorPosX(-200f, slideOutSpeed).SetEase(slideOutEase);
+        mainPanel.DOAnchorPosX(-180f, slideOutSpeed).SetEase(slideOutEase);
         optionsPanel.DOAnchorPosX(0f, slideInSpeed).SetEase(slideInEase)
             .OnComplete(() => optionsPanel.DOPunchScale(Vector3.one * punchScale, 0.3f, 5, 0.5f));
     }
@@ -47,8 +47,8 @@ public class MainMenuManager : MonoBehaviour
     {
         mainPanel.DOAnchorPosX(0f, slideInSpeed).SetEase(slideInEase)
             .OnComplete(() => mainPanel.DOPunchScale(Vector3.one * punchScale, 0.3f, 5, 0.5f));
-        creditsPanel.DOAnchorPosX(640f, slideOutSpeed).SetEase(slideOutEase);
-        optionsPanel.DOAnchorPosX(640f, slideOutSpeed).SetEase(slideOutEase);
+        creditsPanel.DOAnchorPosX(1000f, slideOutSpeed).SetEase(slideOutEase);
+        optionsPanel.DOAnchorPosX(1000f, slideOutSpeed).SetEase(slideOutEase);
     }
 
     public void Quit()
