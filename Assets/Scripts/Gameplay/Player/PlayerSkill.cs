@@ -3,28 +3,24 @@ using UnityEngine;
 
 public class PlayerSkill : MonoBehaviour
 {
-    public float offsetDistance = 2f;     
-    public Vector3 spawnOffset = Vector3.up;  
     public GameObject Slash;
-    public GameObject weapon;
-    public float slashForce = 100f;
-    public Animator animator; 
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (PlayerFirefly.Instance.FireflyCounter >= 50)
+            if (PlayerFirefly.Instance.UseAllFireflies())
             {
-                animator.SetTrigger("slash");
-                PlayerFirefly.Instance.UseAllFireflies();
+                // trigger animation here...
                 Instantiate(Slash, Camera.main.transform.position + Camera.main.transform.forward * 2 + Vector3.up, Quaternion.LookRotation(transform.forward));
             }
+            Debug.Log("not enough fireflies");
         }
 
+        // For debug purpose
         if (Input.GetKeyDown(KeyCode.G))
         {
-            PlayerFirefly.Instance.AdjustFireflies(10);
+            PlayerFirefly.Instance.AdjustFireflies(1);
         }
     }
 }

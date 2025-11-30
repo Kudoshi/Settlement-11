@@ -1,11 +1,15 @@
 using Kudoshi.Utilities;
+using NUnit.Framework;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerFirefly : Singleton<PlayerFirefly>
 {
-    [SerializeField] private int _fireflyMax;
-    [SerializeField] private TextMeshProUGUI _fireflyText;
+    [SerializeField] private int _fireflyMax = 20;
+    [SerializeField] private Image _fireflyImg;
+    [SerializeField] private GameObject _skillImg;
+    [SerializeField] private Sprite[] _fireflySprites;
 
     private int _fireflyCounter;
 
@@ -16,19 +20,46 @@ public class PlayerFirefly : Singleton<PlayerFirefly>
         _fireflyCounter = 0;
     }
 
+    private void Start()
+    {
+        ImageCounter();
+        _fireflyImg.enabled = true;
+        _skillImg.SetActive(false);
+    }
+
     public void AdjustFireflies(int firefly)
     {
         _fireflyCounter += firefly;
+        _fireflyCounter = Mathf.Clamp(_fireflyCounter, 0, _fireflyMax -1);
+        ImageCounter();
     }
 
-    public void UseAllFireflies()
+    public bool UseAllFireflies()
     {
-        _fireflyCounter -= 50;
-        Debug.Log("All fireflies used. Counter reset to 0.");
+        if (_fireflyCounter >= _fireflyMax - 1) 
+        {
+            Debug.Log("All fireflies used. Counter reset to 0.");
+            _fireflyCounter = 0;
+            _fireflyImg.enabled = true;
+            _skillImg.SetActive(false);
+            ImageCounter();
+            return true;
+        }
+        ImageCounter();
+        return false;
+    }
+
+    private void ImageCounter()
+    {
+        _fireflyImg.sprite = _fireflySprites[_fireflyCounter];
     }
 
     private void Update()
     {
-        _fireflyText.text = _fireflyCounter.ToString() + " / " + _fireflyMax.ToString();
+        if (_fireflyCounter >= _fireflyMax - 1)
+        {
+            _skillImg.SetActive(true);
+            _fireflyImg.enabled = false;
+        }
     }
 }

@@ -50554,7 +50554,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 336e60be74ac9594e8af7b4952a29763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerFirefly
-  _fireflyMax: 50
+  _fireflyMax: 20
+  _fireflyImg: {fileID: 527897840759733651, guid: 813197d99ba15ab43b1fd307f6b820a2, type: 3}
+  _skillImg: {fileID: 3943452680556070768, guid: 47b3bff2badbcf64393f099f87f37c77, type: 3}
+  _fireflySprites:
+  - {fileID: 282119427, guid: 5375aba061ec45b4880c721bad34ab0a, type: 3}
+  - {fileID: -1667939099, guid: 5375aba061ec45b4880c721bad34ab0a, type: 3}
+  - {fileID: 1223519101, guid: 5375aba061ec45b4880c721bad34ab0a, type: 3}
+  - {fileID: -1880472903, guid: 5375aba061ec45b4880c721bad34ab0a, type: 3}
+  - {fileID: 1829425570, guid: 5375aba061ec45b4880c721bad34ab0a, type: 3}
+  - {fileID: 771155894, guid: 5375aba061ec45b4880c721bad34ab0a, type: 3}
+  - {fileID: -760064304, guid: 5375aba061ec45b4880c721bad34ab0a, type: 3}
+  - {fileID: -800288330, guid: 5375aba061ec45b4880c721bad34ab0a, type: 3}
+  - {fileID: -1109224181, guid: 5375aba061ec45b4880c721bad34ab0a, type: 3}
+  - {fileID: -874767637, guid: 5375aba061ec45b4880c721bad34ab0a, type: 3}
+  - {fileID: -1730787032, guid: 5375aba061ec45b4880c721bad34ab0a, type: 3}
+  - {fileID: 1429476390, guid: 5375aba061ec45b4880c721bad34ab0a, type: 3}
+  - {fileID: -1636603222, guid: 5375aba061ec45b4880c721bad34ab0a, type: 3}
+  - {fileID: 753837218, guid: 5375aba061ec45b4880c721bad34ab0a, type: 3}
+  - {fileID: -525930290, guid: 5375aba061ec45b4880c721bad34ab0a, type: 3}
+  - {fileID: 914173399, guid: 5375aba061ec45b4880c721bad34ab0a, type: 3}
+  - {fileID: -2013153360, guid: 5375aba061ec45b4880c721bad34ab0a, type: 3}
+  - {fileID: -701876118, guid: 5375aba061ec45b4880c721bad34ab0a, type: 3}
+  - {fileID: 1751725717, guid: 5375aba061ec45b4880c721bad34ab0a, type: 3}
+  - {fileID: -77902844, guid: 5375aba061ec45b4880c721bad34ab0a, type: 3}
 --- !u!114 &8485237103242928106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50571,6 +50594,7 @@ MonoBehaviour:
   currentSanity: 0
   maxSanity: 100
   slowDuration: 5
+  overtimeDecreaseRate: 3
   canvasGroup: {fileID: 6297530523465870185}
 --- !u!114 &1325653026027707429
 MonoBehaviour:
