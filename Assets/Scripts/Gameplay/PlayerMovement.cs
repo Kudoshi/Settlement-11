@@ -51,6 +51,11 @@ public class PlayerMovement : MonoBehaviour
     private float currentSpeed;
     private MovementState state;
 
+    private int sprintSoundEntityID = -1;
+    private int slideSoundEntityID = -1;
+
+    private bool wasSprintInputActive = false;
+
     public MovementState State { get => state; }
 
     public enum MovementState
@@ -78,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void FixedUpdate()
-        {
+    {
         HandleMovement();
         HandleDrag();
         HandleGravity();
@@ -103,6 +108,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (sprintPressed)
             {
+                Debug.Log("start slide");
                 StartSlide();
             }
             else
@@ -118,8 +124,40 @@ public class PlayerMovement : MonoBehaviour
         if ((Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.C)))
         {
             StopCrouch();
+
+            if (isSliding && slideSoundEntityID != -1)
+            {
+                SoundManager.Instance.StopOneShotByEntityID(slideSoundEntityID);
+                slideSoundEntityID = -1;
+            }
+
             isSliding = false;
         }
+
+
+
+        bool shouldBeSprinting = sprintPressed && grounded;
+
+        if (shouldBeSprinting && !wasSprintInputActive && !isSliding)
+        {
+            if (sprintSoundEntityID != -1)
+                SoundManager.Instance.StopOneShotByEntityID(sprintSoundEntityID);
+
+            sprintSoundEntityID = SoundManager.Instance.PlaySound("sfx_running_concrete");
+        }
+
+        else if ((!shouldBeSprinting && wasSprintInputActive) || (isSliding && sprintSoundEntityID != -1))
+        {
+            if (sprintSoundEntityID != -1)
+            {
+                SoundManager.Instance.StopOneShotByEntityID(sprintSoundEntityID);
+                sprintSoundEntityID = -1;
+            }
+        }
+
+        wasSprintInputActive = shouldBeSprinting;
+
+
     }
 
     private void HandleGroundCheck()
@@ -129,6 +167,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleStateChange()
     {
+        MovementState previousState = state;
         isSprinting = false;
 
         if (isSliding)
@@ -162,6 +201,15 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             state = MovementState.Air;
+        }
+
+        if (previousState == MovementState.Sliding && state != MovementState.Sliding)
+        {
+            if (slideSoundEntityID != -1)
+            {
+                SoundManager.Instance.StopOneShotByEntityID(slideSoundEntityID);
+                slideSoundEntityID = -1;
+            }
         }
     }
 
@@ -230,6 +278,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void StartSlide()
     {
+        if (sprintSoundEntityID != -1)
+        {
+            SoundManager.Instance.StopOneShotByEntityID(sprintSoundEntityID);
+            sprintSoundEntityID = -1;
+        }
+
+        slideSoundEntityID = SoundManager.Instance.PlaySound("sfx_sliding");
+
         isSliding = true;
         slideTimer = slideDuration;
 

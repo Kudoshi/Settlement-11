@@ -210,6 +210,7 @@ public class SwordVFXTest : MonoBehaviour
 
             if (canCombo && lastWasFirstSwing && swingClip2 != null)
             {
+                SoundManager.Instance.PlaySound("sfx_sword_shing_slash");
                 animComponent.Play("swing2");
                 swingTimer = swingClip2.length;
                 isSwinging = true;
@@ -222,6 +223,7 @@ public class SwordVFXTest : MonoBehaviour
             }
             else if (swingClip1 != null)
             {
+                SoundManager.Instance.PlaySound("sfx_sword_slash");
                 animComponent.Play("swing1");
                 swingTimer = swingClip1.length;
                 isSwinging = true;

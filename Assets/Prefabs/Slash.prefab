@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 608baf1b39ff8354781a5f453acb91d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkillSlash
+  camTrans: {fileID: 8549237688836584973, guid: b46412615aefdf441a9dd7818127554e, type: 3}
 --- !u!114 &1249082092468164972
 MonoBehaviour:
   m_ObjectHideFlags: 0
