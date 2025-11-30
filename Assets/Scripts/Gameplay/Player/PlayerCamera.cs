@@ -13,8 +13,8 @@ public class PlayerCamera : Singleton<PlayerCamera>
     public bool dynamicFOV = true;
     public float normalFOV = 80f;
     public float crouchFOV = 75f;
-    public float sprintFOV = 90f;
-    public float slideFOV = 100f;
+    public float sprintFOV = 95f;
+    public float slideFOV = 105f;
     public float fovSpeed = 8f;
 
     [Header("Camera Shake")]

@@ -67,7 +67,7 @@ public class SanityManager : Singleton<SanityManager>
     public void DecreaseSanity(float sanity, Vector3 knockbackDirection)
     {
         currentSanity -= sanity;
-        
+
         if (currentSanity <= 0)
         {
             currentSanity = 0;
@@ -76,6 +76,12 @@ public class SanityManager : Singleton<SanityManager>
         }
 
         _rb.AddForce(knockbackDirection * _hitKnockbackForce, ForceMode.Impulse);
+
+        // Add subtle camera shake when player gets hit
+        if (PlayerCamera.Instance != null)
+        {
+            PlayerCamera.Instance.Shake(0.15f, 0.15f);
+        }
 
         UpdateSanity(currentSanity, maxSanity);
     }
