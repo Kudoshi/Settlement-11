@@ -46,14 +46,14 @@ MonoBehaviour:
   - SoundName: sfx_landing_concrete
     Clip: {fileID: 8300000, guid: edf0ad13a7baef54db25eeaca38722aa, type: 3}
     AttachedParent: {fileID: 0}
-    Volume: 1
+    Volume: 0.2
     SpatialBlend: 0.2
     Pitch: 1
   - SoundName: sfx_landing_grass
     Clip: {fileID: 8300000, guid: fd617d92e7328f04db0dee540aa964b6, type: 3}
     AttachedParent: {fileID: 0}
-    Volume: 1
-    SpatialBlend: 0.2
+    Volume: 0.1
+    SpatialBlend: 0.1
     Pitch: 1
   - SoundName: sfx_low_sanity
     Clip: {fileID: 8300000, guid: cc2e7266ea0dd124e9393e131d5afca9, type: 3}
@@ -179,6 +179,12 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: 89f2cd26aab6fc049ae407cc9cd66f37, type: 3}
     AttachedParent: {fileID: 0}
     Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_walk_concrete
+    Clip: {fileID: 8300000, guid: 06302d6e65096f94cbeb54d8a642bad3, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 0.4
     SpatialBlend: 0.2
     Pitch: 1
   BGMList:
