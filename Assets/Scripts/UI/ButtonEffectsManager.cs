@@ -37,6 +37,7 @@ public class ButtonEffectsManager : MonoBehaviour
 
     private void OnHoverEnter(Button button)
     {
+        SoundManager.Instance.PlaySound("sfx_ui_hover");
         RectTransform rectTransform = button.GetComponent<RectTransform>();
         rectTransform.DOKill();
         rectTransform
@@ -59,6 +60,7 @@ public class ButtonEffectsManager : MonoBehaviour
     {
         button.transform.DOKill();
         button.transform.DOScale(originalScales[button] * clickScale, clickSpeed).SetUpdate(true);
+        SoundManager.Instance.PlaySound("sfx_ui_click");
     }
 
     private void OnClickUp(Button button)

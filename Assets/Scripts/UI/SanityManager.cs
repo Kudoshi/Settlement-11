@@ -44,6 +44,12 @@ public class SanityManager : Singleton<SanityManager>
     private void InternalSanityUpdate()
     {
         currentSanity -= overtimeDecreaseRate * Time.deltaTime;
+
+        if (currentSanity <= 20)
+        {
+            SoundManager.Instance.PlaySound("sfx_lowhealth_heartbeat");
+        }
+
         sanityImg.fillAmount = Mathf.Lerp(sanityImg.fillAmount, currentSanity / maxSanity, Time.deltaTime * 10f);
 
         if (currentSanity <= 0) GameOver();

@@ -854,17 +854,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8096996646348354151, guid: 2512dbceb26b2b94e80ca5ccd66e07f6, type: 3}
   m_PrefabInstance: {fileID: 534936577}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1245799737 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1136646299977054748, guid: 2512dbceb26b2b94e80ca5ccd66e07f6, type: 3}
-  m_PrefabInstance: {fileID: 534936577}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!95 &1320693110
 Animator:
   serializedVersion: 7
@@ -1060,6 +1049,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f62346df5ba70443b0d7121129802d3, type: 3}
+--- !u!114 &1554410138 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3527903850607519382, guid: 2512dbceb26b2b94e80ca5ccd66e07f6, type: 3}
+  m_PrefabInstance: {fileID: 534936577}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &1574294877
 GameObject:
   m_ObjectHideFlags: 0
@@ -82484,7 +82484,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aed2032872c44b419671647b4ed364c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SanityManager
-  sanityImg: {fileID: 1245799737}
+  sanityImg: {fileID: 1554410138}
   currentSanity: 0
   maxSanity: 100
   slowDuration: 5
