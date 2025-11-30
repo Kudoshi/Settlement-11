@@ -1790,7 +1790,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1d896a87867a40429d5757ee37d83cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  ragdollPrefab: {fileID: 1549024452213142961, guid: 902f9224abda8b749b27a43d17ad1144, type: 3}
+  ragdollPrefab: {fileID: 2976714606929700648, guid: 349905e6968e833439d407200d1cebb3, type: 3}
   strength: 10000
   knockbackMultiplier: 1.5
   hitParticle: {fileID: 0}
