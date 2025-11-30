@@ -27,6 +27,8 @@ public class AI_Enemy1 : MonoBehaviour
     private bool _isBlockingState = false;
     private bool _alreadyTriggeredFromIdle = false;
 
+    private int _chaseSoundEntityID = -1;
+
     private void Start()
     {
         _enemy = GetComponent<Enemy>();
@@ -147,6 +149,13 @@ public class AI_Enemy1 : MonoBehaviour
 
     public void ChangeState(EnemyState newState)
     {
+        if (_currentState == EnemyState.Chase && _chaseSoundEntityID != -1)
+        {
+            SoundManager.Instance.StopOneShotByEntityID(_chaseSoundEntityID);
+            _chaseSoundEntityID = -1;
+            Debug.Log("Stopped chase sound using ID.");
+        }
+
         _currentState = newState;
         Debug.Log($"Enemy state changed to: {newState} + {_isBlockingState}");
 
@@ -170,6 +179,7 @@ public class AI_Enemy1 : MonoBehaviour
                 break;
 
             case EnemyState.Chase:
+                _chaseSoundEntityID = SoundManager.Instance.PlaySound("sfx_enemyrun_indoors");
                 if (!_isBlockingState)
                     _enemy.EnemyMovement.DisableMovement(false);
 
