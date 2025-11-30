@@ -4,6 +4,7 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     public GameObject ragdollPrefab;
+    public GameObject fireflyOrb;
     private GameObject ragdoll;
     public float strength = 10000f;
 
@@ -13,6 +14,7 @@ public class EnemyHealth : MonoBehaviour
         ragdoll = Instantiate(ragdollPrefab, transform.position, transform.rotation);
         ragdoll.GetComponent<EnemyRagdoll>().Ragdoll((transform.position - hitPoint), strength);
         Destroy(gameObject);
+        Instantiate(fireflyOrb, transform.position, Quaternion.identity);
     }
     
 }
