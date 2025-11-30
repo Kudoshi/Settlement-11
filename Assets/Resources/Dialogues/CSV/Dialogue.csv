@@ -1,4 +1,14 @@
 ID,DialogueType,Speaker,Dialogue,AfterIntervalGap,SpecialData,Remarks
-0,CONVERSATION_START_SPEAKER,Captain Toasted,"Well, well, well! Look what we have here",,,Ignore this. Too long
-1,CONVERSATION_CONTINUE,Captain Toasted,"some fresh, raw meat that hasn't been cooked by fire yet",,,Ignore this. Too long
-2,CONVERSATION_START_SPEAKER,Captain Toasted,Welcome to the Super Hazard Intervention Training,0,,
+0,CONVERSATION_START_SPEAKER,,Great. Fired on a Monday. Perfect start to the week.,,,Ignore this. Too long
+1,CONVERSATION_END,,Should frame the termination letter. Add it to the collection.,,,Ignore this. Too long
+2,CONVERSATION_START_SPEAKER,,Good for them.,,,
+3,CONVERSATION_CONTINUE,,I should turn the lights off and just rest,1,,
+4,CONVERSATION_CONTINUE,,Where did I put my insomnia pills…,,,
+5,CONVERSATION_END,,They were here… somewhere.,,,
+6,CONVERSATION_START_SPEAKER,,Hey. Did you send out the applications we talked about?,,,
+7,CONVERSATION_START_SPEAKER,,I’m working on it.,,,
+8,CONVERSATION_START_SPEAKER,,Your brother already signed his contract in Tokyo. He’s settling in. I just don’t want you falling behind.,,,
+9,CONVERSATION_START_SPEAKER,,I’m not— I’m trying,,,
+10,CONVERSATION_START_SPEAKER,,Then try harder. You’re too smart to be stuck like this.,2,,
+11,CONVERSATION_START_SPEAKER,,I’ll talk to you later.,,,
+12,CONVERSATION_END,,Damn it,,,

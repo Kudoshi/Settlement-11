@@ -50,8 +50,6 @@ public class SanityManager : Singleton<SanityManager>
     {
         currentSanity = current_sanity;
         maxSanity = max_sanity;
-
-        //Debug.Log("Current sanity: " + currentSanity);
     }
 
     public void IncreaseSanity(float sanity)

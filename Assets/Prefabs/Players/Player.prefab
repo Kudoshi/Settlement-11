@@ -50571,7 +50571,7 @@ MonoBehaviour:
   currentSanity: 0
   maxSanity: 100
   slowDuration: 5
-  _hitKnockbackForce: 35
+  _hitKnockbackForce: 40
   canvasGroup: {fileID: 6297530523465870185}
 --- !u!114 &1325653026027707429
 MonoBehaviour:
@@ -85760,7 +85760,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1860383764084625650, guid: c65c31a9390931a449068f4d756174b6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 26
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1860383764084625650, guid: c65c31a9390931a449068f4d756174b6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -85795,12 +85795,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7964862145913695558, guid: c65c31a9390931a449068f4d756174b6, type: 3}
-      propertyPath: InitialModule.rotation3D
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7964862145913695558, guid: c65c31a9390931a449068f4d756174b6, type: 3}
       propertyPath: ShapeModule.m_Position.z
-      value: 38.7
+      value: 16.98
       objectReference: {fileID: 0}
     - target: {fileID: 7964862145913695558, guid: c65c31a9390931a449068f4d756174b6, type: 3}
       propertyPath: ShapeModule.m_Rotation.y
@@ -85815,7 +85811,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 727302976690141396, guid: c65c31a9390931a449068f4d756174b6, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1028432199740939768}
+      addedObject: {fileID: 3038580180921228763}
   m_SourcePrefab: {fileID: 100100000, guid: c65c31a9390931a449068f4d756174b6, type: 3}
 --- !u!4 &513859992076973349 stripped
 Transform:
@@ -85827,7 +85823,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 727302976690141396, guid: c65c31a9390931a449068f4d756174b6, type: 3}
   m_PrefabInstance: {fileID: 2229547749322483159}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1028432199740939768
+--- !u!114 &3038580180921228763
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85839,6 +85835,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c67585949f22794b84ebdf3e61bbf4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WindVFXController
+  _offsetPosition: {x: 0, y: 0, z: 0}
+  _offsetRotation: {x: 0, y: 0, z: 0}
 --- !u!198 &8104278319656552593 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 7964862145913695558, guid: c65c31a9390931a449068f4d756174b6, type: 3}
