@@ -29,5 +29,5 @@ public class Enemy : MonoBehaviour
 
 public enum EnemyType
 {
-    SALARY_MAN, RANGE
+    SALARY_MAN, ADNAN, SALARY_GIRL
 }
