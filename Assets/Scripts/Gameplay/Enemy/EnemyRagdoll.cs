@@ -22,5 +22,11 @@ public class EnemyRagdoll : MonoBehaviour
     {
         Debug.Log("helo");
         _rb.AddForce(strength * direction);
+
+        // Add camera shake when enemy dies
+        if (PlayerCamera.Instance != null)
+        {
+            PlayerCamera.Instance.Shake(0.25f, 0.2f);
+        }
     }
 }

@@ -1,6 +1,9 @@
+using Kudoshi.Utilities;
 using UnityEngine;
+using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
 
-public class Intro_CutsceneManager : MonoBehaviour
+public class Intro_CutsceneManager : Singleton<Intro_CutsceneManager>
 {
     [SerializeField] private GameObject phoneObject;
     [SerializeField] private Material blankMaterial;
@@ -9,16 +12,18 @@ public class Intro_CutsceneManager : MonoBehaviour
 
     private MeshRenderer phoneRenderer;
     private Animator animator;
+    private PlayableDirector _director;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        _director = GetComponent<PlayableDirector>();
 
         // Disable animator on awake so animation doesn't auto-play
-        if (animator != null)
-        {
-            animator.enabled = false;
-        }
+        //if (animator != null)
+        //{
+        //    animator.enabled = false;
+        //}
     }
 
     private void Start()
@@ -28,6 +33,7 @@ public class Intro_CutsceneManager : MonoBehaviour
             phoneRenderer = phoneObject.GetComponent<MeshRenderer>();
         }
     }
+
 
     public void EnableAndPlayAnimation()
     {
@@ -59,7 +65,28 @@ public class Intro_CutsceneManager : MonoBehaviour
     {
         if (phoneRenderer != null && onCallMaterial != null)
         {
+            //DialogueManager.Instance.PlayDialogueID(6);
             phoneRenderer.material = onCallMaterial;
+        }
+    }
+
+    public void CutsceneEnd()
+    {
+        Debug.Log("Cutscene end");
+        SceneManager.LoadScene("City");
+    }
+
+    public void CutsceneStart()
+    {
+        _director.Play();
+
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            CutsceneStart();
         }
     }
 

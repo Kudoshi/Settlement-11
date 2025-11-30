@@ -1,6 +1,6 @@
 using Kudoshi.Utilities;
-using System;
 using NUnit.Framework;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,9 +13,9 @@ public class PlayerFirefly : Singleton<PlayerFirefly>
     [SerializeField] private Sprite[] _fireflySprites;
 
     private int _fireflyCounter;
-
-    public int FireflyCounter => _fireflyCounter;
     public event Action OnFireflyChanged;
+
+    public int FireflyCounter { get => _fireflyCounter; }
 
     private void Awake()
     {
@@ -34,12 +34,10 @@ public class PlayerFirefly : Singleton<PlayerFirefly>
         _fireflyCounter += firefly;
         _fireflyCounter = Mathf.Clamp(_fireflyCounter, 0, _fireflyMax -1);
         ImageCounter();
-        Debug.Log("Firefly Counter: " + _fireflyCounter);
 
-        OnFireflyChanged?.Invoke();  
+        OnFireflyChanged?.Invoke();
     }
 
-         
     public bool UseAllFireflies()
     {
         if (_fireflyCounter >= _fireflyMax - 1) 

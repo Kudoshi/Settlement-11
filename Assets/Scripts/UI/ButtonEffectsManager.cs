@@ -73,4 +73,5 @@ public class ButtonEffectsManager : MonoBehaviour
         entry.callback.AddListener((data) => callback(data));
         trigger.triggers.Add(entry);
     }
+
 }
