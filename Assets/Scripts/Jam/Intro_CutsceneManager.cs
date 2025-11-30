@@ -65,7 +65,7 @@ public class Intro_CutsceneManager : Singleton<Intro_CutsceneManager>
     {
         if (phoneRenderer != null && onCallMaterial != null)
         {
-            DialogueManager.Instance.PlayDialogueID(6);
+            //DialogueManager.Instance.PlayDialogueID(6);
             phoneRenderer.material = onCallMaterial;
         }
     }
