@@ -25,7 +25,8 @@ public class EnemyMovement : MonoBehaviour
         m_Agent.speed = _movementSpeed;
         m_Agent.acceleration = _navAgentAccelerationSpeed;
         m_Agent.angularSpeed = _navAngularSpeed;
-        m_Agent.isStopped = true;
+        if (m_Agent.isOnNavMesh)
+            m_Agent.isStopped = true;
     }
 
     private void Update()
