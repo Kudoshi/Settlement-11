@@ -1,8 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Vfx/Environment/vfx_tree_leafs_wind_m_Orange.mat.meta
+guid: d91fcd21b2e2014409b98b079d42de36
+========
 guid: 3698cc54cfbbe54569bfd01be79b7eff
+>>>>>>>> origin/kudo-v2:Assets/Animation/IntroRoom.anim.meta
 NativeFormatImporter:
   externalObjects: {}
-  mainObjectFileID: 7400000
+  mainObjectFileID: 2100000
   userData: 
   assetBundleName: 
   assetBundleVariant: 

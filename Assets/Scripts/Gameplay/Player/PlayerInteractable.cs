@@ -56,10 +56,10 @@ public class PlayerInteractable : Singleton<PlayerInteractable>
     }
     private void OnDrawGizmos()
     {
-        Transform camTrans = Camera.main.transform;
+        //Transform camTrans = Camera.main.transform;
 
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(camTrans.position, camTrans.position + camTrans.forward * _interactDistance);
+        ////Gizmos.color = Color.green;
+       // Gizmos.DrawLine(camTrans.position, camTrans.position + camTrans.forward * _interactDistance);
     }
 
 }

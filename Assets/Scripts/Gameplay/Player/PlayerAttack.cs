@@ -16,6 +16,8 @@ public class PlayerAttack : MonoBehaviour
     public BoxCollider attackCollider;
     //public LayerMask attackLayer;
 
+    public float firefly = 100f;
+
     public GameObject hitEffect;
     //... Audio here
 
@@ -43,6 +45,8 @@ public class PlayerAttack : MonoBehaviour
     public void Attack()
     {
         if (!readyToAttack || isAttacking) return;
+
+        CancelInvoke(nameof(ResetAttack));
 
         readyToAttack = false;
         isAttacking = true;
@@ -76,6 +80,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void ChangeAnimationState(string newState)
     {
+        // reason why can't play the same skill second time
         // stop same animation from interrupting itself
         if (currentAnimationState == newState) return;
 
@@ -102,6 +107,8 @@ public class PlayerAttack : MonoBehaviour
     private void SkillAttack()
     {
         if (!readyToAttack || isAttacking) return;
+
+        if (firefly != 100f) return;
 
         readyToAttack = false;
         isAttacking = true;

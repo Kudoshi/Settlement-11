@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Animation/Fan.anim.meta
+guid: f422ce0bc755e9a4da74efc8a5aa2cbf
+========
 guid: f5b001c087f071e4280ce37a9cea6232
+>>>>>>>> origin/angel:Assets/Scenes/Angel/bulletAttackAnimTest.anim.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 7400000
