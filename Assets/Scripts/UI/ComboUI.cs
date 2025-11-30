@@ -10,6 +10,7 @@ public class ComboUI : MonoBehaviour
     public CanvasGroup canvasGroup;
 
     public float comboResetTime = 2f;
+    public int maxMultiplier = 500000;
 
     private int killScore = 10;
     private float comboTimer = 0f;
@@ -81,8 +82,15 @@ public class ComboUI : MonoBehaviour
         // Fade out
         canvasGroup.DOFade(0f, 0.5f).SetDelay(0.8f);
 
-        // Multiply for next kill
-        killScore *= 10;
+        // Multiply for next kill (capped at max)
+        if (killScore < maxMultiplier)
+        {
+            killScore *= 10;
+            if (killScore > maxMultiplier)
+            {
+                killScore = maxMultiplier;
+            }
+        }
     }
 
     private void ResetCombo()
