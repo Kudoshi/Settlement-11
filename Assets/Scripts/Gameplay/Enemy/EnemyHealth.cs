@@ -5,6 +5,7 @@ public class EnemyHealth : MonoBehaviour
 {
     [Header("Ragdoll")]
     public GameObject ragdollPrefab;
+    public GameObject fireflyOrb;
     private GameObject ragdoll;
     public float strength = 10000f;
     public float knockbackMultiplier = 1.5f; // Extra push for juiciness
@@ -38,5 +39,6 @@ public class EnemyHealth : MonoBehaviour
         ragdoll = Instantiate(ragdollPrefab, transform.position, transform.rotation);
         ragdoll.GetComponent<EnemyRagdoll>().Ragdoll((transform.position - hitPoint), strength * knockbackMultiplier);
         Destroy(gameObject);
+        Instantiate(fireflyOrb, transform.position, Quaternion.identity);
     }
 }
