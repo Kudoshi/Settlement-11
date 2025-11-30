@@ -19,5 +19,11 @@ MonoBehaviour:
     Volume: 1
     SpatialBlend: 0
     Pitch: 1
+  - SoundName: sfx_ziqing
+    Clip: {fileID: 8300000, guid: 5f8ed2ca6fdc6764280bedae33e5361a, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
   BGMList: []
   DialoguePath: Dialogues/Voicelines
