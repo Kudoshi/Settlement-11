@@ -9,7 +9,7 @@ public class SkillSlash : MonoBehaviour
     private void Start()
     {
         camTrans = Camera.main.transform;
-        SoundManager.Instance.PlaySound("sfx_sword_shing_slash");
+        SoundManager.Instance.PlaySound("sfx_sword_swingsh_swing");
     }
 
     void Update()
