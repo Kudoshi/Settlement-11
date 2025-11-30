@@ -1,0 +1,8 @@
+Model Information:
+* title:	PSX Plate
+* source:	https://sketchfab.com/3d-models/psx-plate-de66fa5d1a6d4174b8833dfef9e547d2
+* author:	Charckes (https://sketchfab.com/charlesmoch)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works

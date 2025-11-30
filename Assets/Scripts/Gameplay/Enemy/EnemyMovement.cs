@@ -35,7 +35,6 @@ public class EnemyMovement : MonoBehaviour
 
     public void DisableMovement(bool movementDisabled)
     {
-        Debug.Log("Disable movement!" + movementDisabled);
         if (m_Agent.isOnNavMesh && m_Agent.enabled)
         {
             m_Agent.isStopped = movementDisabled;
@@ -44,17 +43,6 @@ public class EnemyMovement : MonoBehaviour
                 m_Agent.velocity = Vector3.zero;
                 m_Agent.ResetPath();
             }
-            //Debug.Log($"Movement disabled: {movementDisabled}, isStopped: {m_Agent.isStopped}");
-        }
-    }
-
-    public void PleaseDisableMovement()
-    {
-        if (m_Agent.isOnNavMesh && m_Agent.enabled)
-        {
-            m_Agent.isStopped = false;
-            m_Agent.velocity = Vector3.zero;
-            m_Agent.ResetPath();
             //Debug.Log($"Movement disabled: {movementDisabled}, isStopped: {m_Agent.isStopped}");
         }
     }
