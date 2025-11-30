@@ -25,5 +25,203 @@ MonoBehaviour:
     Volume: 1
     SpatialBlend: 0.2
     Pitch: 1
-  BGMList: []
+  - SoundName: sfx_chase
+    Clip: {fileID: 8300000, guid: 9d58230b348924c4cbbee696caab2c6a, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_ui_click
+    Clip: {fileID: 8300000, guid: e1ce9a58af70b9d429d0c247ea7cf811, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_ui_hover
+    Clip: {fileID: 8300000, guid: b32b12ddf989f514fa0de94d19cd3e2c, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_landing_concrete
+    Clip: {fileID: 8300000, guid: edf0ad13a7baef54db25eeaca38722aa, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_landing_grass
+    Clip: {fileID: 8300000, guid: fd617d92e7328f04db0dee540aa964b6, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_low_sanity
+    Clip: {fileID: 8300000, guid: cc2e7266ea0dd124e9393e131d5afca9, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_ringtone
+    Clip: {fileID: 8300000, guid: a1e98bfee932abb4297272547dc85def, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_running_concrete
+    Clip: {fileID: 8300000, guid: 321c1e534fb50784a844a4c67b49aeb0, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_running_grass
+    Clip: {fileID: 8300000, guid: e6859b1cd0cb78d41922c6bb3c5d5dad, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_sliding
+    Clip: {fileID: 8300000, guid: c6c0a062373f67a489f347c5c1887609, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_sword_hit
+    Clip: {fileID: 8300000, guid: 568355b2c63edd940aa5004e1f26f531, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_sword_slash
+    Clip: {fileID: 8300000, guid: 83304eda1b77bbe45af42a4dd621209d, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_train_horn
+    Clip: {fileID: 8300000, guid: 5f8ed2ca6fdc6764280bedae33e5361a, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_enemyrun_indoors
+    Clip: {fileID: 8300000, guid: cc4f61d60e9fb9942b318a2c5b9f9969, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_enemyrun_outdoors
+    Clip: {fileID: 8300000, guid: 2c36ec606d8ceea4da0a6aa622d452d8, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_gulp_medicine
+    Clip: {fileID: 8300000, guid: 59c152bdac340ab4cb4d30fcbb5ee926, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_sword_katana
+    Clip: {fileID: 8300000, guid: 4c2d61f8f4570ce48af00d38d5cbfc2a, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_keyboardtyping
+    Clip: {fileID: 8300000, guid: d7c30f98effab584e80f4f5830060e47, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_lowhealth_heartbeat
+    Clip: {fileID: 8300000, guid: 89894bd5f293f844c8b6973029d657c0, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_pillbottle_open
+    Clip: {fileID: 8300000, guid: b1ac1a4a76594bf42942ba18138b8975, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_pills_pickup
+    Clip: {fileID: 8300000, guid: 4863cb5d79e44fe4fa3874a6499174c3, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_pillbottle_shake
+    Clip: {fileID: 8300000, guid: b165153f73ecec44d840ffe6555eec31, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_sittingbed
+    Clip: {fileID: 8300000, guid: 235bda46cf62f0d4f9ec58d5b5e1fae8, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_sword_deepslash
+    Clip: {fileID: 8300000, guid: 328476a79ad2bc54e9373ce713a1645d, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_sword_shing_slash
+    Clip: {fileID: 8300000, guid: ff52b4bd7a3fd934f80c02c8a820665b, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_sword_swingsh_swing
+    Clip: {fileID: 8300000, guid: 89f2cd26aab6fc049ae407cc9cd66f37, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  BGMList:
+  - SoundName: bgm_normal
+    Clip: {fileID: 8300000, guid: e963eb7ea32eafd4ab9fc2c3120b2d78, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: bgm_amb_hugecity
+    Clip: {fileID: 8300000, guid: 17567e5d9804fa343977c1830380b470, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: bgm_amb_metrotrain
+    Clip: {fileID: 8300000, guid: 200b74067d4387a4991b7567844f12ad, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: bgm_amb_office
+    Clip: {fileID: 8300000, guid: c4d673f1f2c10044a9216204c2371ae4, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: bgm_amb_room_lightbuzz
+    Clip: {fileID: 8300000, guid: d1197697da4a5864ab7412fb834fcb7d, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: bgm_amb_subway_pa
+    Clip: {fileID: 8300000, guid: 3d442ee8c21555c4b8cc7f6ada208518, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: bgm_amb_train_enter_station
+    Clip: {fileID: 8300000, guid: 628be613ada95f94089ad1901297a996, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0.2
+    Pitch: 1
   DialoguePath: Dialogues/Voicelines
