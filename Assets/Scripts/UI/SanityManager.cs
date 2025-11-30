@@ -27,6 +27,7 @@ public class SanityManager : Singleton<SanityManager>
     private void Start()
     {
         currentSanity = maxSanity;
+        Time.timeScale = 1f;
     }
 
     // Update is called once per frame
