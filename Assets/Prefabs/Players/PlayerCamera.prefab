@@ -244,15 +244,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3910990755373119420, guid: cee45f99a04e89d05969ea56507fc328, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.88126
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -3910990755373119420, guid: cee45f99a04e89d05969ea56507fc328, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.0230454
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -3910990755373119420, guid: cee45f99a04e89d05969ea56507fc328, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.6961199
+      value: 0.43
       objectReference: {fileID: 0}
     - target: {fileID: -3910990755373119420, guid: cee45f99a04e89d05969ea56507fc328, type: 3}
       propertyPath: m_LocalRotation.w
@@ -321,8 +321,8 @@ MonoBehaviour:
   swordObject: {fileID: 6625657535449821866}
   playerCamera: {fileID: 191691080886951338}
   cameraAnimator: {fileID: 2343208024002566078}
-  swingClip1: {fileID: 7400000, guid: 07edbf736246e55279729ca856d16fa4, type: 2}
-  swingClip2: {fileID: 7400000, guid: d9a19114f03b22541b1e8f9257662126, type: 2}
+  swingClip1: {fileID: 7400000, guid: 741323a0009bd1f4e950a9ca63b505ca, type: 2}
+  swingClip2: {fileID: 7400000, guid: 339d3cf1c4b048a4389d837e6eb1fed8, type: 2}
   slashParticle1: {fileID: 0}
   slashParticle2: {fileID: 0}
   comboWindowTime: 1

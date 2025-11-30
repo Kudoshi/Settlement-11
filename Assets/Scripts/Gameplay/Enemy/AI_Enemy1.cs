@@ -211,7 +211,8 @@ public class AI_Enemy1 : MonoBehaviour
 
         if (distanceToPlayer <= _attackRange)
         {
-            SanityManager.Instance.DecreaseSanity(_enemy.AttackDamage);
+            Vector3 direction = PlayerController.Instance.transform.position - transform.position;
+            SanityManager.Instance.DecreaseSanity(_enemy.AttackDamage, direction);
 
         }
     }

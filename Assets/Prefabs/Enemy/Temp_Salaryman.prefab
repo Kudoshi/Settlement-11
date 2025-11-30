@@ -143,4 +143,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   ragdollPrefab: {fileID: 5776611285556351004, guid: 7e6164f9e284e9b438959e8e1adadf8f, type: 3}
-  strength: 10000
+  strength: 30000

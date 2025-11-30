@@ -3,24 +3,104 @@
         {
             "ID": 0,
             "DialogueType": "CONVERSATION_START_SPEAKER",
-            "Speaker": "Captain Toasted",
-            "Dialogue": "Well, well, well! Look what we have here",
+            "Speaker": "",
+            "Dialogue": "Great. Fired on a Monday. Perfect start to the week.",
             "AfterIntervalGap": 0.0,
             "SpecialData": ""
         },
         {
             "ID": 1,
-            "DialogueType": "CONVERSATION_CONTINUE",
-            "Speaker": "Captain Toasted",
-            "Dialogue": "some fresh, raw meat that hasn't been cooked by fire yet",
+            "DialogueType": "CONVERSATION_END",
+            "Speaker": "",
+            "Dialogue": "Should frame the termination letter. Add it to the collection.",
             "AfterIntervalGap": 0.0,
             "SpecialData": ""
         },
         {
             "ID": 2,
             "DialogueType": "CONVERSATION_START_SPEAKER",
-            "Speaker": "Captain Toasted",
-            "Dialogue": "Welcome to the Super Hazard Intervention Training",
+            "Speaker": "",
+            "Dialogue": "Good for them.",
+            "AfterIntervalGap": 0.0,
+            "SpecialData": ""
+        },
+        {
+            "ID": 3,
+            "DialogueType": "CONVERSATION_CONTINUE",
+            "Speaker": "",
+            "Dialogue": "I should turn the lights off and just rest",
+            "AfterIntervalGap": 1.0,
+            "SpecialData": ""
+        },
+        {
+            "ID": 4,
+            "DialogueType": "CONVERSATION_CONTINUE",
+            "Speaker": "",
+            "Dialogue": "Where did I put my insomnia pills�",
+            "AfterIntervalGap": 0.0,
+            "SpecialData": ""
+        },
+        {
+            "ID": 5,
+            "DialogueType": "CONVERSATION_END",
+            "Speaker": "",
+            "Dialogue": "They were here� somewhere.",
+            "AfterIntervalGap": 0.0,
+            "SpecialData": ""
+        },
+        {
+            "ID": 6,
+            "DialogueType": "CONVERSATION_START_SPEAKER",
+            "Speaker": "",
+            "Dialogue": "Hey. Did you send out the applications we talked about?",
+            "AfterIntervalGap": 0.0,
+            "SpecialData": ""
+        },
+        {
+            "ID": 7,
+            "DialogueType": "CONVERSATION_START_SPEAKER",
+            "Speaker": "",
+            "Dialogue": "I�m working on it.",
+            "AfterIntervalGap": 0.0,
+            "SpecialData": ""
+        },
+        {
+            "ID": 8,
+            "DialogueType": "CONVERSATION_START_SPEAKER",
+            "Speaker": "",
+            "Dialogue": "Your brother already signed his contract in Tokyo. He�s settling in. I just don�t want you falling behind.",
+            "AfterIntervalGap": 0.0,
+            "SpecialData": ""
+        },
+        {
+            "ID": 9,
+            "DialogueType": "CONVERSATION_START_SPEAKER",
+            "Speaker": "",
+            "Dialogue": "I�m not� I�m trying",
+            "AfterIntervalGap": 0.0,
+            "SpecialData": ""
+        },
+        {
+            "ID": 10,
+            "DialogueType": "CONVERSATION_START_SPEAKER",
+            "Speaker": "",
+            "Dialogue": "Then try harder. You�re too smart to be stuck like this.",
+            "AfterIntervalGap": 2.0,
+            "SpecialData": ""
+        },
+        {
+            "ID": 11,
+            "DialogueType": "CONVERSATION_START_SPEAKER",
+            "Speaker": "",
+            "Dialogue": "I�ll talk to you later.",
+            "AfterIntervalGap": 0.0,
+            "SpecialData": ""
+        },
+        {
+            "ID": 12,
+            "DialogueType": "CONVERSATION_END",
+            "Speaker": "",
+            "Dialogue": "Damn it",
             "AfterIntervalGap": 0.0,
             "SpecialData": ""
         }

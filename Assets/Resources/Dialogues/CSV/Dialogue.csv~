@@ -1,0 +1,4 @@
+ID,DialogueType,Speaker,Dialogue,AfterIntervalGap,SpecialData,Remarks
+0,CONVERSATION_START_SPEAKER,Captain Toasted,"Well, well, well! Look what we have here",,,Ignore this. Too long
+1,CONVERSATION_CONTINUE,Captain Toasted,"some fresh, raw meat that hasn't been cooked by fire yet",,,Ignore this. Too long
+2,CONVERSATION_START_SPEAKER,Captain Toasted,Welcome to the Super Hazard Intervention Training,0,,
