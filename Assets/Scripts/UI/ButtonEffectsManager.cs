@@ -39,26 +39,32 @@ public class ButtonEffectsManager : MonoBehaviour
     {
         RectTransform rectTransform = button.GetComponent<RectTransform>();
         rectTransform.DOKill();
-        rectTransform.DOAnchorPos(originalPositions[button] + Vector2.left * hoverSlideDistance, hoverSpeed);
+        rectTransform
+        .DOAnchorPos(originalPositions[button] + Vector2.left * hoverSlideDistance, hoverSpeed)
+        .SetUpdate(true);
+        //rectTransform.DOAnchorPos(originalPositions[button] + Vector2.left * hoverSlideDistance, hoverSpeed);
     }
 
     private void OnHoverExit(Button button)
     {
         RectTransform rectTransform = button.GetComponent<RectTransform>();
         rectTransform.DOKill();
-        rectTransform.DOAnchorPos(originalPositions[button], hoverSpeed);
+        rectTransform
+        .DOAnchorPos(originalPositions[button], hoverSpeed)
+        .SetUpdate(true);
+        //rectTransform.DOAnchorPos(originalPositions[button], hoverSpeed);
     }
 
     private void OnClickDown(Button button)
     {
         button.transform.DOKill();
-        button.transform.DOScale(originalScales[button] * clickScale, clickSpeed);
+        button.transform.DOScale(originalScales[button] * clickScale, clickSpeed).SetUpdate(true);
     }
 
     private void OnClickUp(Button button)
     {
         button.transform.DOKill();
-        button.transform.DOScale(originalScales[button], clickSpeed);
+        button.transform.DOScale(originalScales[button], clickSpeed).SetUpdate(true);
     }
 
     private void AddEventTrigger(EventTrigger trigger, EventTriggerType eventType, System.Action<BaseEventData> callback)
