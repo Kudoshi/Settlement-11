@@ -19,8 +19,6 @@ public class PlayerFirefly : Singleton<PlayerFirefly>
     public void AdjustFireflies(int firefly)
     {
         _fireflyCounter += firefly;
-
-        Debug.Log("Firefly Counter: " + _fireflyCounter);
     }
 
     public void UseAllFireflies()
