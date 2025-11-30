@@ -1,10 +1,8 @@
+using Kudoshi.Utilities;
 using UnityEngine;
 
-public class PlayerCamera : MonoBehaviour
+public class PlayerCamera : Singleton<PlayerCamera>
 {
-    [Header("References")]
-    public Transform playerHead;
-    public Transform orientation;
 
     [Header("Mouse Look")]
     public float sensitivity = 2f;
@@ -45,9 +43,9 @@ public class PlayerCamera : MonoBehaviour
         if (cam != null)
             cam.fieldOfView = currentFOV;
 
-        if (playerHead != null)
+        if (PlayerCameraFollower.Instance.Head != null)
         {
-            Transform playerRoot = playerHead.root;
+            Transform playerRoot = PlayerCameraFollower.Instance.Head.root;
             if (playerRoot != null)
                 playerMovement = playerRoot.GetComponent<PlayerMovement>();
         }
@@ -65,8 +63,8 @@ public class PlayerCamera : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (playerHead != null)
-            transform.position = playerHead.position + shakeOffset;
+        if (PlayerCameraFollower.Instance.Head != null)
+            transform.position = PlayerCameraFollower.Instance.Head.position + shakeOffset;
     }
 
     private void HandleMouseLook()
@@ -91,8 +89,8 @@ public class PlayerCamera : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(currentXRotation, currentYRotation, 0f);
 
-        if (orientation != null)
-            orientation.rotation = Quaternion.Euler(0f, currentYRotation, 0f);
+        if (PlayerCameraFollower.Instance.HeadOrientation != null)
+            PlayerCameraFollower.Instance.HeadOrientation.rotation = Quaternion.Euler(0f, currentYRotation, 0f);
     }
 
     private void HandleFOV()

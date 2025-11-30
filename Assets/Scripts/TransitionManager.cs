@@ -46,8 +46,8 @@ public class TransitionManager : MonoBehaviour
 
             if (fadeCanvasGroup != null)
             {
-                fadeCanvasGroup.alpha = 0f;
-                fadeCanvasGroup.blocksRaycasts = false;
+                fadeCanvasGroup.alpha = 1f;
+                fadeCanvasGroup.blocksRaycasts = true;
             }
 
             if (fadeImage != null)
@@ -81,8 +81,8 @@ public class TransitionManager : MonoBehaviour
         fadeImage.color = fadeColor;
 
         fadeCanvasGroup = fadePanel.AddComponent<CanvasGroup>();
-        fadeCanvasGroup.alpha = 0f;
-        fadeCanvasGroup.blocksRaycasts = false;
+        fadeCanvasGroup.alpha = 1f;
+        fadeCanvasGroup.blocksRaycasts = true;
     }
 
     public void FadeIn(Action onComplete = null)

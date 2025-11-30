@@ -68,8 +68,6 @@ MonoBehaviour:
   _spawnList:
   - EnemyAmount: 1
     EnemyToSpawn: 0
-  - EnemyAmount: 3
-    EnemyToSpawn: 1
   _enemySO: {fileID: 11400000, guid: 5320242711f6e0843ac9a7f103008621, type: 2}
 --- !u!1 &4789734145151425768
 GameObject:
