@@ -54,11 +54,11 @@ public class PlayerMovement : MonoBehaviour
     private int sprintSoundEntityID = -1;
     private int slideSoundEntityID = -1;
 
-    // [MODIFIED] Added ID to track the continuous walk sound loop
+
     private int walkSoundEntityID = -1;
 
     private bool wasSprintInputActive = false;
-    // [MODIFIED] Added field to track if the player was actively moving
+
     private bool wasMoving = false;
 
     public MovementState State { get => state; }
@@ -140,17 +140,13 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-
         bool isCurrentlyMoving = input.magnitude > 0.1f && grounded;
         bool shouldBeSprinting = sprintPressed && grounded && isCurrentlyMoving;
-
         bool shouldBeWalking = !shouldBeSprinting && grounded && isCurrentlyMoving && state == MovementState.Walking;
-
 
 
         if (shouldBeSprinting && !wasSprintInputActive && !isSliding)
         {
-
             if (walkSoundEntityID != -1)
             {
                 SoundManager.Instance.StopOneShotByEntityID(walkSoundEntityID);
@@ -181,24 +177,24 @@ public class PlayerMovement : MonoBehaviour
                 sprintSoundEntityID = -1;
             }
 
+
             if (walkSoundEntityID == -1)
                 walkSoundEntityID = SoundManager.Instance.PlaySound("sfx_walk_concrete");
         }
         else if ((!isCurrentlyMoving || shouldBeSprinting || isSliding || !grounded) && walkSoundEntityID != -1)
         {
+
             SoundManager.Instance.StopOneShotByEntityID(walkSoundEntityID);
             walkSoundEntityID = -1;
         }
 
         wasMoving = isCurrentlyMoving; 
-
     }
 
     private void HandleGroundCheck()
     {
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
-        // Stop walk/sprint sound loops instantly upon falling/jumping
         if (!grounded)
         {
             if (sprintSoundEntityID != -1)
@@ -318,8 +314,6 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-
-        SoundManager.Instance.PlaySound("sfx_landing_grass");
 
         if (sprintSoundEntityID != -1)
         {
