@@ -50701,7 +50701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bba18a9e1440ee442ab7fbc66cdc11b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSkill
-  Slash: {fileID: 0}
+  Slash: {fileID: 3899063478905420019, guid: 38bf8993f92d4a94d995fc5848599bdb, type: 3}
 --- !u!1 &5057529456621773193
 GameObject:
   m_ObjectHideFlags: 0
