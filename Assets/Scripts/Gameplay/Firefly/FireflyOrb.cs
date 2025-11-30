@@ -23,7 +23,7 @@ public class FireflyOrb : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<PlayerFirefly>().AdjustFireflies(1);
+            other.GetComponent<PlayerFirefly>().AdjustFireflies(5);
             Destroy(gameObject);
         }
     }

@@ -17,7 +17,6 @@ public class PlayerSkill : MonoBehaviour
         {
             if (PlayerFirefly.Instance.UseAllFireflies())
             {
-                // trigger animation here...
                 Instantiate(Slash, Camera.main.transform.position + Camera.main.transform.forward * 2, Quaternion.LookRotation(transform.forward));
             }
             Debug.Log("not enough fireflies");
