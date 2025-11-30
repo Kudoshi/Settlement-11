@@ -13,13 +13,17 @@ public class PlayerCamera : Singleton<PlayerCamera>
     public bool dynamicFOV = true;
     public float normalFOV = 80f;
     public float crouchFOV = 75f;
-    public float sprintFOV = 90f;
-    public float slideFOV = 100f;
+    public float sprintFOV = 100f;
+    public float slideFOV = 110f;
     public float fovSpeed = 8f;
 
     [Header("Camera Shake")]
     public float shakeIntensity = 0.3f;
     public float shakeDuration = 0.2f;
+
+    [Header("Camera Tilt")]
+    public float tiltAmount = 3f;
+    public float tiltSpeed = 8f;
 
     private Camera cam;
     private float xRotation;
@@ -31,6 +35,8 @@ public class PlayerCamera : Singleton<PlayerCamera>
     private Vector3 shakeOffset;
     private float shakeTimer;
     private PlayerMovement playerMovement;
+    private float currentTilt = 0f;
+    private float targetTilt = 0f;
 
     private void Start()
     {
@@ -59,6 +65,7 @@ public class PlayerCamera : Singleton<PlayerCamera>
         HandleMouseLook();
         HandleFOV();
         HandleShake();
+        HandleTilt();
     }
 
     private void LateUpdate()
@@ -87,10 +94,22 @@ public class PlayerCamera : Singleton<PlayerCamera>
             currentYRotation = yRotation;
         }
 
-        transform.rotation = Quaternion.Euler(currentXRotation, currentYRotation, 0f);
+        transform.rotation = Quaternion.Euler(currentXRotation, currentYRotation, currentTilt);
 
         if (PlayerCameraFollower.Instance.HeadOrientation != null)
             PlayerCameraFollower.Instance.HeadOrientation.rotation = Quaternion.Euler(0f, currentYRotation, 0f);
+    }
+
+    private void HandleTilt()
+    {
+        // Get movement input
+        float horizontal = Input.GetAxisRaw("Horizontal");
+
+        // Calculate target tilt based on movement
+        targetTilt = -horizontal * tiltAmount;
+
+        // Smooth tilt
+        currentTilt = Mathf.Lerp(currentTilt, targetTilt, Time.deltaTime * tiltSpeed);
     }
 
     private void HandleFOV()
