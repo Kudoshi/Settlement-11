@@ -15,4 +15,6 @@ MonoBehaviour:
   _enemyObjects:
     _serializedList:
     - Key: 0
-      Value: {fileID: 4158052161683101779, guid: 6058700f0d69e7840ab560a971847911, type: 3}
+      Value: {fileID: 1430790338723101615, guid: 85952ceb0590bc942bda1742945a7f09, type: 3}
+    - Key: 1
+      Value: {fileID: 3824346800862900111, guid: a8b12c3badd7a7448ae209fa1dc87ac7, type: 3}

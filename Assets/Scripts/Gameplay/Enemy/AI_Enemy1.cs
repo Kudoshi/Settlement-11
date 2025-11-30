@@ -8,7 +8,6 @@ public class AI_Enemy1 : MonoBehaviour
     public enum EnemyState { Idle, Chase, Attack, Dead }
 
     [Header("AI Attack")]
-    [SerializeField] private bool _isSittingEnemy;
     [SerializeField] private float _attackRange;
     [SerializeField] private float _attackCooldown;
     [SerializeField] private float _atklookRotationSpeed;
@@ -24,8 +23,6 @@ public class AI_Enemy1 : MonoBehaviour
 
     private float _nextAttackTime;
     private bool _isAttacking = false;
-    private bool _isBlockingState = false;
-    private bool _alreadyTriggeredFromIdle = false;
 
     private void Start()
     {
@@ -44,11 +41,6 @@ public class AI_Enemy1 : MonoBehaviour
 
         _nextAttackTime = Time.time;
         ChangeState(EnemyState.Idle);
-
-        //Util.WaitForSeconds(this, () =>
-        //{
-        //    StartChasingPlayer();
-        //}, 2);
     }
 
     private void Update()
@@ -61,16 +53,12 @@ public class AI_Enemy1 : MonoBehaviour
 
     private void CheckStateTransitions()
     {
-        if (_isBlockingState) return;
-
-
         float distanceToPlayer = Vector3.Distance(PlayerController.Instance.transform.position, transform.position);
-
 
         switch (_currentState)
         {
             case EnemyState.Chase:
-                if (distanceToPlayer <= _attackRange && !_isAttacking && !_isBlockingState)
+                if (distanceToPlayer <= _attackRange)
                 {
                     ChangeState(EnemyState.Attack);
                 }
@@ -79,7 +67,6 @@ public class AI_Enemy1 : MonoBehaviour
             case EnemyState.Attack:
                 if (distanceToPlayer > _attackRange && !_isAttacking)
                 {
-                    Debug.Log("Attack but change yo: " + _isAttacking);
                     ChangeState(EnemyState.Chase);
                 }
                 break;
@@ -102,22 +89,11 @@ public class AI_Enemy1 : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (_alreadyTriggeredFromIdle) return;
-
         if (other.GetComponent<PlayerController>() != null)
         {
-            if (_currentState == EnemyState.Idle && !_isBlockingState)
+            if (_currentState == EnemyState.Idle)
             {
                 ChangeState(EnemyState.Chase);
-                DisableMovement();
-                _alreadyTriggeredFromIdle = true;
-                Debug.Log("Player detected. Entering chase state.");
-            }
-            else if (_currentState == EnemyState.Idle && _isBlockingState)
-            {
-                ChangeState(EnemyState.Chase);
-                DisableMovement();
-                _alreadyTriggeredFromIdle = true;
                 Debug.Log("Player detected. Entering chase state.");
             }
         }
@@ -148,53 +124,25 @@ public class AI_Enemy1 : MonoBehaviour
     public void ChangeState(EnemyState newState)
     {
         _currentState = newState;
-        Debug.Log($"Enemy state changed to: {newState} + {_isBlockingState}");
+        Debug.Log($"Enemy state changed to: {newState}");
 
         switch (newState)
         {
             case EnemyState.Idle:
                 _enemy.EnemyMovement.DisableMovement(true);
-
-                if (_isSittingEnemy)
-                {
-                    _animator.SetTrigger("IdleSitting");
-                    _isBlockingState = true;
-                    _enemy.EnemyMovement.DisableMovement(true);
-                    GetComponent<NavMeshAgent>().enabled = false;
-
-                }
-                else
-                {
-                    _animator.SetTrigger("Idle");
-                }
+                // _animator.SetBool("Move", false);
                 break;
 
             case EnemyState.Chase:
-                if (!_isBlockingState)
-                    _enemy.EnemyMovement.DisableMovement(false);
-
-                if (!_alreadyTriggeredFromIdle && _isSittingEnemy)
-                {
-                    Debug.Log("First time");
-                    _enemy.EnemyMovement.DisableMovement(true);
-                    Util.WaitForSeconds(this,() =>
-                    {
-                        GetComponent<NavMeshAgent>().enabled = true;
-
-                    }, 1f);
-                }
-
+                _enemy.EnemyMovement.DisableMovement(false);
                 _enemy.EnemyMovement.SetRotationControl(true);
                 _enemy.EnemyMovement.MoveTo(PlayerController.Instance.transform.position);
                 _isAttacking = false;
-                _animator.SetTrigger("Chasing");
+                // _animator.SetBool("Move", true);
                 break;
 
             case EnemyState.Attack:
-                _enemy.EnemyMovement.DisableMovement(true);
                 _enemy.EnemyMovement.SetRotationControl(false);
-                _isAttacking = true;
-                _animator.SetTrigger("Attack");
                 break;
 
             case EnemyState.Dead:
@@ -207,41 +155,25 @@ public class AI_Enemy1 : MonoBehaviour
 
     public void DealDamage()
     {
-        float distanceToPlayer = Vector3.Distance(PlayerController.Instance.transform.position, transform.position);
-
-        if (distanceToPlayer <= _attackRange)
-        {
-            Vector3 direction = PlayerController.Instance.transform.position - transform.position;
-            SanityManager.Instance.DecreaseSanity(_enemy.AttackDamage, direction);
-
-        }
+        // Decrease Player Sanity
+        SanityManager.Instance.DecreaseSanity(_enemy.AttackDamage);
     }
-    public void StartChasingPlayer()
-    {
-        ChangeState(EnemyState.Chase);
-    }
+
     public void SetAttackFinished()
     {
-        Util.WaitForSeconds(this, () =>
+        _isAttacking = false;
+        _nextAttackTime = Time.time + _attackCooldown;
+        _enemy.EnemyMovement.DisableMovement(false);
+        if (PlayerController.Instance != null)
         {
-            _isAttacking = false;
-            _nextAttackTime = Time.time + _attackCooldown;
-            _enemy.EnemyMovement.DisableMovement(false);
-            ChangeState(EnemyState.Chase);
+            float distanceToPlayer = Vector3.Distance(PlayerController.Instance.transform.position, transform.position);
 
-            Debug.Log("Attack sequence finished, check for next state.");
-        }, 0.5f);
-
+            if (distanceToPlayer > _attackRange)
+            {
+                ChangeState(EnemyState.Chase);
+            }
+        }
+        Debug.Log("Attack sequence finished, check for next state.");
     }
 
-    public void SetNotBlockingState()
-    {
-        Debug.Log("Se tnot blocking state");
-        _isBlockingState = false;
-    }
-
-    public void DisableMovement()
-    {
-        _enemy.EnemyMovement.DisableMovement(true);
-    }
 }

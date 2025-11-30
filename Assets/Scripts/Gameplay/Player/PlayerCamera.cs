@@ -1,7 +1,6 @@
-using Kudoshi.Utilities;
 using UnityEngine;
 
-public class PlayerCamera : Singleton<PlayerCamera>
+public class PlayerCamera : MonoBehaviour
 {
 
     [Header("Mouse Look")]

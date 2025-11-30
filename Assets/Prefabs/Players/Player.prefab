@@ -50399,7 +50399,7 @@ Transform:
   m_GameObject: {fileID: 4713597934696621824}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 3.2764764, y: 0.63, z: 2.7960835}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -50592,10 +50592,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SanityManager
   sanityImg: {fileID: 1126962305157289150}
   currentSanity: 0
-  maxSanity: 300
+  maxSanity: 100
   slowDuration: 5
   overtimeDecreaseRate: 3
-  _hitKnockbackForce: 35
   canvasGroup: {fileID: 6297530523465870185}
 --- !u!114 &1325653026027707429
 MonoBehaviour:
@@ -85818,51 +85817,19 @@ PrefabInstance:
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7964862145913695558, guid: c65c31a9390931a449068f4d756174b6, type: 3}
-      propertyPath: InitialModule.rotation3D
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7964862145913695558, guid: c65c31a9390931a449068f4d756174b6, type: 3}
-      propertyPath: ShapeModule.m_Position.z
-      value: 38.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7964862145913695558, guid: c65c31a9390931a449068f4d756174b6, type: 3}
-      propertyPath: ShapeModule.m_Rotation.y
-      value: 180
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1860383764084625650, guid: c65c31a9390931a449068f4d756174b6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2291120702216869568}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 727302976690141396, guid: c65c31a9390931a449068f4d756174b6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1028432199740939768}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c65c31a9390931a449068f4d756174b6, type: 3}
 --- !u!4 &513859992076973349 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1860383764084625650, guid: c65c31a9390931a449068f4d756174b6, type: 3}
   m_PrefabInstance: {fileID: 2229547749322483159}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1506198892986785027 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 727302976690141396, guid: c65c31a9390931a449068f4d756174b6, type: 3}
-  m_PrefabInstance: {fileID: 2229547749322483159}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1028432199740939768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1506198892986785027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c67585949f22794b84ebdf3e61bbf4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WindVFXController
 --- !u!198 &8104278319656552593 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 7964862145913695558, guid: c65c31a9390931a449068f4d756174b6, type: 3}
