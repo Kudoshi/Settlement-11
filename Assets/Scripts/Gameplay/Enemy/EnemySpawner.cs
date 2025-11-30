@@ -67,7 +67,15 @@ public class EnemySpawner : MonoBehaviour
                 int randomSpawnIdx = Random.Range(0, _spawnPoints.Length);
                 Vector3 position = _spawnPoints[randomSpawnIdx].position;
                 Enemy enemy = _enemySO.GetEnemyObject(_spawnList[i].EnemyToSpawn);
-                Instantiate(enemy, position, Quaternion.identity);
+                Enemy spawned = Instantiate(enemy, position, Quaternion.identity);
+
+                Util.WaitForSeconds(this, () =>
+                {
+                    spawned.Enemy1?.StartChasingPlayer();
+                    spawned.Enemy2?.StartChasingPlayer();
+
+                }, .1f);
+                
             }
         }
     }
