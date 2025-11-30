@@ -225,6 +225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   ragdollPrefab: {fileID: 1549024452213142961, guid: 902f9224abda8b749b27a43d17ad1144, type: 3}
+  fireflyOrb: {fileID: 659020495443332931, guid: ac4874c4d7d6ff94fa7866676d067e2c, type: 3}
   strength: 10000
   knockbackMultiplier: 1.5
   hitParticle: {fileID: 1844511639933702185}
