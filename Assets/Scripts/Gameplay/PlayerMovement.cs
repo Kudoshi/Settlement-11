@@ -54,7 +54,12 @@ public class PlayerMovement : MonoBehaviour
     private int sprintSoundEntityID = -1;
     private int slideSoundEntityID = -1;
 
+    // [MODIFIED] Added ID to track the continuous walk sound loop
+    private int walkSoundEntityID = -1;
+
     private bool wasSprintInputActive = false;
+    // [MODIFIED] Added field to track if the player was actively moving
+    private bool wasMoving = false;
 
     public MovementState State { get => state; }
 
@@ -136,16 +141,27 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-        bool shouldBeSprinting = sprintPressed && grounded;
+        bool isCurrentlyMoving = input.magnitude > 0.1f && grounded;
+        bool shouldBeSprinting = sprintPressed && grounded && isCurrentlyMoving;
+
+        bool shouldBeWalking = !shouldBeSprinting && grounded && isCurrentlyMoving && state == MovementState.Walking;
+
+
 
         if (shouldBeSprinting && !wasSprintInputActive && !isSliding)
         {
+
+            if (walkSoundEntityID != -1)
+            {
+                SoundManager.Instance.StopOneShotByEntityID(walkSoundEntityID);
+                walkSoundEntityID = -1;
+            }
+
             if (sprintSoundEntityID != -1)
                 SoundManager.Instance.StopOneShotByEntityID(sprintSoundEntityID);
 
             sprintSoundEntityID = SoundManager.Instance.PlaySound("sfx_running_concrete");
         }
-
         else if ((!shouldBeSprinting && wasSprintInputActive) || (isSliding && sprintSoundEntityID != -1))
         {
             if (sprintSoundEntityID != -1)
@@ -154,15 +170,48 @@ public class PlayerMovement : MonoBehaviour
                 sprintSoundEntityID = -1;
             }
         }
-
         wasSprintInputActive = shouldBeSprinting;
 
+
+        if (shouldBeWalking && !wasMoving && !isSliding)
+        {
+            if (sprintSoundEntityID != -1)
+            {
+                SoundManager.Instance.StopOneShotByEntityID(sprintSoundEntityID);
+                sprintSoundEntityID = -1;
+            }
+
+            if (walkSoundEntityID == -1)
+                walkSoundEntityID = SoundManager.Instance.PlaySound("sfx_walk_concrete");
+        }
+        else if ((!isCurrentlyMoving || shouldBeSprinting || isSliding || !grounded) && walkSoundEntityID != -1)
+        {
+            SoundManager.Instance.StopOneShotByEntityID(walkSoundEntityID);
+            walkSoundEntityID = -1;
+        }
+
+        wasMoving = isCurrentlyMoving; 
 
     }
 
     private void HandleGroundCheck()
     {
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+
+        // Stop walk/sprint sound loops instantly upon falling/jumping
+        if (!grounded)
+        {
+            if (sprintSoundEntityID != -1)
+            {
+                SoundManager.Instance.StopOneShotByEntityID(sprintSoundEntityID);
+                sprintSoundEntityID = -1;
+            }
+            if (walkSoundEntityID != -1)
+            {
+                SoundManager.Instance.StopOneShotByEntityID(walkSoundEntityID);
+                walkSoundEntityID = -1;
+            }
+        }
     }
 
     private void HandleStateChange()
@@ -269,6 +318,19 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
+        SoundManager.Instance.PlaySound("sfx_landing_grass");
+
+        if (sprintSoundEntityID != -1)
+        {
+            SoundManager.Instance.StopOneShotByEntityID(sprintSoundEntityID);
+            sprintSoundEntityID = -1;
+        }
+        if (walkSoundEntityID != -1)
+        {
+            SoundManager.Instance.StopOneShotByEntityID(walkSoundEntityID);
+            walkSoundEntityID = -1;
+        }
     }
 
     private void ResetJump()
@@ -282,6 +344,11 @@ public class PlayerMovement : MonoBehaviour
         {
             SoundManager.Instance.StopOneShotByEntityID(sprintSoundEntityID);
             sprintSoundEntityID = -1;
+        }
+        if (walkSoundEntityID != -1)
+        {
+            SoundManager.Instance.StopOneShotByEntityID(walkSoundEntityID);
+            walkSoundEntityID = -1;
         }
 
         slideSoundEntityID = SoundManager.Instance.PlaySound("sfx_sliding");
