@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -61,5 +62,11 @@ public class MainMenuManager : MonoBehaviour
 
         creditsPanel.DOAnchorPosX(offscreenRight, slideOutSpeed).SetEase(slideOutEase);
         optionsPanel.DOAnchorPosX(offscreenRight, slideOutSpeed).SetEase(slideOutEase);
+    }
+
+
+    public void OnPlayClicked()
+    {
+        SceneManager.LoadScene("City");
     }
 }
