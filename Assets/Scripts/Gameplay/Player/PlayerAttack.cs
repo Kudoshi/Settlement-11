@@ -31,7 +31,6 @@ public class PlayerAttack : MonoBehaviour
 
     string currentAnimationState;
 
-
     public void Attack()
     {
         if (!readyToAttack || isAttacking) return;
@@ -136,4 +135,5 @@ public class PlayerAttack : MonoBehaviour
 
         // VFX...
     }
+
 }

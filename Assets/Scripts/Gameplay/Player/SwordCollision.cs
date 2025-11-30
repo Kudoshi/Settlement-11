@@ -11,6 +11,12 @@ public class SwordCollision : MonoBehaviour
             Debug.Log("Sword hit enemy");
             hitPoint = collision.contacts[0].point;
             collision.gameObject.GetComponent<EnemyHealth>().Death(hitPoint);
+
+            // Add a bit of camera shake when successfully hitting enemy
+            if (PlayerCamera.Instance != null)
+            {
+                PlayerCamera.Instance.Shake(0.2f, 0.1f);
+            }
         }
     }
 }
