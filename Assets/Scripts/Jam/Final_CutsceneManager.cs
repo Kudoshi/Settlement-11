@@ -1,7 +1,10 @@
 using UnityEngine;
+using UnityEngine.Playables;
+using UnityEngine.Timeline;
 
 public class Final_CutsceneManager : MonoBehaviour
 {
+    private PlayableDirector _director;
     private Animator animator;
 
     private void Awake()
@@ -17,19 +20,10 @@ public class Final_CutsceneManager : MonoBehaviour
 
     public void PlayCutsceneAnimation()
     {
-        if (animator != null)
-        {
-            Debug.Log("Enabling animator and playing cutscene animation from start");
-            animator.enabled = true;
-            animator.Play("IntroRoom", 0, 0f);
+        Debug.Log("Enabling animator and playing cutscene animation from start");
 
-            // Play dialogue
-            DialogueManager.Instance.PlayDialogueID(6);
-            Debug.Log("Triggered dialogue ID 6");
-        }
-        else
-        {
-            Debug.LogWarning("Animator component not found on Final_CutsceneManager!");
-        }
+        // Play dialogue
+        Debug.Log("Triggered dialogue ID 6");
+       
     }
 }

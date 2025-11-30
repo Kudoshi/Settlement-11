@@ -186,16 +186,18 @@ public class RoomObjective : MonoBehaviour
 
             yield return new WaitForSeconds(r4FadeDuration);
 
+            Intro_CutsceneManager.Instance.CutsceneStart();
+
             // Play cutscene animation
-            if (cutsceneObject != null)
-            {
-                Final_CutsceneManager cutsceneManager = cutsceneObject.GetComponent<Final_CutsceneManager>();
-                if (cutsceneManager != null)
-                {
-                    Debug.Log("Playing cutscene animation");
-                    cutsceneManager.PlayCutsceneAnimation();
-                }
-            }
+            //if (cutsceneObject != null)
+            //{
+            //    Final_CutsceneManager cutsceneManager = cutsceneObject.GetComponent<Final_CutsceneManager>();
+            //    if (cutsceneManager != null)
+            //    {
+            //        Debug.Log("Playing cutscene animation");
+            //        cutsceneManager.PlayCutsceneAnimation();
+            //    }
+            //}
         }
         else
         {

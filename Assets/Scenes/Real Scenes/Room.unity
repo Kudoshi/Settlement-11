@@ -1892,6 +1892,8 @@ GameObject:
   - component: {fileID: 62810934}
   - component: {fileID: 62810935}
   - component: {fileID: 62810936}
+  - component: {fileID: 62810937}
+  - component: {fileID: 62810938}
   m_Layer: 0
   m_Name: Final_Cutscene
   m_TagString: Untagged
@@ -1907,7 +1909,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 62810933}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 34.09412, y: 146.24693, z: -158.24776}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1941,10 +1943,10 @@ Animator:
   m_GameObject: {fileID: 62810933}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: aad9935ccae80056299078972bea92e3, type: 2}
+  m_Controller: {fileID: 9100000, guid: 765609ca715837e96ae575b75b42b959, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -1953,6 +1955,106 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!320 &62810937
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62810933}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 66bb3cca8c8525340b602df4a65b9a67, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 1336096732107194642, guid: 66bb3cca8c8525340b602df4a65b9a67, type: 2}
+    value: {fileID: 656113348}
+  - key: {fileID: -3985287234758169545, guid: 66bb3cca8c8525340b602df4a65b9a67, type: 2}
+    value: {fileID: 62810936}
+  - key: {fileID: 5531783605376232769, guid: 66bb3cca8c8525340b602df4a65b9a67, type: 2}
+    value: {fileID: 62810938}
+  - key: {fileID: -8445179062449284455, guid: 66bb3cca8c8525340b602df4a65b9a67, type: 2}
+    value: {fileID: 2103782499}
+  m_ExposedReferences:
+    m_References: []
+--- !u!114 &62810938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62810933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.SignalReceiver
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: bd3fd13139a2401458362f3b3bea8e66, type: 2}
+    - {fileID: 11400000, guid: 34c8e65994c62ef488dcad8b82fc8d15, type: 2}
+    - {fileID: 11400000, guid: ac05d977e336e5b47bcee691f4e49529, type: 2}
+    - {fileID: 11400000, guid: 04893363fb5a92a44a7a1a85e276ce13, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 62810935}
+          m_TargetAssemblyTypeName: Intro_CutsceneManager, Assembly-CSharp
+          m_MethodName: SetPhoneCalling
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 62810935}
+          m_TargetAssemblyTypeName: Intro_CutsceneManager, Assembly-CSharp
+          m_MethodName: SetPhoneCalling
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 62810935}
+          m_TargetAssemblyTypeName: Intro_CutsceneManager, Assembly-CSharp
+          m_MethodName: SetPhoneBlank
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 62810935}
+          m_TargetAssemblyTypeName: Intro_CutsceneManager, Assembly-CSharp
+          m_MethodName: CutsceneEnd
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &65209835
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25413,7 +25515,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 656113348}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &656113352
 Camera:
   m_ObjectHideFlags: 0
@@ -45828,7 +45930,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1124922449}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1124922453
 Camera:
   m_ObjectHideFlags: 0
@@ -51120,6 +51222,7 @@ Transform:
   m_Children:
   - {fileID: 656113349}
   - {fileID: 1047350430}
+  - {fileID: 2103782500}
   m_Father: {fileID: 62810934}
   m_LocalEulerAnglesHint: {x: 0, y: 176.472, z: 0}
 --- !u!95 &1221399056
@@ -87157,6 +87260,46 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 68d27744a5e11904980181e211d10ff5, type: 3}
   m_PrefabInstance: {fileID: 1951240519}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1952965716
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1952965718}
+  - component: {fileID: 1952965717}
+  m_Layer: 0
+  m_Name: AudioListener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!81 &1952965717
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952965716}
+  m_Enabled: 1
+--- !u!4 &1952965718
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952965716}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 56.95895, y: 143.1479, z: -160.9404}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1953282154
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -93702,6 +93845,135 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 68d27744a5e11904980181e211d10ff5, type: 3}
   m_PrefabInstance: {fileID: 2103176270}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2103782498
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2103782500}
+  - component: {fileID: 2103782499}
+  m_Layer: 0
+  m_Name: Audio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &2103782499
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103782498}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!4 &2103782500
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103782498}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1221399055}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2104681596
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -106958,7 +107230,6 @@ SceneRoots:
   - {fileID: 1097955529}
   - {fileID: 1523312870}
   - {fileID: 1849323203}
-  - {fileID: 1776813871}
   - {fileID: 2102472400}
   - {fileID: 1175871932}
   - {fileID: 1366132530}
@@ -106973,5 +107244,7 @@ SceneRoots:
   - {fileID: 1052046318}
   - {fileID: 1860058054}
   - {fileID: 1815352998}
+  - {fileID: 1776813871}
   - {fileID: 62810934}
   - {fileID: 451179024}
+  - {fileID: 1952965718}
