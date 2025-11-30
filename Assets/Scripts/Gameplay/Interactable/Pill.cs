@@ -58,6 +58,7 @@ public class Pill : MonoBehaviour
 
     private void ConsumePill()
     {
+        SoundManager.Instance.PlaySound("sfx_pills_pickup");
         isCollected = true;
 
         Debug.Log("Increase Sanity");

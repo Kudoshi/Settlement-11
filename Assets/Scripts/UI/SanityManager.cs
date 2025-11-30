@@ -3,6 +3,7 @@ using Kudoshi.Utilities;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SanityManager : Singleton<SanityManager>
@@ -119,7 +120,8 @@ public class SanityManager : Singleton<SanityManager>
             yield return null;
         }
 
-        Time.timeScale = 0f;
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         // Restart game
     }
 }
