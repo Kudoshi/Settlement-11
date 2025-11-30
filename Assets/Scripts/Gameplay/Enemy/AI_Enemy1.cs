@@ -254,4 +254,11 @@ public class AI_Enemy1 : MonoBehaviour
     {
         _enemy.EnemyMovement.DisableMovement(true);
     }
+
+    public void PlayAttackSwingSound()
+    {
+        // Call the sound exactly when the animation event is triggered
+        SoundManager.Instance.PlaySound("sfx_sword_swingsh_swing");
+        Debug.Log("Attack Sound Triggered by Animation Event!");
+    }
 }
