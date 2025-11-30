@@ -339,6 +339,7 @@ GameObject:
   - component: {fileID: 1877662854183851370}
   - component: {fileID: 116559111795129197}
   - component: {fileID: 7630164462928181812}
+  - component: {fileID: 600878624642124439}
   m_Layer: 10
   m_Name: RawImage
   m_TagString: Untagged
@@ -400,6 +401,25 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &600878624642124439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8949579377397154417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 522994bfaea96c4b493ef689f58df0ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CrossFace
+  frames:
+  - {fileID: 2800000, guid: 8a330c42db9a6437796341b06df8ebea, type: 3}
+  - {fileID: 2800000, guid: ad4b6cb8e5feb8dc6bad3876fa9291d3, type: 3}
+  - {fileID: 2800000, guid: 2ba27c38b84d4a113aaeb886c82eb2c9, type: 3}
+  - {fileID: 2800000, guid: 109d30626c1543111b97bd624a0c725e, type: 3}
+  frameRate: 10
+  tintColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &486287195515048925
 PrefabInstance:
   m_ObjectHideFlags: 0
