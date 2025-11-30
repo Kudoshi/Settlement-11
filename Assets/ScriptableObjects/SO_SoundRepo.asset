@@ -148,8 +148,8 @@ MonoBehaviour:
   - SoundName: sfx_pills_pickup
     Clip: {fileID: 8300000, guid: 4863cb5d79e44fe4fa3874a6499174c3, type: 3}
     AttachedParent: {fileID: 0}
-    Volume: 1
-    SpatialBlend: 0.2
+    Volume: 0.4
+    SpatialBlend: 0.1
     Pitch: 1
   - SoundName: sfx_pillbottle_shake
     Clip: {fileID: 8300000, guid: b165153f73ecec44d840ffe6555eec31, type: 3}

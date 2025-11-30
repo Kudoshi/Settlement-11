@@ -51,6 +51,14 @@ public class PlayerMovement : MonoBehaviour
     private float currentSpeed;
     private MovementState state;
 
+    // Variables to track currently playing sound instances by their ID
+    private int sprintSoundEntityID = -1;
+    private int slideSoundEntityID = -1;
+
+    // NEW: Variable to track sprint input state for sound activation
+    private bool wasSprintInputActive = false;
+    // ----------------------------------------------------------------------------
+
     public MovementState State { get => state; }
 
     public enum MovementState
@@ -78,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void FixedUpdate()
-        {
+    {
         HandleMovement();
         HandleDrag();
         HandleGravity();
@@ -103,6 +111,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (sprintPressed)
             {
+                Debug.Log("start slide");
                 StartSlide();
             }
             else
@@ -118,8 +127,46 @@ public class PlayerMovement : MonoBehaviour
         if ((Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.C)))
         {
             StopCrouch();
+
+            // If the player manually stops the slide/crouch, stop the slide sound if playing
+            if (isSliding && slideSoundEntityID != -1)
+            {
+                SoundManager.Instance.StopOneShotByEntityID(slideSoundEntityID);
+                slideSoundEntityID = -1;
+            }
+
             isSliding = false;
         }
+
+
+        // --- NEW: Immediate Sprint Sound Control based on input and grounded status ---
+
+        bool shouldBeSprinting = sprintPressed && grounded;
+
+        // Start sound immediately upon key press while grounded (and not sliding)
+        if (shouldBeSprinting && !wasSprintInputActive && !isSliding)
+        {
+            if (sprintSoundEntityID != -1) // Stop previous instance just in case
+                SoundManager.Instance.StopOneShotByEntityID(sprintSoundEntityID);
+
+            // START SPRINT SOUND: Play and store the unique entity ID
+            sprintSoundEntityID = SoundManager.Instance.PlaySound("sfx_running_concrete");
+        }
+
+        // Stop sound if key is released OR if we leave the ground
+        else if ((!shouldBeSprinting && wasSprintInputActive) || (isSliding && sprintSoundEntityID != -1))
+        {
+            if (sprintSoundEntityID != -1)
+            {
+                SoundManager.Instance.StopOneShotByEntityID(sprintSoundEntityID);
+                sprintSoundEntityID = -1;
+            }
+        }
+
+        wasSprintInputActive = shouldBeSprinting;
+
+        // --- END NEW SPRINT SOUND CONTROL ---
+
     }
 
     private void HandleGroundCheck()
@@ -129,8 +176,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleStateChange()
     {
+        MovementState previousState = state;
         isSprinting = false;
 
+        // --- Determine New State ---
         if (isSliding)
         {
             state = MovementState.Sliding;
@@ -141,6 +190,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 isSliding = false;
                 StopCrouch();
+                // Slide sound stop logic is handled below in the transition check
             }
         }
         else if (crouchPressed && grounded)
@@ -150,6 +200,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (grounded && sprintPressed)
         {
+            // The sound START logic has been moved to HandleInput() for instant feedback.
             state = MovementState.Sprinting;
             currentSpeed = sprintSpeed;
             isSprinting = true;
@@ -162,6 +213,20 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             state = MovementState.Air;
+        }
+
+        // --- Sound Stop Logic (Only for timer-based slide exit now) ---
+
+        // 1. Sprint Sound Stop logic is now managed in HandleInput()
+
+        // 2. Stop Slide Sound if exiting Sliding state due to timer
+        if (previousState == MovementState.Sliding && state != MovementState.Sliding)
+        {
+            if (slideSoundEntityID != -1)
+            {
+                SoundManager.Instance.StopOneShotByEntityID(slideSoundEntityID);
+                slideSoundEntityID = -1;
+            }
         }
     }
 
@@ -230,6 +295,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void StartSlide()
     {
+        // When sliding starts, we stop the sprint sound immediately if it was playing
+        if (sprintSoundEntityID != -1)
+        {
+            SoundManager.Instance.StopOneShotByEntityID(sprintSoundEntityID);
+            sprintSoundEntityID = -1;
+        }
+
+        // START SLIDE SOUND: Play and store the unique entity ID
+        slideSoundEntityID = SoundManager.Instance.PlaySound("sfx_sliding");
+
         isSliding = true;
         slideTimer = slideDuration;
 
