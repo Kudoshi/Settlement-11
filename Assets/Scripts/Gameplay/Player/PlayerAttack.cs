@@ -31,6 +31,15 @@ public class PlayerAttack : MonoBehaviour
 
     string currentAnimationState;
 
+    private void Start()
+    {
+        // Disable attack collider at start
+        if (attackCollider != null)
+        {
+            attackCollider.enabled = false;
+        }
+    }
+
     public void Attack()
     {
         if (!readyToAttack || isAttacking) return;

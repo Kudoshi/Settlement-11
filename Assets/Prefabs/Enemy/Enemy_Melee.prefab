@@ -1143,6 +1143,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SwordTrailNature
       objectReference: {fileID: 0}
+    - target: {fileID: 1693690224716779398, guid: ca23ee16d29ab1d42b2d59bdd3a5fb9b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1693690224716779399, guid: ca23ee16d29ab1d42b2d59bdd3a5fb9b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.64
