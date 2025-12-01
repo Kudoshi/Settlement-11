@@ -38,6 +38,12 @@ public class EnemyHealth : MonoBehaviour
         // Enemy Death Spawn Ragdoll
         ragdoll = Instantiate(ragdollPrefab, transform.position, transform.rotation);
         ragdoll.GetComponent<EnemyRagdoll>().Ragdoll((transform.position - hitPoint), strength * knockbackMultiplier);
+
+        if (KillEnemyObjective.Instance != null)
+        {
+            KillEnemyObjective.Instance.EnemyKilled();
+        }
+
         Destroy(gameObject);
         Instantiate(fireflyOrb, transform.position, Quaternion.identity);
     }
