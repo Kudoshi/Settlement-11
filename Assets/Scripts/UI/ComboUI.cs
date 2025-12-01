@@ -12,8 +12,13 @@ public class ComboUI : MonoBehaviour
     public float comboResetTime = 2f;
     public int maxMultiplier = 500000;
 
+    [Header("Juice Settings")]
+    public Vector2 offsetRange = new Vector2(50f, 20f);
+    public float rotationRange = 15f;
+
     private int killScore = 10;
     private float comboTimer = 0f;
+    private Vector2 _originalAnchoredPos;
 
     private Color[] pastelColors = new Color[]
     {
@@ -33,6 +38,8 @@ public class ComboUI : MonoBehaviour
     private void Start()
     {
         canvasGroup.alpha = 0f;
+        if (comboText != null)
+            _originalAnchoredPos = comboText.rectTransform.anchoredPosition;
     }
 
     private void Update()
@@ -62,6 +69,19 @@ public class ComboUI : MonoBehaviour
         comboText.transform.DOKill();
         canvasGroup.DOKill();
 
+        // --- JUICY RANDOMNESS ---
+        // Random Position Offset
+        Vector2 randomOffset = new Vector2(
+            Random.Range(-offsetRange.x, offsetRange.x),
+            Random.Range(-offsetRange.y, offsetRange.y)
+        );
+        comboText.rectTransform.anchoredPosition = _originalAnchoredPos + randomOffset;
+
+        // Random Rotation (Z-axis tilt)
+        float randomRotation = Random.Range(-rotationRange, rotationRange);
+        comboText.transform.localRotation = Quaternion.Euler(0, 0, randomRotation);
+        // ------------------------
+
         // Show and JUICY pop
         canvasGroup.alpha = 1f;
         comboText.transform.localScale = Vector3.one;
@@ -69,7 +89,7 @@ public class ComboUI : MonoBehaviour
         // Big punch scale
         comboText.transform.DOPunchScale(Vector3.one * 0.8f, 0.4f, 8, 0.5f).SetEase(Ease.OutElastic);
 
-        // Shake rotation for extra juice
+        // Shake rotation for extra juice (additive to the random tilt)
         comboText.transform.DOShakeRotation(0.3f, new Vector3(0, 0, 20f), 10, 90f);
 
         // Camera shake gets stronger with multiplier
