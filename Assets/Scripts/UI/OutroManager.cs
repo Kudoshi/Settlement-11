@@ -31,6 +31,9 @@ public class OutroManager : MonoBehaviour
 
     private void Start()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
         offscreenRight = Screen.width * 1.2f;
         offscreenLeft = -Screen.width * 1.2f;
 
