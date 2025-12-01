@@ -67,6 +67,6 @@ public class MainMenuManager : MonoBehaviour
 
     public void OnPlayClicked()
     {
-        SceneManager.LoadScene("City");
+        SceneManager.LoadScene("Room");
     }
 }

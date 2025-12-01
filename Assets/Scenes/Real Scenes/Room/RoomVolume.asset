@@ -24,7 +24,7 @@ MonoBehaviour:
     m_Value: 2.83
   scatter:
     m_OverrideState: 1
-    m_Value: 0.7
+    m_Value: 0.329
   clamp:
     m_OverrideState: 0
     m_Value: 65472
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06437c1ff663d574d9447842ba0a72e4, type: 3}
   m_Name: ScreenSpaceLensFlare
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.ScreenSpaceLensFlare
-  active: 1
+  active: 0
   intensity:
     m_OverrideState: 1
     m_Value: 1.73
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c01700fd266d6914ababb731e09af2eb, type: 3}
   m_Name: DepthOfField
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.DepthOfField
-  active: 1
+  active: 0
   mode:
     m_OverrideState: 0
     m_Value: 0
@@ -386,10 +386,10 @@ MonoBehaviour:
     m_Value: 4
   intensity:
     m_OverrideState: 1
-    m_Value: 0.212
+    m_Value: 0.012
   response:
     m_OverrideState: 1
-    m_Value: 0.946
+    m_Value: 0
   texture:
     m_OverrideState: 0
     m_Value: {fileID: 0}
@@ -414,10 +414,10 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.36
+    m_Value: 0.243
   smoothness:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.256
   rounded:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
