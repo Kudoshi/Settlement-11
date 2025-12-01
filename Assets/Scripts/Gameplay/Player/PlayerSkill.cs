@@ -23,9 +23,9 @@ public class PlayerSkill : MonoBehaviour
         }
 
         // For debug purpose
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            PlayerFirefly.Instance.AdjustFireflies(1);
-        }
+        //if (Input.GetKeyDown(KeyCode.G))
+        //{
+        //    PlayerFirefly.Instance.AdjustFireflies(1);
+        //}
     }
 }

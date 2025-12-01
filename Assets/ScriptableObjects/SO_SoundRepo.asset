@@ -136,7 +136,7 @@ MonoBehaviour:
   - SoundName: sfx_lowhealth_heartbeat
     Clip: {fileID: 8300000, guid: 89894bd5f293f844c8b6973029d657c0, type: 3}
     AttachedParent: {fileID: 0}
-    Volume: 1
+    Volume: 0.5
     SpatialBlend: 0.2
     Pitch: 1
   - SoundName: sfx_pillbottle_open
