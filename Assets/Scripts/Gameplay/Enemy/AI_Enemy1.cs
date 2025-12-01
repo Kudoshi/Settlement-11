@@ -223,7 +223,7 @@ public class AI_Enemy1 : MonoBehaviour
         {
             Vector3 direction = PlayerController.Instance.transform.position - transform.position;
             SanityManager.Instance.DecreaseSanity(_enemy.AttackDamage, direction);
-
+            SoundManager.Instance.PlaySound("sfx_player_hit");
         }
     }
     public void StartChasingPlayer()
@@ -258,7 +258,7 @@ public class AI_Enemy1 : MonoBehaviour
     public void PlayAttackSwingSound()
     {
         // Call the sound exactly when the animation event is triggered
-        SoundManager.Instance.PlaySound("sfx_sword_swingsh_swing");
+        SoundManager.Instance.PlaySound(new SoundVariationizer("sfx_enemy_atk", .25f), transform);
         Debug.Log("Attack Sound Triggered by Animation Event!");
     }
 }

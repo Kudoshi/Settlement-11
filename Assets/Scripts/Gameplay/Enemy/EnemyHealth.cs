@@ -44,6 +44,8 @@ public class EnemyHealth : MonoBehaviour
             KillEnemyObjective.Instance.EnemyKilled();
         }
 
+        SoundManager.Instance.PlaySound(new SoundVariationizer("sfx_kill_enemy", 0.25f), ragdoll.transform);
+
         Destroy(gameObject);
         Instantiate(fireflyOrb, transform.position, Quaternion.identity);
     }

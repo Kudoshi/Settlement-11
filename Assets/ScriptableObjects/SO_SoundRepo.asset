@@ -223,6 +223,48 @@ MonoBehaviour:
     Volume: 1
     SpatialBlend: 0
     Pitch: 1
+  - SoundName: sfx_kill_enemy
+    Clip: {fileID: 8300000, guid: 866f88aa58bf67e4db5675ef271cadda, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0
+    Pitch: 1
+  - SoundName: sfx_enemy_atk
+    Clip: {fileID: 8300000, guid: bc5fc0650c28b984d94ee028c3345857, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 0.4
+    SpatialBlend: 0.3
+    Pitch: 1
+  - SoundName: sfx_player_hit
+    Clip: {fileID: 8300000, guid: a4327e9e0bab5eb4b8940b2595b1dff1, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 0.55
+    SpatialBlend: 0
+    Pitch: 1
+  - SoundName: sfx_skill_gain
+    Clip: {fileID: 8300000, guid: 0b78aeffdbf678d4ab9188ff63fbfea7, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0
+    Pitch: 1
+  - SoundName: sfx_firefly_gain
+    Clip: {fileID: 8300000, guid: b4e8470db53841541bb19cbb89c9142a, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 0.5
+    SpatialBlend: 0
+    Pitch: 1
+  - SoundName: sfx_skill_up
+    Clip: {fileID: 8300000, guid: c77af6210373cb74fa797a0558caae52, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0
+    Pitch: 1
+  - SoundName: sfx_train_hit
+    Clip: {fileID: 8300000, guid: 6666e91e067016b45b9aeab77f593b8c, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0
+    Pitch: 1
   BGMList:
   - SoundName: bgm_normal
     Clip: {fileID: 8300000, guid: e963eb7ea32eafd4ab9fc2c3120b2d78, type: 3}

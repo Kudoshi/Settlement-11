@@ -81,11 +81,16 @@ public class TrainLoop : MonoBehaviour
 public class TrainCollider : MonoBehaviour
 {
     public float knockbackForce = 10f;
+    public float waitTimeAfterKnock = 2.5f;
+
+    private float nextAvailableKnock = 0;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            if (Time.time < nextAvailableKnock) return;
+
             // Get knockback direction (horizontal only, no flying to heaven)
             Vector3 knockbackDir = (other.transform.position - transform.position);
             knockbackDir.y = 0; // No vertical knockback
@@ -95,15 +100,19 @@ public class TrainCollider : MonoBehaviour
             if (SanityManager.Instance != null)
             {
                 float currentHealth = SanityManager.Instance.currentSanity;
-                float damage = currentHealth * 0.5f; // Half health
-                SanityManager.Instance.DecreaseSanity(damage, knockbackDir * knockbackForce);
+                SanityManager.Instance.DecreaseSanity(50, knockbackDir * knockbackForce);
+                SoundManager.Instance.PlaySound("sfx_player_hit");
             }
+
+            SoundManager.Instance.PlaySound("sfx_train_hit");
 
             // Camera shake on train hit
             if (PlayerCamera.Instance != null)
             {
                 PlayerCamera.Instance.Shake(0.5f, 0.3f);
             }
+
+            nextAvailableKnock += Time.time + waitTimeAfterKnock;
 
             Debug.Log("Train hit player!");
         }
