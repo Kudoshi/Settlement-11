@@ -130,6 +130,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ComboUI
   comboText: {fileID: 3252615351581641143}
   canvasGroup: {fileID: 7822990131181096536}
+  comboResetTime: 2
+  maxMultiplier: 500000
 --- !u!1 &5073257720094693587
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +231,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535

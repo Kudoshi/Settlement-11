@@ -1,37 +1,61 @@
 using Kudoshi.Utilities;
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class FireflyOrb : MonoBehaviour
 {
-    [SerializeField] private float _chaseForce;
+    [SerializeField] private float _chaseForce = 20f;
     [SerializeField] private int _fireFlyDropAmount;
+    [SerializeField] private float _startDelay = 0.5f;
+    [SerializeField] private float _initialUpForce = 5f;
 
     private Rigidbody _rb;
-    
+    private bool _canChase = false;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
     }
+
+    private void Start()
+    {
+        Vector3 randomOffset = new Vector3(UnityEngine.Random.Range(-0.5f, 0.5f), 0, UnityEngine.Random.Range(-0.5f, 0.5f));
+        _rb.linearVelocity = (Vector3.up + randomOffset).normalized * _initialUpForce;
+        StartCoroutine(StartChaseRoutine());
+    }
+
+    private IEnumerator StartChaseRoutine()
+    {
+        yield return new WaitForSeconds(_startDelay);
+        _canChase = true;
+    }
+
     private void Update()
     {
-        ChasePlayer();
+        if (_canChase)
+        {
+            ChasePlayer();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<PlayerFirefly>().AdjustFireflies(5);
+            other.GetComponent<PlayerFirefly>().AdjustFireflies(_fireFlyDropAmount);
             Destroy(gameObject);
         }
     }
 
     private void ChasePlayer()
     {
-        Vector3 direction = PlayerController.Instance.transform.position - _rb.position;
+        if (PlayerController.Instance == null) return;
 
-        _rb.linearVelocity = direction * _chaseForce *Time.deltaTime;
+        Vector3 direction = (PlayerController.Instance.transform.position + Vector3.up) - transform.position;
+        direction.Normalize();
+
+        // Smoothly turn towards the player
+        _rb.linearVelocity = Vector3.Lerp(_rb.linearVelocity, direction * _chaseForce, Time.deltaTime * 5f);
     }
 }
