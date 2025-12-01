@@ -123,12 +123,15 @@ public class RoomPlayerController : MonoBehaviour
         HandleHeldPillsSway();
     }
 
+    private int walkSoundEntityID =-1;
+    private int runSoundEntityID =-1;
     private void HandleMovement()
     {
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
 
         bool isSprinting = Input.GetKey(KeyCode.LeftShift);
+        bool isMovingAround = moveX != 0 || moveZ != 0;
         float currentSpeed = isSprinting ? sprintSpeed : walkSpeed;
 
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
@@ -141,6 +144,47 @@ public class RoomPlayerController : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+
+        if (isMovingAround && !isSprinting)
+        {
+            if (walkSoundEntityID == -1)
+                walkSoundEntityID = SoundManager.Instance.PlaySound("sfx_walk_concrete");
+
+            if (runSoundEntityID  != -1)
+            {
+                SoundManager.Instance.StopOneShotByEntityID(runSoundEntityID);
+                runSoundEntityID = -1;
+            }
+
+            Debug.Log("walking");
+        }
+        else if (isMovingAround && isSprinting)
+        {
+            if (walkSoundEntityID != -1)
+            {
+                SoundManager.Instance.StopOneShotByEntityID(walkSoundEntityID);
+                walkSoundEntityID = -1;
+            }
+
+            if (runSoundEntityID == -1)
+            {
+                runSoundEntityID = SoundManager.Instance.PlaySound("sfx_running");
+            }
+        }
+        else
+        {
+            if (walkSoundEntityID != -1)
+            {
+                SoundManager.Instance.StopOneShotByEntityID(walkSoundEntityID);
+                walkSoundEntityID = -1;
+            }
+            if (runSoundEntityID != -1)
+            {
+                SoundManager.Instance.StopOneShotByEntityID(runSoundEntityID);
+                runSoundEntityID = -1;
+            }
+        }
+
     }
 
     private void HandleLook()

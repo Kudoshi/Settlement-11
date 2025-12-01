@@ -70,8 +70,8 @@ MonoBehaviour:
   - SoundName: sfx_running_concrete
     Clip: {fileID: 8300000, guid: 321c1e534fb50784a844a4c67b49aeb0, type: 3}
     AttachedParent: {fileID: 0}
-    Volume: 1
-    SpatialBlend: 0.2
+    Volume: 0.7
+    SpatialBlend: 0
     Pitch: 1
   - SoundName: sfx_running_grass
     Clip: {fileID: 8300000, guid: e6859b1cd0cb78d41922c6bb3c5d5dad, type: 3}
@@ -106,14 +106,14 @@ MonoBehaviour:
   - SoundName: sfx_enemyrun_indoors
     Clip: {fileID: 8300000, guid: cc4f61d60e9fb9942b318a2c5b9f9969, type: 3}
     AttachedParent: {fileID: 0}
-    Volume: 1
-    SpatialBlend: 0.2
+    Volume: 0.2
+    SpatialBlend: 0.3
     Pitch: 1
   - SoundName: sfx_enemyrun_outdoors
     Clip: {fileID: 8300000, guid: 2c36ec606d8ceea4da0a6aa622d452d8, type: 3}
     AttachedParent: {fileID: 0}
-    Volume: 1
-    SpatialBlend: 0.2
+    Volume: 0.2
+    SpatialBlend: 0.3
     Pitch: 1
   - SoundName: sfx_gulp_medicine
     Clip: {fileID: 8300000, guid: 59c152bdac340ab4cb4d30fcbb5ee926, type: 3}
@@ -186,6 +186,42 @@ MonoBehaviour:
     AttachedParent: {fileID: 0}
     Volume: 0.4
     SpatialBlend: 0.2
+    Pitch: 1
+  - SoundName: sfx_footstep_0
+    Clip: {fileID: 8300000, guid: 7d33512fd4126a447b0657a5017ea75a, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 0.5
+    SpatialBlend: 0
+    Pitch: 1
+  - SoundName: sfx_footstep_1
+    Clip: {fileID: 8300000, guid: 4fca8ca8ed52ce142b20028b41445d5c, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 0.5
+    SpatialBlend: 0
+    Pitch: 1
+  - SoundName: sfx_running
+    Clip: {fileID: 8300000, guid: b6c319e0221b2b042b9d76953d75e389, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 0.6
+    SpatialBlend: 0
+    Pitch: 1
+  - SoundName: sfx_bed_creak
+    Clip: {fileID: 8300000, guid: 1d73f939a3b057a46a4fee2e663677c5, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0
+    Pitch: 1
+  - SoundName: sfx_switch_off
+    Clip: {fileID: 8300000, guid: 033289808cbce3b4a8d789b68f380dbd, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0
+    Pitch: 1
+  - SoundName: sfx_pill_take
+    Clip: {fileID: 8300000, guid: 85d91f9ee4280df4ea0d6769f6a33f4e, type: 3}
+    AttachedParent: {fileID: 0}
+    Volume: 1
+    SpatialBlend: 0
     Pitch: 1
   BGMList:
   - SoundName: bgm_normal

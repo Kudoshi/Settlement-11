@@ -96,12 +96,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleInput()
     {
+        // ===== INPUT =====
         input.x = Input.GetAxisRaw("Horizontal");
         input.y = Input.GetAxisRaw("Vertical");
         jumpPressed = Input.GetButton("Jump");
         sprintPressed = Input.GetKey(KeyCode.LeftShift);
         crouchPressed = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.C);
 
+        // ===== JUMP =====
         if (Input.GetButtonDown("Jump") && grounded && canJump)
         {
             canJump = false;
@@ -109,6 +111,7 @@ public class PlayerMovement : MonoBehaviour
             Invoke(nameof(ResetJump), jumpCooldown);
         }
 
+        // ===== CROUCH / SLIDE =====
         if ((Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.C)) && grounded)
         {
             if (sprintPressed)
@@ -126,7 +129,8 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if ((Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.C)))
+        // ===== STOP CROUCH / SLIDE =====
+        if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.C))
         {
             StopCrouch();
 
@@ -139,13 +143,13 @@ public class PlayerMovement : MonoBehaviour
             isSliding = false;
         }
 
-
+        // ===== MOVEMENT STATES =====
         bool isCurrentlyMoving = input.magnitude > 0.1f && grounded;
-        bool shouldBeSprinting = sprintPressed && grounded && isCurrentlyMoving;
-        bool shouldBeWalking = !shouldBeSprinting && grounded && isCurrentlyMoving && state == MovementState.Walking;
+        bool shouldBeSprinting = sprintPressed && grounded && isCurrentlyMoving && !isSliding;
+        bool shouldBeWalking = !shouldBeSprinting && grounded && isCurrentlyMoving && !isSliding;
 
-
-        if (shouldBeSprinting && !wasSprintInputActive && !isSliding)
+        // ===== SPRINT SOUND =====
+        if (shouldBeSprinting && !wasSprintInputActive)
         {
             if (walkSoundEntityID != -1)
             {
@@ -153,12 +157,10 @@ public class PlayerMovement : MonoBehaviour
                 walkSoundEntityID = -1;
             }
 
-            if (sprintSoundEntityID != -1)
-                SoundManager.Instance.StopOneShotByEntityID(sprintSoundEntityID);
-
-            sprintSoundEntityID = SoundManager.Instance.PlaySound("sfx_running_concrete");
+            Debug.Log("Sprinting");
+            sprintSoundEntityID = SoundManager.Instance.PlaySound("sfx_running");
         }
-        else if ((!shouldBeSprinting && wasSprintInputActive) || (isSliding && sprintSoundEntityID != -1))
+        else if (!shouldBeSprinting && wasSprintInputActive)
         {
             if (sprintSoundEntityID != -1)
             {
@@ -166,10 +168,11 @@ public class PlayerMovement : MonoBehaviour
                 sprintSoundEntityID = -1;
             }
         }
+
         wasSprintInputActive = shouldBeSprinting;
 
-
-        if (shouldBeWalking && !wasMoving && !isSliding)
+        // ===== WALK SOUND =====
+        if (shouldBeWalking && walkSoundEntityID == -1)
         {
             if (sprintSoundEntityID != -1)
             {
@@ -177,19 +180,17 @@ public class PlayerMovement : MonoBehaviour
                 sprintSoundEntityID = -1;
             }
 
-
-            if (walkSoundEntityID == -1)
-                walkSoundEntityID = SoundManager.Instance.PlaySound("sfx_walk_concrete");
+            walkSoundEntityID = SoundManager.Instance.PlaySound("sfx_walk_concrete");
         }
-        else if ((!isCurrentlyMoving || shouldBeSprinting || isSliding || !grounded) && walkSoundEntityID != -1)
+        else if (!shouldBeWalking && walkSoundEntityID != -1)
         {
-
             SoundManager.Instance.StopOneShotByEntityID(walkSoundEntityID);
             walkSoundEntityID = -1;
         }
 
-        wasMoving = isCurrentlyMoving; 
+        wasMoving = isCurrentlyMoving;
     }
+
 
     private void HandleGroundCheck()
     {

@@ -18,6 +18,7 @@ public class Intro_CutsceneManager : Singleton<Intro_CutsceneManager>
     {
         animator = GetComponent<Animator>();
         _director = GetComponent<PlayableDirector>();
+        phoneObject.SetActive(false);
 
         // Disable animator on awake so animation doesn't auto-play
         //if (animator != null)
@@ -79,7 +80,7 @@ public class Intro_CutsceneManager : Singleton<Intro_CutsceneManager>
     public void CutsceneStart()
     {
         _director.Play();
-
+        phoneObject.SetActive(true);
     }
 
     void Update()

@@ -111,6 +111,7 @@ public class RoomObjective : MonoBehaviour
         if (objectiveType == ObjectiveType.R1)
         {
             r1Opened = true;
+            SoundManager.Instance.PlaySound("sfx_switch_off");
 
             foreach (Light light in lightsToDim)
             {
@@ -129,6 +130,7 @@ public class RoomObjective : MonoBehaviour
                 targetToDisable.SetActive(false);
             }
             player.EnableHeldPills();
+            SoundManager.Instance.PlaySound("sfx_pill_take");
             r2Completed = true;
 
             if (collectAudioSource != null)
@@ -143,7 +145,7 @@ public class RoomObjective : MonoBehaviour
         else if (objectiveType == ObjectiveType.R4)
         {
             Debug.Log("R4 Interacted!");
-
+            SoundManager.Instance.PlaySound("sfx_bed_creak");
             // Enable cutscene animator immediately on interact
             if (cutsceneAnimator != null)
             {
@@ -152,6 +154,7 @@ public class RoomObjective : MonoBehaviour
             }
 
             StartCoroutine(HandleR4Transition());
+            SoundManager.Instance.StopDialogue();
         }
     }
 
