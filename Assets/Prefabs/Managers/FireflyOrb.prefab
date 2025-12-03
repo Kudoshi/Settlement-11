@@ -154,8 +154,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FireflyOrb
   _chaseForce: 150
-  _fireFlyDropAmount: 1
+  _fireFlyDropAmount: 3
   _dieAfterSecond: 5
+  _startDelay: 0.5
+  _initialUpForce: 5
 --- !u!1 &5113827639880200453
 GameObject:
   m_ObjectHideFlags: 0
