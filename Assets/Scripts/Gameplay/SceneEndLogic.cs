@@ -12,6 +12,7 @@ public class SceneEndLogic : MonoBehaviour
     [Header("Scene Settings")]
     public string nextSceneName;
     public float waitTimeAfterEnemiesDead = 2f;
+    public bool onlyFadeIn = false;
 
     private bool hasTransitioned = false;
 
@@ -27,6 +28,8 @@ public class SceneEndLogic : MonoBehaviour
 
     private void Update()
     {
+        if (onlyFadeIn) return;
+
         if (hasTransitioned)
             return;
 
